@@ -1,0 +1,27 @@
+# Gates pull requests with Reenact: replays the committed scenario suite offline
+# ($0, no key) and fails the check only on a regression versus the baseline, then
+# posts a sticky PR comment and a merge-gating check-run.
+#
+# Scaffolded by `reenact init`, then the two TODOs filled in: the action ref points
+# at the public reenact repo, reenact is installed from that repo (its PyPI entry is
+# a placeholder pre-launch), and the suite/baseline point at the refund agent's
+# per-agent evals/. As more agents land, turn `gate` into a matrix job.
+name: Reenact
+on: pull_request
+
+permissions:
+  contents: read
+  pull-requests: write  # post/update the PR comment
+  checks: write         # open the check-run
+
+jobs:
+  gate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: Manas-33/Reenact/action@main
+        with:
+          suite: refund_agent/evals/suite.toml
+          baseline: refund_agent/evals/baseline.json
+          version: "git+https://github.com/Manas-33/Reenact.git#subdirectory=core"
+          token: ${{ github.token }}
