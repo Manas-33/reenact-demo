@@ -4,9 +4,8 @@ Run once with a real key to (re)generate the committed recordings under
 ``refund_agent/scenarios/``. The reenact gate replays them offline forever after -
 no key, no network, and the refund is never re-fired.
 
-    uv sync --extra record
     export ANTHROPIC_API_KEY=sk-ant-...
-    uv run python refund_agent/record.py
+    uv run --extra record python -m refund_agent.record
 """
 
 from __future__ import annotations

@@ -23,9 +23,8 @@ refund policy, and issues a refund only when the order is eligible.
 
 ### Record real scenarios (needs an Anthropic key)
 
-    uv sync --extra record
     export ANTHROPIC_API_KEY=sk-ant-...
-    uv run python refund_agent/record.py
+    uv run --extra record python -m refund_agent.record
 
 Then derive the eval suite from a recording and set the baseline:
 

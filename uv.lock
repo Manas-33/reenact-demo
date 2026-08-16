@@ -397,7 +397,7 @@ dev = [
 [[package]]
 name = "reenact-demo"
 version = "0.0.0"
-source = { virtual = "." }
+source = { editable = "." }
 dependencies = [
     { name = "reenact" },
 ]
