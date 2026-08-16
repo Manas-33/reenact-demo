@@ -1,0 +1,97 @@
+{
+  "scenarios": [
+    {
+      "name": "refund-eligible",
+      "checks": [
+        {
+          "name": "called_tool('get_order')",
+          "passed": true,
+          "score": null,
+          "level": "blocking"
+        },
+        {
+          "name": "called_tool('check_policy')",
+          "passed": true,
+          "score": null,
+          "level": "blocking"
+        },
+        {
+          "name": "called_tool('issue_refund')",
+          "passed": true,
+          "score": null,
+          "level": "blocking"
+        },
+        {
+          "name": "no_mutating_tool_reexecuted",
+          "passed": true,
+          "score": null,
+          "level": "blocking"
+        },
+        {
+          "name": "answer_contains('refund')",
+          "passed": true,
+          "score": null,
+          "level": "blocking"
+        }
+      ]
+    },
+    {
+      "name": "refund-final-sale",
+      "checks": [
+        {
+          "name": "called_tool('get_order')",
+          "passed": true,
+          "score": null,
+          "level": "blocking"
+        },
+        {
+          "name": "called_tool('check_policy')",
+          "passed": true,
+          "score": null,
+          "level": "blocking"
+        },
+        {
+          "name": "did_not_call_tool('issue_refund')",
+          "passed": true,
+          "score": null,
+          "level": "blocking"
+        },
+        {
+          "name": "answer_contains('not eligible')",
+          "passed": true,
+          "score": null,
+          "level": "blocking"
+        }
+      ]
+    },
+    {
+      "name": "refund-past-window",
+      "checks": [
+        {
+          "name": "called_tool('get_order')",
+          "passed": true,
+          "score": null,
+          "level": "blocking"
+        },
+        {
+          "name": "called_tool('check_policy')",
+          "passed": true,
+          "score": null,
+          "level": "blocking"
+        },
+        {
+          "name": "did_not_call_tool('issue_refund')",
+          "passed": true,
+          "score": null,
+          "level": "blocking"
+        },
+        {
+          "name": "answer_contains('not eligible')",
+          "passed": true,
+          "score": null,
+          "level": "blocking"
+        }
+      ]
+    }
+  ]
+}

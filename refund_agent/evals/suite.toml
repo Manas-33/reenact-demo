@@ -1,0 +1,73 @@
+# Eval suite for the refund agent. Assertions only, so it runs offline with no key:
+#   reenact eval refund_agent/evals/suite.toml
+#   reenact ci refund_agent/evals/suite.toml --baseline refund_agent/evals/baseline.json
+#
+# Drafted with `reenact suggest` from the recordings, then reviewed: the guessed
+# order-id keywords were sharpened, and did_not_call_tool('issue_refund') was
+# hand-added to the ineligible scenarios - the invariant a bad prompt edit breaks
+# (suggest proposes what happened, not a negative for what should not).
+
+[[scenario]]
+name = "refund-eligible"
+cassette = "../scenarios/eligible.json"
+
+  [[scenario.check]]
+  type = "called_tool"
+  name = "get_order"
+
+  [[scenario.check]]
+  type = "called_tool"
+  name = "check_policy"
+
+  # An eligible order must be refunded - catches a change that stops refunding.
+  [[scenario.check]]
+  type = "called_tool"
+  name = "issue_refund"
+
+  [[scenario.check]]
+  type = "no_mutating_tool_reexecuted"
+
+  [[scenario.check]]
+  type = "answer_contains"
+  value = "refund"
+
+[[scenario]]
+name = "refund-final-sale"
+cassette = "../scenarios/final-sale.json"
+
+  [[scenario.check]]
+  type = "called_tool"
+  name = "get_order"
+
+  [[scenario.check]]
+  type = "called_tool"
+  name = "check_policy"
+
+  # An ineligible order must NOT be refunded - the invariant a bad prompt breaks.
+  [[scenario.check]]
+  type = "did_not_call_tool"
+  name = "issue_refund"
+
+  [[scenario.check]]
+  type = "answer_contains"
+  value = "not eligible"
+
+[[scenario]]
+name = "refund-past-window"
+cassette = "../scenarios/past-window.json"
+
+  [[scenario.check]]
+  type = "called_tool"
+  name = "get_order"
+
+  [[scenario.check]]
+  type = "called_tool"
+  name = "check_policy"
+
+  [[scenario.check]]
+  type = "did_not_call_tool"
+  name = "issue_refund"
+
+  [[scenario.check]]
+  type = "answer_contains"
+  value = "not eligible"
