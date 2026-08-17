@@ -40,6 +40,30 @@ _ORDERS: dict[str, dict[str, Any]] = {
         "final_sale": False,
         "status": "delivered",
     },
+    "1004": {
+        "id": "1004",
+        "item": "Bluetooth speaker",
+        "amount": 45.00,
+        "days_since_purchase": 8,
+        "final_sale": False,
+        "status": "delivered",
+    },
+    "1005": {
+        "id": "1005",
+        "item": "Office chair",
+        "amount": 210.00,
+        "days_since_purchase": 3,
+        "final_sale": False,
+        "status": "in_transit",  # not delivered yet -> not refundable
+    },
+    "1006": {
+        "id": "1006",
+        "item": "Coffee maker",
+        "amount": 89.99,
+        "days_since_purchase": 20,
+        "final_sale": False,
+        "status": "delivered",
+    },
 }
 
 

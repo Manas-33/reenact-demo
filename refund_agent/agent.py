@@ -119,21 +119,34 @@ def _text(content: list[Any]) -> str:
     )
 
 
-def run_refund_agent(client: Any, request: str, on_tool: ToolHook | None = None) -> str:
+def run_refund_agent(
+    client: Any,
+    request: str,
+    on_tool: ToolHook | None = None,
+    *,
+    system: str | None = None,
+    tools: list[dict[str, Any]] | None = None,
+) -> str:
     """Handle a refund request and return the agent's final reply text.
 
     Runs the Anthropic tool-use loop over ``client``: think -> call a tool -> think,
     until the model answers without a tool call. Each tool call is executed against
     the local fixtures and reported to ``on_tool`` (if given) for recording.
+
+    ``system`` and ``tools`` default to the shipped prompt and tool set; a
+    regression variant passes an override - a degraded prompt or a renamed tool - to
+    seed a break the gate must catch.
     """
+    active_system = system if system is not None else SYSTEM_PROMPT
+    active_tools = tools if tools is not None else TOOLS
     messages: list[dict[str, Any]] = [{"role": "user", "content": request}]
     content: list[Any] = []
     for _ in range(MAX_TURNS):
         body: dict[str, Any] = client.messages.create(
             model=MODEL,
             max_tokens=MAX_TOKENS,
-            system=SYSTEM_PROMPT,
-            tools=TOOLS,
+            system=active_system,
+            tools=active_tools,
             messages=messages,
         ).model_dump(mode="json")
         content = body.get("content", [])
