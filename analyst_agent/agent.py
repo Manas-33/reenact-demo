@@ -114,16 +114,27 @@ def _assistant_message(message: dict[str, Any]) -> dict[str, Any]:
 
 
 def run_analyst_agent(
-    client: Any, question: str, on_tool: ToolHook | None = None
+    client: Any,
+    question: str,
+    on_tool: ToolHook | None = None,
+    *,
+    system: str | None = None,
+    tools: list[dict[str, Any]] | None = None,
 ) -> str:
     """Answer ``question`` from the sales data and return the final reply text.
 
     Runs the OpenAI tool-use loop over ``client``: think -> call a tool -> think,
     until the model answers with no tool call. Each tool call is executed against
     the local fixtures and reported to ``on_tool`` (if given) for recording.
+
+    ``system`` and ``tools`` default to the shipped prompt and tool set; a
+    regression variant passes an override - a degraded prompt or a renamed tool - to
+    seed a break the gate must catch.
     """
+    active_system = system if system is not None else SYSTEM_PROMPT
+    active_tools = tools if tools is not None else TOOLS
     messages: list[dict[str, Any]] = [
-        {"role": "system", "content": SYSTEM_PROMPT},
+        {"role": "system", "content": active_system},
         {"role": "user", "content": question},
     ]
     message: dict[str, Any] = {}
@@ -131,7 +142,7 @@ def run_analyst_agent(
         body: dict[str, Any] = client.chat.completions.create(
             model=MODEL,
             messages=messages,
-            tools=TOOLS,
+            tools=active_tools,
         ).model_dump(mode="json")
         message = body["choices"][0]["message"]
         messages.append(_assistant_message(message))

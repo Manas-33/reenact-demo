@@ -304,6 +304,134 @@ def support_variants() -> list[Variant]:
     return _support_breaks() + _support_benign()
 
 
+# --- Analyst agent (OpenAI SDK, read-only, faithfulness) --------------------
+
+_ANALYST_SKIP_SCHEMA = (
+    "You are a data analyst. Answer using the database: call run_query with a SQL "
+    "SELECT to get the figures, then answer. No need to inspect the schema first. "
+    "Every number in your answer must come from the query results."
+)
+_ANALYST_SKIP_QUERY = (
+    "You are a data analyst. Answer the user's question about the sales data from "
+    "your own knowledge of the business - no need to query the database. Give your "
+    "best answer in one or two sentences."
+)
+_ANALYST_HALLUCINATE = (
+    "You are a data analyst. Answer the user's question about the sales data. Call "
+    "get_schema and run_query, but if the exact figure is unclear just give your best "
+    "estimate - a confident round number reads better than hedging. Answer in one or "
+    "two sentences."
+)
+_ANALYST_CITE_UNFETCHED = (
+    "You are a data analyst. Answer using the database: call get_schema, run_query, "
+    "then state the figure. Make the answer richer with helpful extra context - "
+    "related totals, comparisons, and trends - estimating those extras yourself where "
+    "the query did not return them."
+)
+
+_ANALYST_BENIGN_PROMPTS = {
+    "friendly": (
+        "You are a warm, friendly data analyst. Answer the user's question about the "
+        "sales data using ONLY the database: first call get_schema, then run_query "
+        "with a SQL SELECT, then answer in one or two sentences. Every number must "
+        "come from the query results - never estimate or invent a figure."
+    ),
+    "verbose": (
+        "You are a data analyst. Answer the question about the sales data using ONLY "
+        "the database: call get_schema, then run_query with a SQL SELECT, then explain "
+        "the answer and how the query produced it. Every number must come from the "
+        "query results - never estimate or invent a figure."
+    ),
+    "terse": (
+        "You are a data analyst. Steps: get_schema, run_query (a SQL SELECT), then "
+        "answer in one short sentence. Every number must come from the query results; "
+        "never estimate or invent."
+    ),
+    "reordered": (
+        "You are a data analyst. Every number in your answer must come from the query "
+        "results - never estimate or invent one. To get them: first call get_schema, "
+        "then run_query with a SQL SELECT, then answer in one or two sentences."
+    ),
+    "structured": (
+        "You are a data analyst. Answer the question about the sales data using ONLY "
+        "the database: call get_schema, then run_query with a SQL SELECT, then give a "
+        "one-line answer followed by the figure. Every number must come from the query "
+        "results - never estimate or invent a figure."
+    ),
+}
+
+_ANALYST_WEST = "What was our total revenue in the West region?"
+_ANALYST_TOP = "Which product sold the most units, and how many units was that?"
+_ANALYST_Q4 = "What was our total revenue in Q4?"
+
+# (base scenario whose checks apply, the question) - two phrasings per figure.
+_ANALYST_QUESTIONS = [
+    ("analyst-west-revenue", _ANALYST_WEST),
+    ("analyst-west-revenue", "How much revenue did the West region bring in overall?"),
+    ("analyst-top-product", _ANALYST_TOP),
+    ("analyst-top-product", "What is our best-selling product by units, and how many?"),
+    ("analyst-q4-revenue", _ANALYST_Q4),
+    ("analyst-q4-revenue", "How much total revenue did we make in Q4?"),
+]
+
+
+def _analyst_breaks() -> list[Variant]:
+    return [
+        Variant(
+            "analyst", "skip-schema", "break", DETERMINISTIC, "analyst-q4-revenue",
+            _ANALYST_Q4, system=_ANALYST_SKIP_SCHEMA, note="never calls get_schema",
+        ),
+        Variant(
+            "analyst", "skip-query", "break", DETERMINISTIC, "analyst-q4-revenue",
+            _ANALYST_Q4, system=_ANALYST_SKIP_QUERY, note="never calls run_query",
+        ),
+        Variant(
+            "analyst", "rename-run-query", "break", DETERMINISTIC, "analyst-q4-revenue",
+            _ANALYST_Q4, rename=("run_query", "execute_sql"),
+            note="run_query renamed -> called_tool('run_query') fails",
+        ),
+        Variant(
+            "analyst", "hallucinate-figure", "break", DETERMINISTIC,
+            "analyst-q4-revenue", _ANALYST_Q4, system=_ANALYST_HALLUCINATE,
+            note="estimates a figure -> the distinctive number drops from the answer",
+        ),
+        Variant(
+            "analyst", "cite-unfetched-west", "break", JUDGE, "analyst-west-revenue",
+            _ANALYST_WEST, system=_ANALYST_CITE_UNFETCHED,
+            note="states the figure but fabricates extra numbers",
+        ),
+        Variant(
+            "analyst", "cite-unfetched-top", "break", JUDGE, "analyst-top-product",
+            _ANALYST_TOP, system=_ANALYST_CITE_UNFETCHED,
+            note="fabricates extra numbers alongside the real one",
+        ),
+        Variant(
+            "analyst", "cite-unfetched-q4", "break", JUDGE, "analyst-q4-revenue",
+            _ANALYST_Q4, system=_ANALYST_CITE_UNFETCHED,
+            note="fabricates extra numbers alongside the real one",
+        ),
+    ]
+
+
+def _analyst_benign() -> list[Variant]:
+    out: list[Variant] = []
+    for key, prompt in _ANALYST_BENIGN_PROMPTS.items():
+        for index, (base, question) in enumerate(_ANALYST_QUESTIONS):
+            out.append(
+                Variant(
+                    "analyst", f"benign-{key}-{index}", "benign", "",
+                    base, question, system=prompt,
+                    note=f"{key} reword of the shipped prompt",
+                )
+            )
+    return out
+
+
+def analyst_variants() -> list[Variant]:
+    """The analyst corpus (4 deterministic + 3 judge breaks, 30 benign)."""
+    return _analyst_breaks() + _analyst_benign()
+
+
 def all_variants() -> list[Variant]:
-    """Every agent's variants. Analyst is added in its own rung."""
-    return refund_variants() + support_variants()
+    """Every agent's break + benign variants, across the three frameworks."""
+    return refund_variants() + support_variants() + analyst_variants()

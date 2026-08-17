@@ -22,13 +22,16 @@ from langchain_core.tools import tool
 from reenact.schema import SideEffect, Trajectory
 from reenact.store import save_cassette
 
+from analyst_agent.agent import TOOL_SIDE_EFFECTS as ANALYST_SIDE_EFFECTS
+from analyst_agent.agent import TOOLS as ANALYST_TOOLS
+from analyst_agent.agent import run_analyst_agent
 from metrics.variants import Variant, all_variants
 from refund_agent.agent import TOOL_SIDE_EFFECTS, TOOLS, run_refund_agent
 from support_agent.agent import TOOLS as SUPPORT_TOOLS
 from support_agent.agent import support_trajectory
 
 CORPUS = Path(__file__).resolve().parent / "corpus"
-IMPLEMENTED = ("refund", "support")
+IMPLEMENTED = ("refund", "support", "analyst")
 
 
 # --- Refund (Anthropic SDK) -------------------------------------------------
@@ -93,6 +96,48 @@ def record_support_variant(
     )
 
 
+# --- Analyst (OpenAI SDK) ---------------------------------------------------
+
+def _renamed_analyst_tools(
+    rename: tuple[str, str] | None,
+) -> list[dict[str, Any]] | None:
+    """The analyst tool set with one function renamed - or the shipped set."""
+    if rename is None:
+        return None
+    old, new = rename
+    renamed: list[dict[str, Any]] = []
+    for entry in ANALYST_TOOLS:
+        function = entry.get("function", {})
+        if function.get("name") == old:
+            renamed.append({**entry, "function": {**function, "name": new}})
+        else:
+            renamed.append(entry)
+    return renamed
+
+
+def record_analyst_variant(client: Any, variant: Variant) -> Trajectory:
+    """Record one analyst variant, applying its prompt / tool override."""
+    tools = _renamed_analyst_tools(variant.rename)
+    with reenact.recording(client) as rec:
+
+        def on_tool(name: str, arguments: dict[str, Any], result: Any) -> None:
+            rec.record_tool_call(
+                name=name,
+                arguments=arguments,
+                result=result,
+                side_effect=SideEffect(ANALYST_SIDE_EFFECTS.get(name, "unknown")),
+            )
+
+        run_analyst_agent(
+            client,
+            variant.scenario_input,
+            on_tool=on_tool,
+            system=variant.system,
+            tools=tools,
+        )
+    return rec.trajectory
+
+
 # --- Recording ---------------------------------------------------------------
 
 def _save(variant: Variant, trajectory: Trajectory) -> None:
@@ -122,7 +167,19 @@ def _record_support(variants: list[Variant]) -> None:
         _save(variant, record_support_variant(model, variant, tools))
 
 
-BATCH = {"refund": _record_refund, "support": _record_support}
+def _record_analyst(variants: list[Variant]) -> None:
+    import openai
+
+    client = openai.OpenAI()
+    for variant in variants:
+        _save(variant, record_analyst_variant(client, variant))
+
+
+BATCH = {
+    "refund": _record_refund,
+    "support": _record_support,
+    "analyst": _record_analyst,
+}
 
 
 def main() -> None:
