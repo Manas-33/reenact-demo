@@ -18,18 +18,22 @@ from pathlib import Path
 from typing import Any
 
 import reenact
+from langchain_core.tools import tool
 from reenact.schema import SideEffect, Trajectory
 from reenact.store import save_cassette
 
 from metrics.variants import Variant, all_variants
 from refund_agent.agent import TOOL_SIDE_EFFECTS, TOOLS, run_refund_agent
+from support_agent.agent import TOOLS as SUPPORT_TOOLS
+from support_agent.agent import support_trajectory
 
 CORPUS = Path(__file__).resolve().parent / "corpus"
+IMPLEMENTED = ("refund", "support")
 
 
-def _renamed_tools(
-    rename: tuple[str, str] | None,
-) -> list[dict[str, Any]] | None:
+# --- Refund (Anthropic SDK) -------------------------------------------------
+
+def _renamed_tools(rename: tuple[str, str] | None) -> list[dict[str, Any]] | None:
     """The refund tool set with one tool renamed - or ``None`` for the shipped set."""
     if rename is None:
         return None
@@ -60,40 +64,80 @@ def record_refund_variant(client: Any, variant: Variant) -> Trajectory:
     return rec.trajectory
 
 
-# agent -> (build a live client, record one variant with it). Support + analyst
-# are wired in their own rungs; until then their variants are simply skipped.
-RECORDERS: dict[str, Any] = {"refund": record_refund_variant}
+# --- Support (LangGraph RAG) ------------------------------------------------
+
+@tool
+def send_message(ticket_id: str, body: str) -> str:
+    """Post a public reply on a ticket (mutating)."""
+    return f"posted reply to ticket #{ticket_id}"
 
 
-def _anthropic_client() -> Any:
+_RENAMED_SUPPORT_TOOLS = {"send_message": send_message}
+
+
+def _support_tools(variant: Variant) -> list[Any]:
+    """The support tool set with one tool renamed - or the shipped set."""
+    if variant.rename is None:
+        return SUPPORT_TOOLS
+    old, new = variant.rename
+    replacement = _RENAMED_SUPPORT_TOOLS[new]
+    return [replacement if t.name == old else t for t in SUPPORT_TOOLS]
+
+
+def record_support_variant(
+    model: Any, variant: Variant, tools: list[Any]
+) -> Trajectory:
+    """Record one support variant over ``model`` (already bound to ``tools``)."""
+    return support_trajectory(
+        model, variant.scenario_input, system=variant.system, tools=tools
+    )
+
+
+# --- Recording ---------------------------------------------------------------
+
+def _save(variant: Variant, trajectory: Trajectory) -> None:
+    trajectory.name = f"{variant.agent}-{variant.name}"
+    destination = CORPUS / variant.agent / variant.kind / f"{variant.name}.json"
+    destination.parent.mkdir(parents=True, exist_ok=True)
+    save_cassette(trajectory, destination)
+    print(f"  {destination.relative_to(CORPUS.parent)}")
+
+
+def _record_refund(variants: list[Variant]) -> None:
     import anthropic
 
-    return anthropic.Anthropic()
+    client = anthropic.Anthropic()
+    for variant in variants:
+        _save(variant, record_refund_variant(client, variant))
 
 
-CLIENTS: dict[str, Any] = {"refund": _anthropic_client}
+def _record_support(variants: list[Variant]) -> None:
+    from langchain_anthropic import ChatAnthropic
+
+    for variant in variants:
+        tools = _support_tools(variant)
+        model = ChatAnthropic(
+            model="claude-sonnet-4-5", temperature=0
+        ).bind_tools(tools)
+        _save(variant, record_support_variant(model, variant, tools))
+
+
+BATCH = {"refund": _record_refund, "support": _record_support}
 
 
 def main() -> None:
-    variants = [v for v in all_variants() if v.agent in RECORDERS]
+    variants = [v for v in all_variants() if v.agent in IMPLEMENTED]
     agents = {v.agent for v in variants}
-    needs_anthropic = "refund" in agents or "support" in agents
-    if needs_anthropic and not os.environ.get("ANTHROPIC_API_KEY"):
+    if agents & {"refund", "support"} and not os.environ.get("ANTHROPIC_API_KEY"):
         raise SystemExit("ANTHROPIC_API_KEY is not set - needed to record.")
     if "analyst" in agents and not os.environ.get("OPENAI_API_KEY"):
         raise SystemExit("OPENAI_API_KEY is not set - needed to record the analyst.")
 
-    clients = {agent: CLIENTS[agent]() for agent in agents}
-    written = 0
-    for variant in variants:
-        trajectory = RECORDERS[variant.agent](clients[variant.agent], variant)
-        trajectory.name = f"{variant.agent}-{variant.name}"
-        destination = CORPUS / variant.agent / variant.kind / f"{variant.name}.json"
-        destination.parent.mkdir(parents=True, exist_ok=True)
-        save_cassette(trajectory, destination)
-        written += 1
-        print(f"  {destination.relative_to(CORPUS.parent)}")
-    print(f"wrote {written} recordings to {CORPUS}")
+    for agent in sorted(agents):
+        batch = [v for v in variants if v.agent == agent]
+        print(f"{agent}: recording {len(batch)} variants")
+        BATCH[agent](batch)
+    print(f"wrote {len(variants)} recordings to {CORPUS}")
 
 
 if __name__ == "__main__":

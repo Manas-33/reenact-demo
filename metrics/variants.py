@@ -15,7 +15,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 
-from metrics.harness import DETERMINISTIC
+from metrics.harness import DETERMINISTIC, JUDGE
 
 
 @dataclass(frozen=True)
@@ -168,6 +168,142 @@ def refund_variants() -> list[Variant]:
     return _refund_breaks() + _refund_benign()
 
 
+# --- Support agent (LangGraph RAG) ------------------------------------------
+
+_SUPPORT_SKIP_LABEL = (
+    "You are a support assistant for a SaaS product. For the ticket: search the help "
+    "center for relevant articles and post a short reply grounded in them - do not "
+    "invent features the articles do not state. Finish with a one-sentence summary. "
+    "There is no need to categorize or label the ticket."
+)
+_SUPPORT_SKIP_REPLY = (
+    "You are a support assistant for a SaaS product. For the ticket: search the help "
+    "center and apply exactly one category label (account, billing, or api). Do not "
+    "post a public reply - a human agent will follow up. Finish with a summary."
+)
+_SUPPORT_SKIP_SEARCH = (
+    "You are a support assistant for a SaaS product. Answer the ticket from your own "
+    "product knowledge - no need to search the help center. Apply exactly one category "
+    "label (account, billing, or api) and post a short reply. Finish with a summary."
+)
+_SUPPORT_INVENT = (
+    "You are a support assistant for a SaaS product. For the ticket: search the help "
+    "center, apply exactly one category label (account, billing, or api), and post a "
+    "helpful reply. Go above and beyond: suggest premium tiers, upgrades, mobile apps, "
+    "and other fixes that would delight the customer, whether or not the articles "
+    "mention them. Finish with a one-sentence summary."
+)
+
+_SUPPORT_BENIGN_PROMPTS = {
+    "friendly": (
+        "You are a warm, friendly support assistant for a SaaS product. For the "
+        "ticket: search the help center, apply exactly one category label (account, "
+        "billing, or api), and post a short reply grounded in the articles you "
+        "retrieved - do not invent features the articles do not state. Finish with a "
+        "one-sentence summary, and keep a reassuring tone."
+    ),
+    "verbose": (
+        "You are a support assistant for a SaaS product. For the ticket: search the "
+        "help center, apply exactly one category label (account, billing, or api), and "
+        "post a thorough reply that walks through the steps, grounded strictly in the "
+        "retrieved articles - do not invent anything they do not state. Finish with a "
+        "one-sentence summary."
+    ),
+    "terse": (
+        "You are a support assistant. Steps: search the help center, apply one label "
+        "(account, billing, or api), post a reply grounded in the docs (never invent "
+        "features), then summarize in one sentence."
+    ),
+    "reordered": (
+        "You are a support assistant for a SaaS product. Always ground your reply in "
+        "the help-center articles - never invent features, tiers, or policies they do "
+        "not state. To do that, first search the help center, then apply exactly one "
+        "category label (account, billing, or api), then post a short grounded reply, "
+        "and finish with a one-sentence summary."
+    ),
+    "structured": (
+        "You are a support assistant for a SaaS product. For the ticket: search the "
+        "help center, apply exactly one category label (account, billing, or api), and "
+        "post a reply grounded in the retrieved docs - never invent features they do "
+        "not state. Structure the reply as a brief greeting then the fix. "
+        "Finish with a one-sentence summary of what you did."
+    ),
+}
+
+_SUPPORT_PASSWORD = "Ticket #42: my password reset link shows an error when I click it."
+_SUPPORT_BILLING = "Ticket #57: my monthly billing shows two charges for one plan."
+_SUPPORT_RATELIMIT = "Ticket #63: every API request suddenly fails with a 429 error."
+
+# (base scenario whose checks apply, the ticket) - two per category, DOCS-answerable.
+_SUPPORT_TICKETS = [
+    ("support-42", _SUPPORT_PASSWORD),
+    ("support-42", "Ticket #71: I forgot my password; no reset email arrives."),
+    ("support-57", _SUPPORT_BILLING),
+    ("support-57", "Ticket #72: a billing question - an invoice looks duplicated."),
+    ("support-63", _SUPPORT_RATELIMIT),
+    ("support-63", "Ticket #73: my API keeps hitting a 429 rate limit."),
+]
+
+
+def _support_breaks() -> list[Variant]:
+    return [
+        Variant(
+            "support", "skip-label", "break", DETERMINISTIC, "support-42",
+            _SUPPORT_PASSWORD, system=_SUPPORT_SKIP_LABEL,
+            note="never calls label_ticket",
+        ),
+        Variant(
+            "support", "skip-reply", "break", DETERMINISTIC, "support-42",
+            _SUPPORT_PASSWORD, system=_SUPPORT_SKIP_REPLY,
+            note="never calls post_reply",
+        ),
+        Variant(
+            "support", "skip-search", "break", DETERMINISTIC, "support-42",
+            _SUPPORT_PASSWORD, system=_SUPPORT_SKIP_SEARCH,
+            note="never calls search_docs",
+        ),
+        Variant(
+            "support", "rename-post-reply", "break", DETERMINISTIC, "support-42",
+            _SUPPORT_PASSWORD, rename=("post_reply", "send_message"),
+            note="post_reply renamed -> called_tool('post_reply') fails",
+        ),
+        Variant(
+            "support", "invent-feature-42", "break", JUDGE, "support-42",
+            _SUPPORT_PASSWORD, system=_SUPPORT_INVENT,
+            note="invents an undocumented feature -> reply_grounded fails",
+        ),
+        Variant(
+            "support", "invent-feature-57", "break", JUDGE, "support-57",
+            _SUPPORT_BILLING, system=_SUPPORT_INVENT,
+            note="invents an undocumented billing policy",
+        ),
+        Variant(
+            "support", "invent-feature-63", "break", JUDGE, "support-63",
+            _SUPPORT_RATELIMIT, system=_SUPPORT_INVENT,
+            note="invents a premium tier the rate-limit doc rules out",
+        ),
+    ]
+
+
+def _support_benign() -> list[Variant]:
+    out: list[Variant] = []
+    for key, prompt in _SUPPORT_BENIGN_PROMPTS.items():
+        for index, (base, ticket) in enumerate(_SUPPORT_TICKETS):
+            out.append(
+                Variant(
+                    "support", f"benign-{key}-{index}", "benign", "",
+                    base, ticket, system=prompt,
+                    note=f"{key} reword of the shipped prompt",
+                )
+            )
+    return out
+
+
+def support_variants() -> list[Variant]:
+    """The support corpus (4 deterministic + 3 judge breaks, 30 benign)."""
+    return _support_breaks() + _support_benign()
+
+
 def all_variants() -> list[Variant]:
-    """Every agent's variants. Support + analyst are added in their own rungs."""
-    return refund_variants()
+    """Every agent's variants. Analyst is added in its own rung."""
+    return refund_variants() + support_variants()
