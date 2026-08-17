@@ -1,0 +1,127 @@
+{
+  "scenarios": [
+    {
+      "name": "support-42",
+      "checks": [
+        {
+          "name": "called_tool('search_docs')",
+          "passed": true,
+          "score": null,
+          "level": "blocking"
+        },
+        {
+          "name": "called_tool('label_ticket')",
+          "passed": true,
+          "score": null,
+          "level": "blocking"
+        },
+        {
+          "name": "called_tool('post_reply')",
+          "passed": true,
+          "score": null,
+          "level": "blocking"
+        },
+        {
+          "name": "no_mutating_tool_reexecuted",
+          "passed": true,
+          "score": null,
+          "level": "blocking"
+        },
+        {
+          "name": "answer_contains('password')",
+          "passed": true,
+          "score": null,
+          "level": "blocking"
+        },
+        {
+          "name": "criterion:reply_grounded",
+          "passed": true,
+          "score": null,
+          "level": "blocking"
+        }
+      ]
+    },
+    {
+      "name": "support-57",
+      "checks": [
+        {
+          "name": "called_tool('search_docs')",
+          "passed": true,
+          "score": null,
+          "level": "blocking"
+        },
+        {
+          "name": "called_tool('label_ticket')",
+          "passed": true,
+          "score": null,
+          "level": "blocking"
+        },
+        {
+          "name": "called_tool('post_reply')",
+          "passed": true,
+          "score": null,
+          "level": "blocking"
+        },
+        {
+          "name": "no_mutating_tool_reexecuted",
+          "passed": true,
+          "score": null,
+          "level": "blocking"
+        },
+        {
+          "name": "answer_contains('billing')",
+          "passed": true,
+          "score": null,
+          "level": "blocking"
+        },
+        {
+          "name": "criterion:reply_grounded",
+          "passed": true,
+          "score": null,
+          "level": "blocking"
+        }
+      ]
+    },
+    {
+      "name": "support-63",
+      "checks": [
+        {
+          "name": "called_tool('search_docs')",
+          "passed": true,
+          "score": null,
+          "level": "blocking"
+        },
+        {
+          "name": "called_tool('label_ticket')",
+          "passed": true,
+          "score": null,
+          "level": "blocking"
+        },
+        {
+          "name": "called_tool('post_reply')",
+          "passed": true,
+          "score": null,
+          "level": "blocking"
+        },
+        {
+          "name": "no_mutating_tool_reexecuted",
+          "passed": true,
+          "score": null,
+          "level": "blocking"
+        },
+        {
+          "name": "answer_contains('429')",
+          "passed": true,
+          "score": null,
+          "level": "blocking"
+        },
+        {
+          "name": "criterion:reply_grounded",
+          "passed": true,
+          "score": null,
+          "level": "blocking"
+        }
+      ]
+    }
+  ]
+}

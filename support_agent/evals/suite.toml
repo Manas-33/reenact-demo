@@ -1,0 +1,112 @@
+# Suggested by `reenact suggest`.
+# Derived from what the agent did - keep what applies, delete the rest.
+
+[[scenario]]
+name = "support-42"
+cassette = "../scenarios/ticket-42.json"
+
+  # the agent called each of these tools during the run
+  [[scenario.check]]
+  type = "called_tool"
+  name = "search_docs"
+
+  [[scenario.check]]
+  type = "called_tool"
+  name = "label_ticket"
+
+  [[scenario.check]]
+  type = "called_tool"
+  name = "post_reply"
+
+  # a mutating tool ran - replay must never re-fire it
+  [[scenario.check]]
+  type = "no_mutating_tool_reexecuted"
+
+  # guessed keyword - keep only if it is a stable anchor
+  [[scenario.check]]
+  type = "answer_contains"
+  value = "password"
+
+  # reply_grounded (hand-added): the groundedness guard - a criterion, not an
+  # assertion, catches a reply that invents a feature. Needs a key at eval time.
+  [[scenario.criterion]]
+  id = "reply_grounded"
+  question = "Is the reply grounded in the help-center articles the agent retrieved - not inventing features, tiers, or policies the articles do not state?"
+
+  # optional: tighten a called_tool to an exact count
+  # [[scenario.check]]
+  # type = "tool_call_count"
+  # name = "search_docs"
+  # count = 1
+
+[[scenario]]
+name = "support-57"
+cassette = "../scenarios/ticket-57.json"
+
+  # the agent called each of these tools during the run
+  [[scenario.check]]
+  type = "called_tool"
+  name = "search_docs"
+
+  [[scenario.check]]
+  type = "called_tool"
+  name = "label_ticket"
+
+  [[scenario.check]]
+  type = "called_tool"
+  name = "post_reply"
+
+  # a mutating tool ran - replay must never re-fire it
+  [[scenario.check]]
+  type = "no_mutating_tool_reexecuted"
+
+  # guessed keyword - keep only if it is a stable anchor
+  [[scenario.check]]
+  type = "answer_contains"
+  value = "billing"
+
+  [[scenario.criterion]]
+  id = "reply_grounded"
+  question = "Is the reply grounded in the help-center articles the agent retrieved - not inventing features, tiers, or policies the articles do not state?"
+
+  # optional: tighten a called_tool to an exact count
+  # [[scenario.check]]
+  # type = "tool_call_count"
+  # name = "search_docs"
+  # count = 1
+
+[[scenario]]
+name = "support-63"
+cassette = "../scenarios/ticket-63.json"
+
+  # the agent called each of these tools during the run
+  [[scenario.check]]
+  type = "called_tool"
+  name = "search_docs"
+
+  [[scenario.check]]
+  type = "called_tool"
+  name = "label_ticket"
+
+  [[scenario.check]]
+  type = "called_tool"
+  name = "post_reply"
+
+  # a mutating tool ran - replay must never re-fire it
+  [[scenario.check]]
+  type = "no_mutating_tool_reexecuted"
+
+  # guessed keyword - keep only if it is a stable anchor
+  [[scenario.check]]
+  type = "answer_contains"
+  value = "429"
+
+  [[scenario.criterion]]
+  id = "reply_grounded"
+  question = "Is the reply grounded in the help-center articles the agent retrieved - not inventing features, tiers, or policies the articles do not state?"
+
+  # optional: tighten a called_tool to an exact count
+  # [[scenario.check]]
+  # type = "tool_call_count"
+  # name = "search_docs"
+  # count = 1
