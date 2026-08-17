@@ -27,13 +27,11 @@ jobs:
             suite: refund_agent/evals/suite.toml
             baseline: refund_agent/evals/baseline.json
             version: "git+https://github.com/Manas-33/Reenact.git#subdirectory=core"
-            key: ""
           - agent: support
             gate-name: support
             suite: support_agent/evals/suite.toml
             baseline: support_agent/evals/baseline.json
             version: "reenact[anthropic] @ git+https://github.com/Manas-33/Reenact.git#subdirectory=core"
-            key: ${{ secrets.ANTHROPIC_API_KEY }}
     steps:
       - uses: actions/checkout@v4
       - uses: Manas-33/Reenact/action@main
@@ -42,5 +40,8 @@ jobs:
           baseline: ${{ matrix.baseline }}
           version: ${{ matrix.version }}
           token: ${{ github.token }}
-          anthropic-api-key: ${{ matrix.key }}
+          # The refund gate ignores this (no criterion, no anthropic installed); the
+          # support gate needs it for the reply_grounded criterion. `secrets` is not
+          # allowed in `strategy.matrix`, so it is referenced here in the step instead.
+          anthropic-api-key: ${{ secrets.ANTHROPIC_API_KEY }}
           name: ${{ matrix.gate-name }}
