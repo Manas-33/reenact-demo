@@ -1,0 +1,75 @@
+# Eval suite for the analyst agent. The called_tool + answer_contains checks are
+# assertions (offline, no key); the answer_grounded criterion is judged by a model
+# and needs a key at eval/gate time - reenact's judge is Anthropic, so reuse
+# ANTHROPIC_API_KEY, same as the support agent.
+#
+# Drafted with `reenact suggest`, then reviewed: each guessed keyword ("q4",
+# "product", "revenue" - echoes of the question that would stay green even if the
+# number were hallucinated) was sharpened to the scenario's distinctive figure
+# (15,400 / 180 / 12,500), and a faithfulness criterion was hand-added. A
+# criterion, not an assertion, is what catches a wrong-but-plausible number.
+
+[[scenario]]
+name = "analyst-q4-revenue"
+cassette = "../scenarios/q4-revenue.json"
+
+  [[scenario.check]]
+  type = "called_tool"
+  name = "get_schema"
+
+  [[scenario.check]]
+  type = "called_tool"
+  name = "run_query"
+
+  # The distinctive figure the query returns - a hallucinated total drops it.
+  [[scenario.check]]
+  type = "answer_contains"
+  value = "15,400"
+
+  # answer_grounded (hand-added): the faithfulness guard - every number in the
+  # answer must come from the query results. Needs a key at eval time.
+  [[scenario.criterion]]
+  id = "answer_grounded"
+  question = "Is every number in the final answer present in the results the agent got back from run_query, rather than estimated or invented?"
+
+[[scenario]]
+name = "analyst-top-product"
+cassette = "../scenarios/top-product.json"
+
+  [[scenario.check]]
+  type = "called_tool"
+  name = "get_schema"
+
+  [[scenario.check]]
+  type = "called_tool"
+  name = "run_query"
+
+  # The distinctive unit count the query returns - a hallucinated figure drops it.
+  [[scenario.check]]
+  type = "answer_contains"
+  value = "180"
+
+  [[scenario.criterion]]
+  id = "answer_grounded"
+  question = "Is every number in the final answer present in the results the agent got back from run_query, rather than estimated or invented?"
+
+[[scenario]]
+name = "analyst-west-revenue"
+cassette = "../scenarios/west-revenue.json"
+
+  [[scenario.check]]
+  type = "called_tool"
+  name = "get_schema"
+
+  [[scenario.check]]
+  type = "called_tool"
+  name = "run_query"
+
+  # The distinctive figure the query returns - a hallucinated total drops it.
+  [[scenario.check]]
+  type = "answer_contains"
+  value = "12,500"
+
+  [[scenario.criterion]]
+  id = "answer_grounded"
+  question = "Is every number in the final answer present in the results the agent got back from run_query, rather than estimated or invented?"

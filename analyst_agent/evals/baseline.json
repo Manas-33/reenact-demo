@@ -1,0 +1,91 @@
+{
+  "scenarios": [
+    {
+      "name": "analyst-q4-revenue",
+      "checks": [
+        {
+          "name": "called_tool('get_schema')",
+          "passed": true,
+          "score": null,
+          "level": "blocking"
+        },
+        {
+          "name": "called_tool('run_query')",
+          "passed": true,
+          "score": null,
+          "level": "blocking"
+        },
+        {
+          "name": "answer_contains('15,400')",
+          "passed": true,
+          "score": null,
+          "level": "blocking"
+        },
+        {
+          "name": "criterion:answer_grounded",
+          "passed": true,
+          "score": null,
+          "level": "blocking"
+        }
+      ]
+    },
+    {
+      "name": "analyst-top-product",
+      "checks": [
+        {
+          "name": "called_tool('get_schema')",
+          "passed": true,
+          "score": null,
+          "level": "blocking"
+        },
+        {
+          "name": "called_tool('run_query')",
+          "passed": true,
+          "score": null,
+          "level": "blocking"
+        },
+        {
+          "name": "answer_contains('180')",
+          "passed": true,
+          "score": null,
+          "level": "blocking"
+        },
+        {
+          "name": "criterion:answer_grounded",
+          "passed": true,
+          "score": null,
+          "level": "blocking"
+        }
+      ]
+    },
+    {
+      "name": "analyst-west-revenue",
+      "checks": [
+        {
+          "name": "called_tool('get_schema')",
+          "passed": true,
+          "score": null,
+          "level": "blocking"
+        },
+        {
+          "name": "called_tool('run_query')",
+          "passed": true,
+          "score": null,
+          "level": "blocking"
+        },
+        {
+          "name": "answer_contains('12,500')",
+          "passed": true,
+          "score": null,
+          "level": "blocking"
+        },
+        {
+          "name": "criterion:answer_grounded",
+          "passed": true,
+          "score": null,
+          "level": "blocking"
+        }
+      ]
+    }
+  ]
+}
