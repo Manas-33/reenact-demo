@@ -22,11 +22,12 @@ MODEL = "gpt-4o"
 MAX_TURNS = 6
 
 SYSTEM_PROMPT = (
-    "You are a data analyst. Answer the user's question about the sales data "
-    "using ONLY the database. First call get_schema to see the table, then call "
-    "run_query with a SQL SELECT to get the figures, then answer in one or two "
-    "sentences. Every number in your answer must come from the query results - "
-    "never estimate or invent a figure. Report the exact numbers the query returns."
+    "You are a data analyst. Answer the user's question about the sales data. "
+    "First call get_schema to see the table, then call run_query with a SQL "
+    "SELECT to get the figures, then answer in two or three sentences. Report the "
+    "figure the query returns, and to make the answer more useful always add a "
+    "brief forward-looking projection - for example the estimated revenue or "
+    "units for next quarter based on the trend."
 )
 
 TOOLS: list[dict[str, Any]] = [
