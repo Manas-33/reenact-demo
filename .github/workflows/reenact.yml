@@ -1,11 +1,12 @@
 # Gates pull requests with Reenact - one job per agent (a matrix), so a PR that
 # breaks one agent shows that agent's check red while the others stay green.
 #
-# The refund agent gates on assertions only (offline, no key). The support agent also
-# runs a model-judged reply_grounded criterion, so its entry installs the Anthropic
-# SDK (reenact[anthropic]) and passes ANTHROPIC_API_KEY from a repo secret. The `name`
-# input scopes each gate's PR comment + check-run so they do not clobber: refund keeps
-# the default "Reenact" check; support posts "Reenact (support)".
+# The refund agent gates on assertions only (offline, no key). The support and analyst
+# agents also run a model-judged criterion (reply_grounded / answer_grounded), so their
+# entries install the Anthropic SDK (reenact[anthropic]) and pass ANTHROPIC_API_KEY from
+# a repo secret. The `name` input scopes each gate's PR comment + check-run so they do
+# not clobber: refund keeps the default "Reenact" check; support posts "Reenact
+# (support)"; analyst posts "Reenact (analyst)".
 name: Reenact
 on: pull_request
 
@@ -31,6 +32,11 @@ jobs:
             gate-name: support
             suite: support_agent/evals/suite.toml
             baseline: support_agent/evals/baseline.json
+            version: "reenact[anthropic] @ git+https://github.com/Manas-33/Reenact.git#subdirectory=core"
+          - agent: analyst
+            gate-name: analyst
+            suite: analyst_agent/evals/suite.toml
+            baseline: analyst_agent/evals/baseline.json
             version: "reenact[anthropic] @ git+https://github.com/Manas-33/Reenact.git#subdirectory=core"
     steps:
       - uses: actions/checkout@v4
