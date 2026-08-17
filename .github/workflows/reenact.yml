@@ -1,11 +1,11 @@
-# Gates pull requests with Reenact: replays the committed scenario suite offline
-# ($0, no key) and fails the check only on a regression versus the baseline, then
-# posts a sticky PR comment and a merge-gating check-run.
+# Gates pull requests with Reenact - one job per agent (a matrix), so a PR that
+# breaks one agent shows that agent's check red while the others stay green.
 #
-# Scaffolded by `reenact init`, then the two TODOs filled in: the action ref points
-# at the public reenact repo, reenact is installed from that repo (its PyPI entry is
-# a placeholder pre-launch), and the suite/baseline point at the refund agent's
-# per-agent evals/. As more agents land, turn `gate` into a matrix job.
+# The refund agent gates on assertions only (offline, no key). The support agent also
+# runs a model-judged reply_grounded criterion, so its entry installs the Anthropic
+# SDK (reenact[anthropic]) and passes ANTHROPIC_API_KEY from a repo secret. The `name`
+# input scopes each gate's PR comment + check-run so they do not clobber: refund keeps
+# the default "Reenact" check; support posts "Reenact (support)".
 name: Reenact
 on: pull_request
 
@@ -16,12 +16,31 @@ permissions:
 
 jobs:
   gate:
+    name: gate (${{ matrix.agent }})
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - agent: refund
+            gate-name: ""
+            suite: refund_agent/evals/suite.toml
+            baseline: refund_agent/evals/baseline.json
+            version: "git+https://github.com/Manas-33/Reenact.git#subdirectory=core"
+            key: ""
+          - agent: support
+            gate-name: support
+            suite: support_agent/evals/suite.toml
+            baseline: support_agent/evals/baseline.json
+            version: "reenact[anthropic] @ git+https://github.com/Manas-33/Reenact.git#subdirectory=core"
+            key: ${{ secrets.ANTHROPIC_API_KEY }}
     steps:
       - uses: actions/checkout@v4
       - uses: Manas-33/Reenact/action@main
         with:
-          suite: refund_agent/evals/suite.toml
-          baseline: refund_agent/evals/baseline.json
-          version: "git+https://github.com/Manas-33/Reenact.git#subdirectory=core"
+          suite: ${{ matrix.suite }}
+          baseline: ${{ matrix.baseline }}
+          version: ${{ matrix.version }}
           token: ${{ github.token }}
+          anthropic-api-key: ${{ matrix.key }}
+          name: ${{ matrix.gate-name }}
