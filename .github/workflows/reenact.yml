@@ -27,20 +27,20 @@ jobs:
             gate-name: ""
             suite: refund_agent/evals/suite.toml
             baseline: refund_agent/evals/baseline.json
-            version: "git+https://github.com/Manas-33/Reenact.git#subdirectory=core"
+            version: "reenact"
           - agent: support
             gate-name: support
             suite: support_agent/evals/suite.toml
             baseline: support_agent/evals/baseline.json
-            version: "reenact[anthropic] @ git+https://github.com/Manas-33/Reenact.git#subdirectory=core"
+            version: "reenact[anthropic]"
           - agent: analyst
             gate-name: analyst
             suite: analyst_agent/evals/suite.toml
             baseline: analyst_agent/evals/baseline.json
-            version: "reenact[anthropic] @ git+https://github.com/Manas-33/Reenact.git#subdirectory=core"
+            version: "reenact[anthropic]"
     steps:
       - uses: actions/checkout@v4
-      - uses: Manas-33/Reenact/action@main
+      - uses: Manas-33/Reenact/action@v0.1.0
         with:
           suite: ${{ matrix.suite }}
           baseline: ${{ matrix.baseline }}
