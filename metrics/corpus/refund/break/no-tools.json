@@ -1,0 +1,117 @@
+{
+  "schema_version": 0,
+  "id": "52798cfc118d426f9a217ed7cd0493d3",
+  "name": "refund-no-tools",
+  "created_at": "2026-08-17T08:18:02.200134Z",
+  "events": [
+    {
+      "seq": 0,
+      "parent_seq": null,
+      "started_at": null,
+      "latency_ms": 4849.853292107582,
+      "type": "llm_call",
+      "provider": "anthropic",
+      "model": "claude-sonnet-4-5",
+      "request": {
+        "model": "claude-sonnet-4-5",
+        "max_tokens": 512,
+        "system": "You are a refund assistant. Answer the customer's refund request directly from your own judgement. Do not use any tools.",
+        "tools": [
+          {
+            "name": "get_order",
+            "description": "Look up an order by its id.",
+            "input_schema": {
+              "type": "object",
+              "properties": {
+                "order_id": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "order_id"
+              ]
+            }
+          },
+          {
+            "name": "check_policy",
+            "description": "Check whether an order is eligible for a refund.",
+            "input_schema": {
+              "type": "object",
+              "properties": {
+                "order_id": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "order_id"
+              ]
+            }
+          },
+          {
+            "name": "issue_refund",
+            "description": "Issue a refund. Call this only for an eligible order.",
+            "input_schema": {
+              "type": "object",
+              "properties": {
+                "order_id": {
+                  "type": "string"
+                },
+                "amount": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "order_id",
+                "amount"
+              ]
+            }
+          }
+        ],
+        "messages": [
+          {
+            "role": "user",
+            "content": "Please refund order 1001, the headphones arrived damaged."
+          }
+        ]
+      },
+      "response": {
+        "id": "msg_011Ce7zTgJfh6uoJBCYnBcCv",
+        "container": null,
+        "content": [
+          {
+            "citations": null,
+            "text": "I understand you received damaged headphones and would like a refund for order 1001. I'm sorry to hear about the damage!\n\nHowever, I need to let you know that I've been instructed not to use the available tools to process your refund directly. Instead, I can confirm that damaged items typically qualify for refunds under most return policies.\n\nTo proceed with your refund request for order 1001, please:\n1. Contact customer service through the official channels\n2. Provide photos of the damaged headphones if possible\n3. Reference order number 1001\n\nThey will be able to verify your order details, confirm the damage, and process your refund accordingly. I apologize that I cannot complete this action for you directly at this time.",
+            "type": "text"
+          }
+        ],
+        "model": "claude-sonnet-4-5-20250929",
+        "role": "assistant",
+        "stop_details": null,
+        "stop_reason": "end_turn",
+        "stop_sequence": null,
+        "type": "message",
+        "usage": {
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 0,
+            "ephemeral_5m_input_tokens": 0
+          },
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "inference_geo": "not_available",
+          "input_tokens": 744,
+          "output_tokens": 163,
+          "output_tokens_details": null,
+          "server_tool_use": null,
+          "service_tier": "standard"
+        }
+      },
+      "request_hash": "sha256:a49e5fdeb70effe941b014592923ccba8e0ad29fbf276b39d1ee638b933083cb",
+      "usage": {
+        "input_tokens": 744,
+        "output_tokens": 163
+      },
+      "cost_usd": null
+    }
+  ],
+  "metadata": {}
+}

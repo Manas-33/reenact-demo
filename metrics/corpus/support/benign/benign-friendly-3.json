@@ -1,0 +1,765 @@
+{
+  "schema_version": 0,
+  "id": "44ccd2788a3f409084f355cb320fc016",
+  "name": "support-benign-friendly-3",
+  "created_at": "2026-08-17T08:23:30.950411Z",
+  "events": [
+    {
+      "seq": 0,
+      "parent_seq": null,
+      "started_at": null,
+      "latency_ms": null,
+      "type": "llm_call",
+      "provider": "langchain",
+      "model": "claude-sonnet-4-5",
+      "request": {
+        "model": "claude-sonnet-4-5",
+        "messages": [
+          {
+            "content": "You are a warm, friendly support assistant for a SaaS product. For the ticket: search the help center, apply exactly one category label (account, billing, or api), and post a short reply grounded in the articles you retrieved - do not invent features the articles do not state. Finish with a one-sentence summary, and keep a reassuring tone.",
+            "additional_kwargs": {},
+            "response_metadata": {},
+            "type": "system",
+            "name": null,
+            "id": "15c0de82-7e52-49ab-ab06-eb4dec8428d3"
+          },
+          {
+            "content": "Ticket #72: a billing question - an invoice looks duplicated.",
+            "additional_kwargs": {},
+            "response_metadata": {},
+            "type": "human",
+            "name": null,
+            "id": "e753a6de-2629-4c24-8979-9312c1bbaaaa"
+          }
+        ]
+      },
+      "response": {
+        "generations": [
+          [
+            {
+              "text": "",
+              "generation_info": null,
+              "type": "ChatGeneration",
+              "message": {
+                "content": [
+                  {
+                    "id": "toolu_0188egPGthkYNqDTAnkTFXUU",
+                    "caller": {
+                      "type": "direct"
+                    },
+                    "input": {
+                      "query": "duplicate invoice billing"
+                    },
+                    "name": "search_docs",
+                    "type": "tool_use"
+                  }
+                ],
+                "additional_kwargs": {},
+                "response_metadata": {
+                  "id": "msg_011Ce7zsuutgsm7174WYKNdR",
+                  "container": null,
+                  "model": "claude-sonnet-4-5-20250929",
+                  "stop_details": null,
+                  "stop_reason": "tool_use",
+                  "stop_sequence": null,
+                  "usage": {
+                    "cache_creation": {
+                      "ephemeral_1h_input_tokens": 0,
+                      "ephemeral_5m_input_tokens": 0
+                    },
+                    "cache_creation_input_tokens": 0,
+                    "cache_read_input_tokens": 0,
+                    "inference_geo": "not_available",
+                    "input_tokens": 875,
+                    "output_tokens": 55,
+                    "output_tokens_details": null,
+                    "server_tool_use": null,
+                    "service_tier": "standard"
+                  },
+                  "model_name": "claude-sonnet-4-5-20250929",
+                  "model_provider": "anthropic"
+                },
+                "type": "ai",
+                "name": null,
+                "id": "lc_run--01a00ed1-938b-72c1-b1fd-f4cbef851941-0"
+              }
+            }
+          ]
+        ],
+        "llm_output": {
+          "id": "msg_011Ce7zsuutgsm7174WYKNdR",
+          "container": null,
+          "model": "claude-sonnet-4-5-20250929",
+          "stop_details": null,
+          "stop_reason": "tool_use",
+          "stop_sequence": null,
+          "usage": {
+            "cache_creation": {
+              "ephemeral_1h_input_tokens": 0,
+              "ephemeral_5m_input_tokens": 0
+            },
+            "cache_creation_input_tokens": 0,
+            "cache_read_input_tokens": 0,
+            "inference_geo": "not_available",
+            "input_tokens": 875,
+            "output_tokens": 55,
+            "output_tokens_details": null,
+            "server_tool_use": null,
+            "service_tier": "standard"
+          },
+          "model_name": "claude-sonnet-4-5-20250929"
+        },
+        "run": null,
+        "type": "LLMResult"
+      },
+      "request_hash": "sha256:27b19479c7af96b117559f2b99e56a39961f4620c03943fcd36fb27a5ecc952c",
+      "usage": null,
+      "cost_usd": null
+    },
+    {
+      "seq": 1,
+      "parent_seq": null,
+      "started_at": null,
+      "latency_ms": null,
+      "type": "graph_node",
+      "node": "agent",
+      "step": 1,
+      "thread_id": null,
+      "checkpoint_ns": "agent:942e10a8-77ba-e0b8-9bd2-c581ef990fb5"
+    },
+    {
+      "seq": 2,
+      "parent_seq": null,
+      "started_at": null,
+      "latency_ms": null,
+      "type": "graph_node",
+      "node": "agent",
+      "step": 1,
+      "thread_id": null,
+      "checkpoint_ns": "agent:942e10a8-77ba-e0b8-9bd2-c581ef990fb5"
+    },
+    {
+      "seq": 3,
+      "parent_seq": 0,
+      "started_at": null,
+      "latency_ms": null,
+      "type": "tool_call",
+      "name": "search_docs",
+      "arguments": {
+        "input": "{'query': 'duplicate invoice billing'}"
+      },
+      "result": {
+        "content": "Billing: invoices are issued monthly. A duplicate charge is refunded within five business days to the original card. Ask for the invoice id before escalating a billing dispute.",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "search_docs",
+        "id": null,
+        "tool_call_id": "toolu_0188egPGthkYNqDTAnkTFXUU",
+        "artifact": null,
+        "status": "success"
+      },
+      "side_effect": "read_only"
+    },
+    {
+      "seq": 4,
+      "parent_seq": null,
+      "started_at": null,
+      "latency_ms": null,
+      "type": "graph_node",
+      "node": "tools",
+      "step": 2,
+      "thread_id": null,
+      "checkpoint_ns": "tools:c0e29638-3388-af7a-2250-9a5a64951adb"
+    },
+    {
+      "seq": 5,
+      "parent_seq": null,
+      "started_at": null,
+      "latency_ms": null,
+      "type": "llm_call",
+      "provider": "langchain",
+      "model": "claude-sonnet-4-5",
+      "request": {
+        "model": "claude-sonnet-4-5",
+        "messages": [
+          {
+            "content": "You are a warm, friendly support assistant for a SaaS product. For the ticket: search the help center, apply exactly one category label (account, billing, or api), and post a short reply grounded in the articles you retrieved - do not invent features the articles do not state. Finish with a one-sentence summary, and keep a reassuring tone.",
+            "additional_kwargs": {},
+            "response_metadata": {},
+            "type": "system",
+            "name": null,
+            "id": "15c0de82-7e52-49ab-ab06-eb4dec8428d3"
+          },
+          {
+            "content": "Ticket #72: a billing question - an invoice looks duplicated.",
+            "additional_kwargs": {},
+            "response_metadata": {},
+            "type": "human",
+            "name": null,
+            "id": "e753a6de-2629-4c24-8979-9312c1bbaaaa"
+          },
+          {
+            "content": [
+              {
+                "id": "toolu_0188egPGthkYNqDTAnkTFXUU",
+                "caller": {
+                  "type": "direct"
+                },
+                "input": {
+                  "query": "duplicate invoice billing"
+                },
+                "name": "search_docs",
+                "type": "tool_use"
+              }
+            ],
+            "additional_kwargs": {},
+            "response_metadata": {
+              "id": "msg_011Ce7zsuutgsm7174WYKNdR",
+              "container": null,
+              "model": "claude-sonnet-4-5-20250929",
+              "stop_details": null,
+              "stop_reason": "tool_use",
+              "stop_sequence": null,
+              "usage": {
+                "cache_creation": {
+                  "ephemeral_1h_input_tokens": 0,
+                  "ephemeral_5m_input_tokens": 0
+                },
+                "cache_creation_input_tokens": 0,
+                "cache_read_input_tokens": 0,
+                "inference_geo": "not_available",
+                "input_tokens": 875,
+                "output_tokens": 55,
+                "output_tokens_details": null,
+                "server_tool_use": null,
+                "service_tier": "standard"
+              },
+              "model_name": "claude-sonnet-4-5-20250929",
+              "model_provider": "anthropic"
+            },
+            "type": "ai",
+            "name": null,
+            "id": "lc_run--01a00ed1-938b-72c1-b1fd-f4cbef851941-0",
+            "tool_calls": [
+              {
+                "name": "search_docs",
+                "args": {
+                  "query": "duplicate invoice billing"
+                },
+                "id": "toolu_0188egPGthkYNqDTAnkTFXUU",
+                "type": "tool_call"
+              }
+            ],
+            "invalid_tool_calls": [],
+            "usage_metadata": {
+              "input_tokens": 875,
+              "output_tokens": 55,
+              "total_tokens": 930,
+              "input_token_details": {
+                "cache_read": 0,
+                "cache_creation": 0,
+                "ephemeral_5m_input_tokens": 0,
+                "ephemeral_1h_input_tokens": 0
+              }
+            }
+          },
+          {
+            "content": "Billing: invoices are issued monthly. A duplicate charge is refunded within five business days to the original card. Ask for the invoice id before escalating a billing dispute.",
+            "additional_kwargs": {},
+            "response_metadata": {},
+            "type": "tool",
+            "name": "search_docs",
+            "id": "6997e53e-f7a3-4fbd-92f8-1999c357728f",
+            "tool_call_id": "toolu_0188egPGthkYNqDTAnkTFXUU",
+            "artifact": null,
+            "status": "success"
+          }
+        ]
+      },
+      "response": {
+        "generations": [
+          [
+            {
+              "text": "",
+              "generation_info": null,
+              "type": "ChatGeneration",
+              "message": {
+                "content": [
+                  {
+                    "id": "toolu_01B93Qy8cygrshb9K8kBokfy",
+                    "caller": {
+                      "type": "direct"
+                    },
+                    "input": {
+                      "ticket_id": "72",
+                      "label": "billing"
+                    },
+                    "name": "label_ticket",
+                    "type": "tool_use"
+                  },
+                  {
+                    "id": "toolu_01K8SuZvH98dRaAK342mkrxM",
+                    "caller": {
+                      "type": "direct"
+                    },
+                    "input": {
+                      "ticket_id": "72",
+                      "body": "Hi there! 👋\n\nThanks for reaching out about the duplicate invoice. I completely understand your concern, and I'm here to help!\n\nIf there is indeed a duplicate charge, we'll refund it within five business days to your original card. To help me look into this for you, could you please share the invoice ID(s) in question? This will allow me to escalate the billing dispute and get this resolved quickly.\n\nLooking forward to your response!\n\nBest regards"
+                    },
+                    "name": "post_reply",
+                    "type": "tool_use"
+                  }
+                ],
+                "additional_kwargs": {},
+                "response_metadata": {
+                  "id": "msg_011Ce7zt1w3WUNpwr38RDw6e",
+                  "container": null,
+                  "model": "claude-sonnet-4-5-20250929",
+                  "stop_details": null,
+                  "stop_reason": "tool_use",
+                  "stop_sequence": null,
+                  "usage": {
+                    "cache_creation": {
+                      "ephemeral_1h_input_tokens": 0,
+                      "ephemeral_5m_input_tokens": 0
+                    },
+                    "cache_creation_input_tokens": 0,
+                    "cache_read_input_tokens": 0,
+                    "inference_geo": "not_available",
+                    "input_tokens": 978,
+                    "output_tokens": 226,
+                    "output_tokens_details": null,
+                    "server_tool_use": null,
+                    "service_tier": "standard"
+                  },
+                  "model_name": "claude-sonnet-4-5-20250929",
+                  "model_provider": "anthropic"
+                },
+                "type": "ai",
+                "name": null,
+                "id": "lc_run--01a00ed1-98ef-7b40-a3de-257546a13c6f-0"
+              }
+            }
+          ]
+        ],
+        "llm_output": {
+          "id": "msg_011Ce7zt1w3WUNpwr38RDw6e",
+          "container": null,
+          "model": "claude-sonnet-4-5-20250929",
+          "stop_details": null,
+          "stop_reason": "tool_use",
+          "stop_sequence": null,
+          "usage": {
+            "cache_creation": {
+              "ephemeral_1h_input_tokens": 0,
+              "ephemeral_5m_input_tokens": 0
+            },
+            "cache_creation_input_tokens": 0,
+            "cache_read_input_tokens": 0,
+            "inference_geo": "not_available",
+            "input_tokens": 978,
+            "output_tokens": 226,
+            "output_tokens_details": null,
+            "server_tool_use": null,
+            "service_tier": "standard"
+          },
+          "model_name": "claude-sonnet-4-5-20250929"
+        },
+        "run": null,
+        "type": "LLMResult"
+      },
+      "request_hash": "sha256:402cf5239d454851956bedc921d97300530826780cad4875c38205a0cf84a594",
+      "usage": null,
+      "cost_usd": null
+    },
+    {
+      "seq": 6,
+      "parent_seq": null,
+      "started_at": null,
+      "latency_ms": null,
+      "type": "graph_node",
+      "node": "agent",
+      "step": 3,
+      "thread_id": null,
+      "checkpoint_ns": "agent:0b74e7c1-1e86-902d-ec3f-23839506cc61"
+    },
+    {
+      "seq": 7,
+      "parent_seq": null,
+      "started_at": null,
+      "latency_ms": null,
+      "type": "graph_node",
+      "node": "agent",
+      "step": 3,
+      "thread_id": null,
+      "checkpoint_ns": "agent:0b74e7c1-1e86-902d-ec3f-23839506cc61"
+    },
+    {
+      "seq": 8,
+      "parent_seq": 5,
+      "started_at": null,
+      "latency_ms": null,
+      "type": "tool_call",
+      "name": "label_ticket",
+      "arguments": {
+        "input": "{'ticket_id': '72', 'label': 'billing'}"
+      },
+      "result": {
+        "content": "labeled ticket #72 as billing",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "label_ticket",
+        "id": null,
+        "tool_call_id": "toolu_01B93Qy8cygrshb9K8kBokfy",
+        "artifact": null,
+        "status": "success"
+      },
+      "side_effect": "mutating"
+    },
+    {
+      "seq": 9,
+      "parent_seq": 5,
+      "started_at": null,
+      "latency_ms": null,
+      "type": "tool_call",
+      "name": "post_reply",
+      "arguments": {
+        "input": "{'ticket_id': '72', 'body': \"Hi there! 👋\\n\\nThanks for reaching out about the duplicate invoice. I completely understand your concern, and I'm here to help!\\n\\nIf there is indeed a duplicate charge, we'll refund it within five business days to your original card. To help me look into this for you, could you please share the invoice ID(s) in question? This will allow me to escalate the billing dispute and get this resolved quickly.\\n\\nLooking forward to your response!\\n\\nBest regards\"}"
+      },
+      "result": {
+        "content": "posted reply to ticket #72",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "post_reply",
+        "id": null,
+        "tool_call_id": "toolu_01K8SuZvH98dRaAK342mkrxM",
+        "artifact": null,
+        "status": "success"
+      },
+      "side_effect": "mutating"
+    },
+    {
+      "seq": 10,
+      "parent_seq": null,
+      "started_at": null,
+      "latency_ms": null,
+      "type": "graph_node",
+      "node": "tools",
+      "step": 4,
+      "thread_id": null,
+      "checkpoint_ns": "tools:817ae747-d3c7-6ecd-8f7d-8d7e84a2a531"
+    },
+    {
+      "seq": 11,
+      "parent_seq": null,
+      "started_at": null,
+      "latency_ms": null,
+      "type": "llm_call",
+      "provider": "langchain",
+      "model": "claude-sonnet-4-5",
+      "request": {
+        "model": "claude-sonnet-4-5",
+        "messages": [
+          {
+            "content": "You are a warm, friendly support assistant for a SaaS product. For the ticket: search the help center, apply exactly one category label (account, billing, or api), and post a short reply grounded in the articles you retrieved - do not invent features the articles do not state. Finish with a one-sentence summary, and keep a reassuring tone.",
+            "additional_kwargs": {},
+            "response_metadata": {},
+            "type": "system",
+            "name": null,
+            "id": "15c0de82-7e52-49ab-ab06-eb4dec8428d3"
+          },
+          {
+            "content": "Ticket #72: a billing question - an invoice looks duplicated.",
+            "additional_kwargs": {},
+            "response_metadata": {},
+            "type": "human",
+            "name": null,
+            "id": "e753a6de-2629-4c24-8979-9312c1bbaaaa"
+          },
+          {
+            "content": [
+              {
+                "id": "toolu_0188egPGthkYNqDTAnkTFXUU",
+                "caller": {
+                  "type": "direct"
+                },
+                "input": {
+                  "query": "duplicate invoice billing"
+                },
+                "name": "search_docs",
+                "type": "tool_use"
+              }
+            ],
+            "additional_kwargs": {},
+            "response_metadata": {
+              "id": "msg_011Ce7zsuutgsm7174WYKNdR",
+              "container": null,
+              "model": "claude-sonnet-4-5-20250929",
+              "stop_details": null,
+              "stop_reason": "tool_use",
+              "stop_sequence": null,
+              "usage": {
+                "cache_creation": {
+                  "ephemeral_1h_input_tokens": 0,
+                  "ephemeral_5m_input_tokens": 0
+                },
+                "cache_creation_input_tokens": 0,
+                "cache_read_input_tokens": 0,
+                "inference_geo": "not_available",
+                "input_tokens": 875,
+                "output_tokens": 55,
+                "output_tokens_details": null,
+                "server_tool_use": null,
+                "service_tier": "standard"
+              },
+              "model_name": "claude-sonnet-4-5-20250929",
+              "model_provider": "anthropic"
+            },
+            "type": "ai",
+            "name": null,
+            "id": "lc_run--01a00ed1-938b-72c1-b1fd-f4cbef851941-0",
+            "tool_calls": [
+              {
+                "name": "search_docs",
+                "args": {
+                  "query": "duplicate invoice billing"
+                },
+                "id": "toolu_0188egPGthkYNqDTAnkTFXUU",
+                "type": "tool_call"
+              }
+            ],
+            "invalid_tool_calls": [],
+            "usage_metadata": {
+              "input_tokens": 875,
+              "output_tokens": 55,
+              "total_tokens": 930,
+              "input_token_details": {
+                "cache_read": 0,
+                "cache_creation": 0,
+                "ephemeral_5m_input_tokens": 0,
+                "ephemeral_1h_input_tokens": 0
+              }
+            }
+          },
+          {
+            "content": "Billing: invoices are issued monthly. A duplicate charge is refunded within five business days to the original card. Ask for the invoice id before escalating a billing dispute.",
+            "additional_kwargs": {},
+            "response_metadata": {},
+            "type": "tool",
+            "name": "search_docs",
+            "id": "6997e53e-f7a3-4fbd-92f8-1999c357728f",
+            "tool_call_id": "toolu_0188egPGthkYNqDTAnkTFXUU",
+            "artifact": null,
+            "status": "success"
+          },
+          {
+            "content": [
+              {
+                "id": "toolu_01B93Qy8cygrshb9K8kBokfy",
+                "caller": {
+                  "type": "direct"
+                },
+                "input": {
+                  "ticket_id": "72",
+                  "label": "billing"
+                },
+                "name": "label_ticket",
+                "type": "tool_use"
+              },
+              {
+                "id": "toolu_01K8SuZvH98dRaAK342mkrxM",
+                "caller": {
+                  "type": "direct"
+                },
+                "input": {
+                  "ticket_id": "72",
+                  "body": "Hi there! 👋\n\nThanks for reaching out about the duplicate invoice. I completely understand your concern, and I'm here to help!\n\nIf there is indeed a duplicate charge, we'll refund it within five business days to your original card. To help me look into this for you, could you please share the invoice ID(s) in question? This will allow me to escalate the billing dispute and get this resolved quickly.\n\nLooking forward to your response!\n\nBest regards"
+                },
+                "name": "post_reply",
+                "type": "tool_use"
+              }
+            ],
+            "additional_kwargs": {},
+            "response_metadata": {
+              "id": "msg_011Ce7zt1w3WUNpwr38RDw6e",
+              "container": null,
+              "model": "claude-sonnet-4-5-20250929",
+              "stop_details": null,
+              "stop_reason": "tool_use",
+              "stop_sequence": null,
+              "usage": {
+                "cache_creation": {
+                  "ephemeral_1h_input_tokens": 0,
+                  "ephemeral_5m_input_tokens": 0
+                },
+                "cache_creation_input_tokens": 0,
+                "cache_read_input_tokens": 0,
+                "inference_geo": "not_available",
+                "input_tokens": 978,
+                "output_tokens": 226,
+                "output_tokens_details": null,
+                "server_tool_use": null,
+                "service_tier": "standard"
+              },
+              "model_name": "claude-sonnet-4-5-20250929",
+              "model_provider": "anthropic"
+            },
+            "type": "ai",
+            "name": null,
+            "id": "lc_run--01a00ed1-98ef-7b40-a3de-257546a13c6f-0",
+            "tool_calls": [
+              {
+                "name": "label_ticket",
+                "args": {
+                  "ticket_id": "72",
+                  "label": "billing"
+                },
+                "id": "toolu_01B93Qy8cygrshb9K8kBokfy",
+                "type": "tool_call"
+              },
+              {
+                "name": "post_reply",
+                "args": {
+                  "ticket_id": "72",
+                  "body": "Hi there! 👋\n\nThanks for reaching out about the duplicate invoice. I completely understand your concern, and I'm here to help!\n\nIf there is indeed a duplicate charge, we'll refund it within five business days to your original card. To help me look into this for you, could you please share the invoice ID(s) in question? This will allow me to escalate the billing dispute and get this resolved quickly.\n\nLooking forward to your response!\n\nBest regards"
+                },
+                "id": "toolu_01K8SuZvH98dRaAK342mkrxM",
+                "type": "tool_call"
+              }
+            ],
+            "invalid_tool_calls": [],
+            "usage_metadata": {
+              "input_tokens": 978,
+              "output_tokens": 226,
+              "total_tokens": 1204,
+              "input_token_details": {
+                "cache_read": 0,
+                "cache_creation": 0,
+                "ephemeral_5m_input_tokens": 0,
+                "ephemeral_1h_input_tokens": 0
+              }
+            }
+          },
+          {
+            "content": "labeled ticket #72 as billing",
+            "additional_kwargs": {},
+            "response_metadata": {},
+            "type": "tool",
+            "name": "label_ticket",
+            "id": "35eb171e-9615-4e88-8ae1-2f544f54bf30",
+            "tool_call_id": "toolu_01B93Qy8cygrshb9K8kBokfy",
+            "artifact": null,
+            "status": "success"
+          },
+          {
+            "content": "posted reply to ticket #72",
+            "additional_kwargs": {},
+            "response_metadata": {},
+            "type": "tool",
+            "name": "post_reply",
+            "id": "1f352641-9d09-4fa5-abee-05924d2109bb",
+            "tool_call_id": "toolu_01K8SuZvH98dRaAK342mkrxM",
+            "artifact": null,
+            "status": "success"
+          }
+        ]
+      },
+      "response": {
+        "generations": [
+          [
+            {
+              "text": "**Summary:** I've labeled this as a billing issue and asked the customer to provide the invoice ID so we can investigate the duplicate charge and process a refund if needed within five business days.",
+              "generation_info": null,
+              "type": "ChatGeneration",
+              "message": {
+                "content": "**Summary:** I've labeled this as a billing issue and asked the customer to provide the invoice ID so we can investigate the duplicate charge and process a refund if needed within five business days.",
+                "additional_kwargs": {},
+                "response_metadata": {
+                  "id": "msg_011Ce7ztLh9jpiH6ToTsRUiD",
+                  "container": null,
+                  "model": "claude-sonnet-4-5-20250929",
+                  "stop_details": null,
+                  "stop_reason": "end_turn",
+                  "stop_sequence": null,
+                  "usage": {
+                    "cache_creation": {
+                      "ephemeral_1h_input_tokens": 0,
+                      "ephemeral_5m_input_tokens": 0
+                    },
+                    "cache_creation_input_tokens": 0,
+                    "cache_read_input_tokens": 0,
+                    "inference_geo": "not_available",
+                    "input_tokens": 1280,
+                    "output_tokens": 42,
+                    "output_tokens_details": null,
+                    "server_tool_use": null,
+                    "service_tier": "standard"
+                  },
+                  "model_name": "claude-sonnet-4-5-20250929",
+                  "model_provider": "anthropic"
+                },
+                "type": "ai",
+                "name": null,
+                "id": "lc_run--01a00ed1-a9f0-7f21-ac86-ddc4479b948c-0"
+              }
+            }
+          ]
+        ],
+        "llm_output": {
+          "id": "msg_011Ce7ztLh9jpiH6ToTsRUiD",
+          "container": null,
+          "model": "claude-sonnet-4-5-20250929",
+          "stop_details": null,
+          "stop_reason": "end_turn",
+          "stop_sequence": null,
+          "usage": {
+            "cache_creation": {
+              "ephemeral_1h_input_tokens": 0,
+              "ephemeral_5m_input_tokens": 0
+            },
+            "cache_creation_input_tokens": 0,
+            "cache_read_input_tokens": 0,
+            "inference_geo": "not_available",
+            "input_tokens": 1280,
+            "output_tokens": 42,
+            "output_tokens_details": null,
+            "server_tool_use": null,
+            "service_tier": "standard"
+          },
+          "model_name": "claude-sonnet-4-5-20250929"
+        },
+        "run": null,
+        "type": "LLMResult"
+      },
+      "request_hash": "sha256:6ea1048d55576cd57ef6ae5d81b12cbd6f442750a18566c8dfee754347533a2f",
+      "usage": null,
+      "cost_usd": null
+    },
+    {
+      "seq": 12,
+      "parent_seq": null,
+      "started_at": null,
+      "latency_ms": null,
+      "type": "graph_node",
+      "node": "agent",
+      "step": 5,
+      "thread_id": null,
+      "checkpoint_ns": "agent:0e2c0c67-d764-98be-9946-a9094a895ada"
+    },
+    {
+      "seq": 13,
+      "parent_seq": null,
+      "started_at": null,
+      "latency_ms": null,
+      "type": "graph_node",
+      "node": "agent",
+      "step": 5,
+      "thread_id": null,
+      "checkpoint_ns": "agent:0e2c0c67-d764-98be-9946-a9094a895ada"
+    }
+  ],
+  "metadata": {}
+}

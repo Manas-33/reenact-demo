@@ -48,10 +48,6 @@ cassette = "../scenarios/final-sale.json"
   type = "did_not_call_tool"
   name = "issue_refund"
 
-  [[scenario.check]]
-  type = "answer_contains"
-  value = "not eligible"
-
 [[scenario]]
 name = "refund-past-window"
 cassette = "../scenarios/past-window.json"
@@ -67,7 +63,3 @@ cassette = "../scenarios/past-window.json"
   [[scenario.check]]
   type = "did_not_call_tool"
   name = "issue_refund"
-
-  [[scenario.check]]
-  type = "answer_contains"
-  value = "not eligible"

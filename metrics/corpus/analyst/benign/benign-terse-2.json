@@ -1,0 +1,458 @@
+{
+  "schema_version": 0,
+  "id": "08ce5778912c4ad98dba21f0faee92c4",
+  "name": "analyst-benign-terse-2",
+  "created_at": "2026-08-17T08:16:48.511116Z",
+  "events": [
+    {
+      "seq": 0,
+      "parent_seq": null,
+      "started_at": null,
+      "latency_ms": 717.8552499972284,
+      "type": "llm_call",
+      "provider": "openai",
+      "model": "gpt-4o",
+      "request": {
+        "model": "gpt-4o",
+        "messages": [
+          {
+            "role": "system",
+            "content": "You are a data analyst. Steps: get_schema, run_query (a SQL SELECT), then answer in one short sentence. Every number must come from the query results; never estimate or invent."
+          },
+          {
+            "role": "user",
+            "content": "Which product sold the most units, and how many units was that?"
+          }
+        ],
+        "tools": [
+          {
+            "type": "function",
+            "function": {
+              "name": "get_schema",
+              "description": "Return the sales table's columns and types.",
+              "parameters": {
+                "type": "object",
+                "properties": {}
+              }
+            }
+          },
+          {
+            "type": "function",
+            "function": {
+              "name": "run_query",
+              "description": "Run a read-only SQL SELECT and return the rows.",
+              "parameters": {
+                "type": "object",
+                "properties": {
+                  "sql": {
+                    "type": "string",
+                    "description": "A single SQL SELECT statement."
+                  }
+                },
+                "required": [
+                  "sql"
+                ]
+              }
+            }
+          }
+        ]
+      },
+      "response": {
+        "id": "chatcmpl-EDmoS8nVikBSwyRjl4YLq0n53QXEv",
+        "choices": [
+          {
+            "finish_reason": "tool_calls",
+            "index": 0,
+            "logprobs": null,
+            "message": {
+              "content": null,
+              "refusal": null,
+              "role": "assistant",
+              "annotations": [],
+              "audio": null,
+              "function_call": null,
+              "tool_calls": [
+                {
+                  "id": "call_m6D63zyOp0wKE0Mcjot3HTm4",
+                  "function": {
+                    "arguments": "{}",
+                    "name": "get_schema"
+                  },
+                  "type": "function"
+                }
+              ]
+            }
+          }
+        ],
+        "created": 1786954608,
+        "model": "gpt-4o-2024-08-06",
+        "object": "chat.completion",
+        "moderation": null,
+        "service_tier": "default",
+        "system_fingerprint": "fp_17e3c4f467",
+        "usage": {
+          "completion_tokens": 10,
+          "prompt_tokens": 125,
+          "total_tokens": 135,
+          "completion_tokens_details": {
+            "accepted_prediction_tokens": 0,
+            "audio_tokens": 0,
+            "reasoning_tokens": 0,
+            "rejected_prediction_tokens": 0,
+            "text_tokens": null
+          },
+          "prompt_tokens_details": {
+            "audio_tokens": 0,
+            "cache_write_tokens": null,
+            "cached_tokens": 0,
+            "image_tokens": null,
+            "text_tokens": null
+          }
+        }
+      },
+      "request_hash": "sha256:38073752e5d3d3b2c4a68756195436207390bc66fae3dadc007d54deadf1458b",
+      "usage": {
+        "input_tokens": 125,
+        "output_tokens": 10
+      },
+      "cost_usd": null
+    },
+    {
+      "seq": 1,
+      "parent_seq": 0,
+      "started_at": null,
+      "latency_ms": null,
+      "type": "tool_call",
+      "name": "get_schema",
+      "arguments": {},
+      "result": {
+        "table": "sales",
+        "columns": [
+          {
+            "name": "id",
+            "type": "INTEGER"
+          },
+          {
+            "name": "region",
+            "type": "TEXT"
+          },
+          {
+            "name": "product",
+            "type": "TEXT"
+          },
+          {
+            "name": "units",
+            "type": "INTEGER"
+          },
+          {
+            "name": "revenue",
+            "type": "REAL"
+          },
+          {
+            "name": "quarter",
+            "type": "TEXT"
+          }
+        ],
+        "ddl": "CREATE TABLE sales (\n  id INTEGER PRIMARY KEY,\n  region TEXT NOT NULL,\n  product TEXT NOT NULL,\n  units INTEGER NOT NULL,\n  revenue REAL NOT NULL,\n  quarter TEXT NOT NULL\n)"
+      },
+      "side_effect": "read_only"
+    },
+    {
+      "seq": 2,
+      "parent_seq": null,
+      "started_at": null,
+      "latency_ms": 755.6120422668755,
+      "type": "llm_call",
+      "provider": "openai",
+      "model": "gpt-4o",
+      "request": {
+        "model": "gpt-4o",
+        "messages": [
+          {
+            "role": "system",
+            "content": "You are a data analyst. Steps: get_schema, run_query (a SQL SELECT), then answer in one short sentence. Every number must come from the query results; never estimate or invent."
+          },
+          {
+            "role": "user",
+            "content": "Which product sold the most units, and how many units was that?"
+          },
+          {
+            "role": "assistant",
+            "tool_calls": [
+              {
+                "id": "call_m6D63zyOp0wKE0Mcjot3HTm4",
+                "type": "function",
+                "function": {
+                  "name": "get_schema",
+                  "arguments": "{}"
+                }
+              }
+            ]
+          },
+          {
+            "role": "tool",
+            "tool_call_id": "call_m6D63zyOp0wKE0Mcjot3HTm4",
+            "content": "{\"table\": \"sales\", \"columns\": [{\"name\": \"id\", \"type\": \"INTEGER\"}, {\"name\": \"region\", \"type\": \"TEXT\"}, {\"name\": \"product\", \"type\": \"TEXT\"}, {\"name\": \"units\", \"type\": \"INTEGER\"}, {\"name\": \"revenue\", \"type\": \"REAL\"}, {\"name\": \"quarter\", \"type\": \"TEXT\"}], \"ddl\": \"CREATE TABLE sales (\\n  id INTEGER PRIMARY KEY,\\n  region TEXT NOT NULL,\\n  product TEXT NOT NULL,\\n  units INTEGER NOT NULL,\\n  revenue REAL NOT NULL,\\n  quarter TEXT NOT NULL\\n)\"}"
+          }
+        ],
+        "tools": [
+          {
+            "type": "function",
+            "function": {
+              "name": "get_schema",
+              "description": "Return the sales table's columns and types.",
+              "parameters": {
+                "type": "object",
+                "properties": {}
+              }
+            }
+          },
+          {
+            "type": "function",
+            "function": {
+              "name": "run_query",
+              "description": "Run a read-only SQL SELECT and return the rows.",
+              "parameters": {
+                "type": "object",
+                "properties": {
+                  "sql": {
+                    "type": "string",
+                    "description": "A single SQL SELECT statement."
+                  }
+                },
+                "required": [
+                  "sql"
+                ]
+              }
+            }
+          }
+        ]
+      },
+      "response": {
+        "id": "chatcmpl-EDmoTItcxAqznBtlVfXuql6K0CDnE",
+        "choices": [
+          {
+            "finish_reason": "tool_calls",
+            "index": 0,
+            "logprobs": null,
+            "message": {
+              "content": null,
+              "refusal": null,
+              "role": "assistant",
+              "annotations": [],
+              "audio": null,
+              "function_call": null,
+              "tool_calls": [
+                {
+                  "id": "call_4h4VttVbiqMRs2o17b041Kqv",
+                  "function": {
+                    "arguments": "{\"sql\":\"SELECT product, SUM(units) as total_units FROM sales GROUP BY product ORDER BY total_units DESC LIMIT 1;\"}",
+                    "name": "run_query"
+                  },
+                  "type": "function"
+                }
+              ]
+            }
+          }
+        ],
+        "created": 1786954609,
+        "model": "gpt-4o-2024-08-06",
+        "object": "chat.completion",
+        "moderation": null,
+        "service_tier": "default",
+        "system_fingerprint": "fp_17e3c4f467",
+        "usage": {
+          "completion_tokens": 37,
+          "prompt_tokens": 278,
+          "total_tokens": 315,
+          "completion_tokens_details": {
+            "accepted_prediction_tokens": 0,
+            "audio_tokens": 0,
+            "reasoning_tokens": 0,
+            "rejected_prediction_tokens": 0,
+            "text_tokens": null
+          },
+          "prompt_tokens_details": {
+            "audio_tokens": 0,
+            "cache_write_tokens": null,
+            "cached_tokens": 0,
+            "image_tokens": null,
+            "text_tokens": null
+          }
+        }
+      },
+      "request_hash": "sha256:cb7450e244166f99450ad10011d8cb61aba54482b636ea981de8d6eca8d01200",
+      "usage": {
+        "input_tokens": 278,
+        "output_tokens": 37
+      },
+      "cost_usd": null
+    },
+    {
+      "seq": 3,
+      "parent_seq": 2,
+      "started_at": null,
+      "latency_ms": null,
+      "type": "tool_call",
+      "name": "run_query",
+      "arguments": {
+        "sql": "SELECT product, SUM(units) as total_units FROM sales GROUP BY product ORDER BY total_units DESC LIMIT 1;"
+      },
+      "result": {
+        "columns": [
+          "product",
+          "total_units"
+        ],
+        "rows": [
+          {
+            "product": "Widget",
+            "total_units": 180
+          }
+        ],
+        "row_count": 1
+      },
+      "side_effect": "read_only"
+    },
+    {
+      "seq": 4,
+      "parent_seq": null,
+      "started_at": null,
+      "latency_ms": 673.5163750126958,
+      "type": "llm_call",
+      "provider": "openai",
+      "model": "gpt-4o",
+      "request": {
+        "model": "gpt-4o",
+        "messages": [
+          {
+            "role": "system",
+            "content": "You are a data analyst. Steps: get_schema, run_query (a SQL SELECT), then answer in one short sentence. Every number must come from the query results; never estimate or invent."
+          },
+          {
+            "role": "user",
+            "content": "Which product sold the most units, and how many units was that?"
+          },
+          {
+            "role": "assistant",
+            "tool_calls": [
+              {
+                "id": "call_m6D63zyOp0wKE0Mcjot3HTm4",
+                "type": "function",
+                "function": {
+                  "name": "get_schema",
+                  "arguments": "{}"
+                }
+              }
+            ]
+          },
+          {
+            "role": "tool",
+            "tool_call_id": "call_m6D63zyOp0wKE0Mcjot3HTm4",
+            "content": "{\"table\": \"sales\", \"columns\": [{\"name\": \"id\", \"type\": \"INTEGER\"}, {\"name\": \"region\", \"type\": \"TEXT\"}, {\"name\": \"product\", \"type\": \"TEXT\"}, {\"name\": \"units\", \"type\": \"INTEGER\"}, {\"name\": \"revenue\", \"type\": \"REAL\"}, {\"name\": \"quarter\", \"type\": \"TEXT\"}], \"ddl\": \"CREATE TABLE sales (\\n  id INTEGER PRIMARY KEY,\\n  region TEXT NOT NULL,\\n  product TEXT NOT NULL,\\n  units INTEGER NOT NULL,\\n  revenue REAL NOT NULL,\\n  quarter TEXT NOT NULL\\n)\"}"
+          },
+          {
+            "role": "assistant",
+            "tool_calls": [
+              {
+                "id": "call_4h4VttVbiqMRs2o17b041Kqv",
+                "type": "function",
+                "function": {
+                  "name": "run_query",
+                  "arguments": "{\"sql\":\"SELECT product, SUM(units) as total_units FROM sales GROUP BY product ORDER BY total_units DESC LIMIT 1;\"}"
+                }
+              }
+            ]
+          },
+          {
+            "role": "tool",
+            "tool_call_id": "call_4h4VttVbiqMRs2o17b041Kqv",
+            "content": "{\"columns\": [\"product\", \"total_units\"], \"rows\": [{\"product\": \"Widget\", \"total_units\": 180}], \"row_count\": 1}"
+          }
+        ],
+        "tools": [
+          {
+            "type": "function",
+            "function": {
+              "name": "get_schema",
+              "description": "Return the sales table's columns and types.",
+              "parameters": {
+                "type": "object",
+                "properties": {}
+              }
+            }
+          },
+          {
+            "type": "function",
+            "function": {
+              "name": "run_query",
+              "description": "Run a read-only SQL SELECT and return the rows.",
+              "parameters": {
+                "type": "object",
+                "properties": {
+                  "sql": {
+                    "type": "string",
+                    "description": "A single SQL SELECT statement."
+                  }
+                },
+                "required": [
+                  "sql"
+                ]
+              }
+            }
+          }
+        ]
+      },
+      "response": {
+        "id": "chatcmpl-EDmoUCZ5h6CM3SMUOYyAAx4c1T9WK",
+        "choices": [
+          {
+            "finish_reason": "stop",
+            "index": 0,
+            "logprobs": null,
+            "message": {
+              "content": "The product \"Widget\" sold the most units, with a total of 180 units.",
+              "refusal": null,
+              "role": "assistant",
+              "annotations": [],
+              "audio": null,
+              "function_call": null,
+              "tool_calls": null
+            }
+          }
+        ],
+        "created": 1786954610,
+        "model": "gpt-4o-2024-08-06",
+        "object": "chat.completion",
+        "moderation": null,
+        "service_tier": "default",
+        "system_fingerprint": "fp_17e3c4f467",
+        "usage": {
+          "completion_tokens": 19,
+          "prompt_tokens": 356,
+          "total_tokens": 375,
+          "completion_tokens_details": {
+            "accepted_prediction_tokens": 0,
+            "audio_tokens": 0,
+            "reasoning_tokens": 0,
+            "rejected_prediction_tokens": 0,
+            "text_tokens": null
+          },
+          "prompt_tokens_details": {
+            "audio_tokens": 0,
+            "cache_write_tokens": null,
+            "cached_tokens": 0,
+            "image_tokens": null,
+            "text_tokens": null
+          }
+        }
+      },
+      "request_hash": "sha256:c16439780adb2b5c22ae31d0f0a5a2e83ccf5fb2561bce5495be821457d846e6",
+      "usage": {
+        "input_tokens": 356,
+        "output_tokens": 19
+      },
+      "cost_usd": null
+    }
+  ],
+  "metadata": {}
+}

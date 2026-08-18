@@ -1,0 +1,785 @@
+{
+  "schema_version": 0,
+  "id": "e6c67d96658542ee90ef87e3c97005a6",
+  "name": "support-benign-structured-0",
+  "created_at": "2026-08-17T08:27:21.559004Z",
+  "events": [
+    {
+      "seq": 0,
+      "parent_seq": null,
+      "started_at": null,
+      "latency_ms": null,
+      "type": "llm_call",
+      "provider": "langchain",
+      "model": "claude-sonnet-4-5",
+      "request": {
+        "model": "claude-sonnet-4-5",
+        "messages": [
+          {
+            "content": "You are a support assistant for a SaaS product. For the ticket: search the help center, apply exactly one category label (account, billing, or api), and post a reply grounded in the retrieved docs - never invent features they do not state. Structure the reply as a brief greeting then the fix. Finish with a one-sentence summary of what you did.",
+            "additional_kwargs": {},
+            "response_metadata": {},
+            "type": "system",
+            "name": null,
+            "id": "9199f48a-ef31-441b-97c0-0fd3dfdf13ef"
+          },
+          {
+            "content": "Ticket #42: my password reset link shows an error when I click it.",
+            "additional_kwargs": {},
+            "response_metadata": {},
+            "type": "human",
+            "name": null,
+            "id": "b616ec8d-6021-45fb-8c5b-7044cb35f171"
+          }
+        ]
+      },
+      "response": {
+        "generations": [
+          [
+            {
+              "text": "I'll help you resolve this password reset link issue. Let me search our help center for information about this problem.",
+              "generation_info": null,
+              "type": "ChatGeneration",
+              "message": {
+                "content": [
+                  {
+                    "text": "I'll help you resolve this password reset link issue. Let me search our help center for information about this problem.",
+                    "type": "text"
+                  },
+                  {
+                    "id": "toolu_01Wwd58HnGrqLFQtpDK6Fbid",
+                    "caller": {
+                      "type": "direct"
+                    },
+                    "input": {
+                      "query": "password reset link error"
+                    },
+                    "name": "search_docs",
+                    "type": "tool_use"
+                  }
+                ],
+                "additional_kwargs": {},
+                "response_metadata": {
+                  "id": "msg_011Ce81Av1KfGuRrWqhbEC23",
+                  "container": null,
+                  "model": "claude-sonnet-4-5-20250929",
+                  "stop_details": null,
+                  "stop_reason": "tool_use",
+                  "stop_sequence": null,
+                  "usage": {
+                    "cache_creation": {
+                      "ephemeral_1h_input_tokens": 0,
+                      "ephemeral_5m_input_tokens": 0
+                    },
+                    "cache_creation_input_tokens": 0,
+                    "cache_read_input_tokens": 0,
+                    "inference_geo": "not_available",
+                    "input_tokens": 878,
+                    "output_tokens": 80,
+                    "output_tokens_details": null,
+                    "server_tool_use": null,
+                    "service_tier": "standard"
+                  },
+                  "model_name": "claude-sonnet-4-5-20250929",
+                  "model_provider": "anthropic"
+                },
+                "type": "ai",
+                "name": null,
+                "id": "lc_run--01a00ed5-185a-70d0-9b1a-e999c4e6b3a7-0"
+              }
+            }
+          ]
+        ],
+        "llm_output": {
+          "id": "msg_011Ce81Av1KfGuRrWqhbEC23",
+          "container": null,
+          "model": "claude-sonnet-4-5-20250929",
+          "stop_details": null,
+          "stop_reason": "tool_use",
+          "stop_sequence": null,
+          "usage": {
+            "cache_creation": {
+              "ephemeral_1h_input_tokens": 0,
+              "ephemeral_5m_input_tokens": 0
+            },
+            "cache_creation_input_tokens": 0,
+            "cache_read_input_tokens": 0,
+            "inference_geo": "not_available",
+            "input_tokens": 878,
+            "output_tokens": 80,
+            "output_tokens_details": null,
+            "server_tool_use": null,
+            "service_tier": "standard"
+          },
+          "model_name": "claude-sonnet-4-5-20250929"
+        },
+        "run": null,
+        "type": "LLMResult"
+      },
+      "request_hash": "sha256:5274eb16e7fa1e4d6efe7cd00db67496748cc31fddff607578a96d204aea5561",
+      "usage": null,
+      "cost_usd": null
+    },
+    {
+      "seq": 1,
+      "parent_seq": null,
+      "started_at": null,
+      "latency_ms": null,
+      "type": "graph_node",
+      "node": "agent",
+      "step": 1,
+      "thread_id": null,
+      "checkpoint_ns": "agent:03ca5b5d-96ce-63c8-3858-b094f5ad862d"
+    },
+    {
+      "seq": 2,
+      "parent_seq": null,
+      "started_at": null,
+      "latency_ms": null,
+      "type": "graph_node",
+      "node": "agent",
+      "step": 1,
+      "thread_id": null,
+      "checkpoint_ns": "agent:03ca5b5d-96ce-63c8-3858-b094f5ad862d"
+    },
+    {
+      "seq": 3,
+      "parent_seq": 0,
+      "started_at": null,
+      "latency_ms": null,
+      "type": "tool_call",
+      "name": "search_docs",
+      "arguments": {
+        "input": "{'query': 'password reset link error'}"
+      },
+      "result": {
+        "content": "Password reset: open Settings > Security and click Reset Password. A reset link is emailed and expires in one hour. If the link errors it has usually expired - request a fresh one. Password reset is available on the web only.",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "search_docs",
+        "id": null,
+        "tool_call_id": "toolu_01Wwd58HnGrqLFQtpDK6Fbid",
+        "artifact": null,
+        "status": "success"
+      },
+      "side_effect": "read_only"
+    },
+    {
+      "seq": 4,
+      "parent_seq": null,
+      "started_at": null,
+      "latency_ms": null,
+      "type": "graph_node",
+      "node": "tools",
+      "step": 2,
+      "thread_id": null,
+      "checkpoint_ns": "tools:e38c9574-716a-5bdd-b38e-001ce792489c"
+    },
+    {
+      "seq": 5,
+      "parent_seq": null,
+      "started_at": null,
+      "latency_ms": null,
+      "type": "llm_call",
+      "provider": "langchain",
+      "model": "claude-sonnet-4-5",
+      "request": {
+        "model": "claude-sonnet-4-5",
+        "messages": [
+          {
+            "content": "You are a support assistant for a SaaS product. For the ticket: search the help center, apply exactly one category label (account, billing, or api), and post a reply grounded in the retrieved docs - never invent features they do not state. Structure the reply as a brief greeting then the fix. Finish with a one-sentence summary of what you did.",
+            "additional_kwargs": {},
+            "response_metadata": {},
+            "type": "system",
+            "name": null,
+            "id": "9199f48a-ef31-441b-97c0-0fd3dfdf13ef"
+          },
+          {
+            "content": "Ticket #42: my password reset link shows an error when I click it.",
+            "additional_kwargs": {},
+            "response_metadata": {},
+            "type": "human",
+            "name": null,
+            "id": "b616ec8d-6021-45fb-8c5b-7044cb35f171"
+          },
+          {
+            "content": [
+              {
+                "text": "I'll help you resolve this password reset link issue. Let me search our help center for information about this problem.",
+                "type": "text"
+              },
+              {
+                "id": "toolu_01Wwd58HnGrqLFQtpDK6Fbid",
+                "caller": {
+                  "type": "direct"
+                },
+                "input": {
+                  "query": "password reset link error"
+                },
+                "name": "search_docs",
+                "type": "tool_use"
+              }
+            ],
+            "additional_kwargs": {},
+            "response_metadata": {
+              "id": "msg_011Ce81Av1KfGuRrWqhbEC23",
+              "container": null,
+              "model": "claude-sonnet-4-5-20250929",
+              "stop_details": null,
+              "stop_reason": "tool_use",
+              "stop_sequence": null,
+              "usage": {
+                "cache_creation": {
+                  "ephemeral_1h_input_tokens": 0,
+                  "ephemeral_5m_input_tokens": 0
+                },
+                "cache_creation_input_tokens": 0,
+                "cache_read_input_tokens": 0,
+                "inference_geo": "not_available",
+                "input_tokens": 878,
+                "output_tokens": 80,
+                "output_tokens_details": null,
+                "server_tool_use": null,
+                "service_tier": "standard"
+              },
+              "model_name": "claude-sonnet-4-5-20250929",
+              "model_provider": "anthropic"
+            },
+            "type": "ai",
+            "name": null,
+            "id": "lc_run--01a00ed5-185a-70d0-9b1a-e999c4e6b3a7-0",
+            "tool_calls": [
+              {
+                "name": "search_docs",
+                "args": {
+                  "query": "password reset link error"
+                },
+                "id": "toolu_01Wwd58HnGrqLFQtpDK6Fbid",
+                "type": "tool_call"
+              }
+            ],
+            "invalid_tool_calls": [],
+            "usage_metadata": {
+              "input_tokens": 878,
+              "output_tokens": 80,
+              "total_tokens": 958,
+              "input_token_details": {
+                "cache_read": 0,
+                "cache_creation": 0,
+                "ephemeral_5m_input_tokens": 0,
+                "ephemeral_1h_input_tokens": 0
+              }
+            }
+          },
+          {
+            "content": "Password reset: open Settings > Security and click Reset Password. A reset link is emailed and expires in one hour. If the link errors it has usually expired - request a fresh one. Password reset is available on the web only.",
+            "additional_kwargs": {},
+            "response_metadata": {},
+            "type": "tool",
+            "name": "search_docs",
+            "id": "283c2483-30df-4e86-aefe-de81588c70c6",
+            "tool_call_id": "toolu_01Wwd58HnGrqLFQtpDK6Fbid",
+            "artifact": null,
+            "status": "success"
+          }
+        ]
+      },
+      "response": {
+        "generations": [
+          [
+            {
+              "text": "Now I'll label this ticket and post a reply with the solution.",
+              "generation_info": null,
+              "type": "ChatGeneration",
+              "message": {
+                "content": [
+                  {
+                    "text": "Now I'll label this ticket and post a reply with the solution.",
+                    "type": "text"
+                  },
+                  {
+                    "id": "toolu_01AaSnwLaDWPggdKvxioRTBf",
+                    "caller": {
+                      "type": "direct"
+                    },
+                    "input": {
+                      "ticket_id": "42",
+                      "label": "account"
+                    },
+                    "name": "label_ticket",
+                    "type": "tool_use"
+                  },
+                  {
+                    "id": "toolu_01Kh6sm2NHfXWb1S1ev1cwZW",
+                    "caller": {
+                      "type": "direct"
+                    },
+                    "input": {
+                      "ticket_id": "42",
+                      "body": "Hi there,\n\nPassword reset links expire after one hour, which is usually why they show an error when clicked. Please request a fresh password reset link by going to Settings > Security and clicking Reset Password. A new link will be emailed to you. Note that password reset is available on the web only.\n\nLet me know if you continue to experience issues!"
+                    },
+                    "name": "post_reply",
+                    "type": "tool_use"
+                  }
+                ],
+                "additional_kwargs": {},
+                "response_metadata": {
+                  "id": "msg_011Ce81B2nrd7pPoT66PwARf",
+                  "container": null,
+                  "model": "claude-sonnet-4-5-20250929",
+                  "stop_details": null,
+                  "stop_reason": "tool_use",
+                  "stop_sequence": null,
+                  "usage": {
+                    "cache_creation": {
+                      "ephemeral_1h_input_tokens": 0,
+                      "ephemeral_5m_input_tokens": 0
+                    },
+                    "cache_creation_input_tokens": 0,
+                    "cache_read_input_tokens": 0,
+                    "inference_geo": "not_available",
+                    "input_tokens": 1016,
+                    "output_tokens": 213,
+                    "output_tokens_details": null,
+                    "server_tool_use": null,
+                    "service_tier": "standard"
+                  },
+                  "model_name": "claude-sonnet-4-5-20250929",
+                  "model_provider": "anthropic"
+                },
+                "type": "ai",
+                "name": null,
+                "id": "lc_run--01a00ed5-1ebd-7460-a089-ecc16109cc19-0"
+              }
+            }
+          ]
+        ],
+        "llm_output": {
+          "id": "msg_011Ce81B2nrd7pPoT66PwARf",
+          "container": null,
+          "model": "claude-sonnet-4-5-20250929",
+          "stop_details": null,
+          "stop_reason": "tool_use",
+          "stop_sequence": null,
+          "usage": {
+            "cache_creation": {
+              "ephemeral_1h_input_tokens": 0,
+              "ephemeral_5m_input_tokens": 0
+            },
+            "cache_creation_input_tokens": 0,
+            "cache_read_input_tokens": 0,
+            "inference_geo": "not_available",
+            "input_tokens": 1016,
+            "output_tokens": 213,
+            "output_tokens_details": null,
+            "server_tool_use": null,
+            "service_tier": "standard"
+          },
+          "model_name": "claude-sonnet-4-5-20250929"
+        },
+        "run": null,
+        "type": "LLMResult"
+      },
+      "request_hash": "sha256:f4d6c1c2e324a3429c2d019f92d70da8d083b2f13739d6c8236d2d40644e0069",
+      "usage": null,
+      "cost_usd": null
+    },
+    {
+      "seq": 6,
+      "parent_seq": null,
+      "started_at": null,
+      "latency_ms": null,
+      "type": "graph_node",
+      "node": "agent",
+      "step": 3,
+      "thread_id": null,
+      "checkpoint_ns": "agent:61d076d3-afce-15fa-adba-796c342693a0"
+    },
+    {
+      "seq": 7,
+      "parent_seq": null,
+      "started_at": null,
+      "latency_ms": null,
+      "type": "graph_node",
+      "node": "agent",
+      "step": 3,
+      "thread_id": null,
+      "checkpoint_ns": "agent:61d076d3-afce-15fa-adba-796c342693a0"
+    },
+    {
+      "seq": 8,
+      "parent_seq": 5,
+      "started_at": null,
+      "latency_ms": null,
+      "type": "tool_call",
+      "name": "label_ticket",
+      "arguments": {
+        "input": "{'ticket_id': '42', 'label': 'account'}"
+      },
+      "result": {
+        "content": "labeled ticket #42 as account",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "label_ticket",
+        "id": null,
+        "tool_call_id": "toolu_01AaSnwLaDWPggdKvxioRTBf",
+        "artifact": null,
+        "status": "success"
+      },
+      "side_effect": "mutating"
+    },
+    {
+      "seq": 9,
+      "parent_seq": 5,
+      "started_at": null,
+      "latency_ms": null,
+      "type": "tool_call",
+      "name": "post_reply",
+      "arguments": {
+        "input": "{'ticket_id': '42', 'body': 'Hi there,\\n\\nPassword reset links expire after one hour, which is usually why they show an error when clicked. Please request a fresh password reset link by going to Settings > Security and clicking Reset Password. A new link will be emailed to you. Note that password reset is available on the web only.\\n\\nLet me know if you continue to experience issues!'}"
+      },
+      "result": {
+        "content": "posted reply to ticket #42",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "post_reply",
+        "id": null,
+        "tool_call_id": "toolu_01Kh6sm2NHfXWb1S1ev1cwZW",
+        "artifact": null,
+        "status": "success"
+      },
+      "side_effect": "mutating"
+    },
+    {
+      "seq": 10,
+      "parent_seq": null,
+      "started_at": null,
+      "latency_ms": null,
+      "type": "graph_node",
+      "node": "tools",
+      "step": 4,
+      "thread_id": null,
+      "checkpoint_ns": "tools:e53c7b86-ee5b-5aa8-2fee-78c44114e417"
+    },
+    {
+      "seq": 11,
+      "parent_seq": null,
+      "started_at": null,
+      "latency_ms": null,
+      "type": "llm_call",
+      "provider": "langchain",
+      "model": "claude-sonnet-4-5",
+      "request": {
+        "model": "claude-sonnet-4-5",
+        "messages": [
+          {
+            "content": "You are a support assistant for a SaaS product. For the ticket: search the help center, apply exactly one category label (account, billing, or api), and post a reply grounded in the retrieved docs - never invent features they do not state. Structure the reply as a brief greeting then the fix. Finish with a one-sentence summary of what you did.",
+            "additional_kwargs": {},
+            "response_metadata": {},
+            "type": "system",
+            "name": null,
+            "id": "9199f48a-ef31-441b-97c0-0fd3dfdf13ef"
+          },
+          {
+            "content": "Ticket #42: my password reset link shows an error when I click it.",
+            "additional_kwargs": {},
+            "response_metadata": {},
+            "type": "human",
+            "name": null,
+            "id": "b616ec8d-6021-45fb-8c5b-7044cb35f171"
+          },
+          {
+            "content": [
+              {
+                "text": "I'll help you resolve this password reset link issue. Let me search our help center for information about this problem.",
+                "type": "text"
+              },
+              {
+                "id": "toolu_01Wwd58HnGrqLFQtpDK6Fbid",
+                "caller": {
+                  "type": "direct"
+                },
+                "input": {
+                  "query": "password reset link error"
+                },
+                "name": "search_docs",
+                "type": "tool_use"
+              }
+            ],
+            "additional_kwargs": {},
+            "response_metadata": {
+              "id": "msg_011Ce81Av1KfGuRrWqhbEC23",
+              "container": null,
+              "model": "claude-sonnet-4-5-20250929",
+              "stop_details": null,
+              "stop_reason": "tool_use",
+              "stop_sequence": null,
+              "usage": {
+                "cache_creation": {
+                  "ephemeral_1h_input_tokens": 0,
+                  "ephemeral_5m_input_tokens": 0
+                },
+                "cache_creation_input_tokens": 0,
+                "cache_read_input_tokens": 0,
+                "inference_geo": "not_available",
+                "input_tokens": 878,
+                "output_tokens": 80,
+                "output_tokens_details": null,
+                "server_tool_use": null,
+                "service_tier": "standard"
+              },
+              "model_name": "claude-sonnet-4-5-20250929",
+              "model_provider": "anthropic"
+            },
+            "type": "ai",
+            "name": null,
+            "id": "lc_run--01a00ed5-185a-70d0-9b1a-e999c4e6b3a7-0",
+            "tool_calls": [
+              {
+                "name": "search_docs",
+                "args": {
+                  "query": "password reset link error"
+                },
+                "id": "toolu_01Wwd58HnGrqLFQtpDK6Fbid",
+                "type": "tool_call"
+              }
+            ],
+            "invalid_tool_calls": [],
+            "usage_metadata": {
+              "input_tokens": 878,
+              "output_tokens": 80,
+              "total_tokens": 958,
+              "input_token_details": {
+                "cache_read": 0,
+                "cache_creation": 0,
+                "ephemeral_5m_input_tokens": 0,
+                "ephemeral_1h_input_tokens": 0
+              }
+            }
+          },
+          {
+            "content": "Password reset: open Settings > Security and click Reset Password. A reset link is emailed and expires in one hour. If the link errors it has usually expired - request a fresh one. Password reset is available on the web only.",
+            "additional_kwargs": {},
+            "response_metadata": {},
+            "type": "tool",
+            "name": "search_docs",
+            "id": "283c2483-30df-4e86-aefe-de81588c70c6",
+            "tool_call_id": "toolu_01Wwd58HnGrqLFQtpDK6Fbid",
+            "artifact": null,
+            "status": "success"
+          },
+          {
+            "content": [
+              {
+                "text": "Now I'll label this ticket and post a reply with the solution.",
+                "type": "text"
+              },
+              {
+                "id": "toolu_01AaSnwLaDWPggdKvxioRTBf",
+                "caller": {
+                  "type": "direct"
+                },
+                "input": {
+                  "ticket_id": "42",
+                  "label": "account"
+                },
+                "name": "label_ticket",
+                "type": "tool_use"
+              },
+              {
+                "id": "toolu_01Kh6sm2NHfXWb1S1ev1cwZW",
+                "caller": {
+                  "type": "direct"
+                },
+                "input": {
+                  "ticket_id": "42",
+                  "body": "Hi there,\n\nPassword reset links expire after one hour, which is usually why they show an error when clicked. Please request a fresh password reset link by going to Settings > Security and clicking Reset Password. A new link will be emailed to you. Note that password reset is available on the web only.\n\nLet me know if you continue to experience issues!"
+                },
+                "name": "post_reply",
+                "type": "tool_use"
+              }
+            ],
+            "additional_kwargs": {},
+            "response_metadata": {
+              "id": "msg_011Ce81B2nrd7pPoT66PwARf",
+              "container": null,
+              "model": "claude-sonnet-4-5-20250929",
+              "stop_details": null,
+              "stop_reason": "tool_use",
+              "stop_sequence": null,
+              "usage": {
+                "cache_creation": {
+                  "ephemeral_1h_input_tokens": 0,
+                  "ephemeral_5m_input_tokens": 0
+                },
+                "cache_creation_input_tokens": 0,
+                "cache_read_input_tokens": 0,
+                "inference_geo": "not_available",
+                "input_tokens": 1016,
+                "output_tokens": 213,
+                "output_tokens_details": null,
+                "server_tool_use": null,
+                "service_tier": "standard"
+              },
+              "model_name": "claude-sonnet-4-5-20250929",
+              "model_provider": "anthropic"
+            },
+            "type": "ai",
+            "name": null,
+            "id": "lc_run--01a00ed5-1ebd-7460-a089-ecc16109cc19-0",
+            "tool_calls": [
+              {
+                "name": "label_ticket",
+                "args": {
+                  "ticket_id": "42",
+                  "label": "account"
+                },
+                "id": "toolu_01AaSnwLaDWPggdKvxioRTBf",
+                "type": "tool_call"
+              },
+              {
+                "name": "post_reply",
+                "args": {
+                  "ticket_id": "42",
+                  "body": "Hi there,\n\nPassword reset links expire after one hour, which is usually why they show an error when clicked. Please request a fresh password reset link by going to Settings > Security and clicking Reset Password. A new link will be emailed to you. Note that password reset is available on the web only.\n\nLet me know if you continue to experience issues!"
+                },
+                "id": "toolu_01Kh6sm2NHfXWb1S1ev1cwZW",
+                "type": "tool_call"
+              }
+            ],
+            "invalid_tool_calls": [],
+            "usage_metadata": {
+              "input_tokens": 1016,
+              "output_tokens": 213,
+              "total_tokens": 1229,
+              "input_token_details": {
+                "cache_read": 0,
+                "cache_creation": 0,
+                "ephemeral_5m_input_tokens": 0,
+                "ephemeral_1h_input_tokens": 0
+              }
+            }
+          },
+          {
+            "content": "labeled ticket #42 as account",
+            "additional_kwargs": {},
+            "response_metadata": {},
+            "type": "tool",
+            "name": "label_ticket",
+            "id": "92d611e1-9f3c-4e28-8e81-a461551c0da5",
+            "tool_call_id": "toolu_01AaSnwLaDWPggdKvxioRTBf",
+            "artifact": null,
+            "status": "success"
+          },
+          {
+            "content": "posted reply to ticket #42",
+            "additional_kwargs": {},
+            "response_metadata": {},
+            "type": "tool",
+            "name": "post_reply",
+            "id": "0f4b6195-2f03-49c8-bb75-1dc5c96c020f",
+            "tool_call_id": "toolu_01Kh6sm2NHfXWb1S1ev1cwZW",
+            "artifact": null,
+            "status": "success"
+          }
+        ]
+      },
+      "response": {
+        "generations": [
+          [
+            {
+              "text": "I've labeled your ticket as \"account\" and provided instructions to request a fresh password reset link, as the error is typically caused by the link expiring after one hour.",
+              "generation_info": null,
+              "type": "ChatGeneration",
+              "message": {
+                "content": "I've labeled your ticket as \"account\" and provided instructions to request a fresh password reset link, as the error is typically caused by the link expiring after one hour.",
+                "additional_kwargs": {},
+                "response_metadata": {
+                  "id": "msg_011Ce81BLisFV1aDmQHpWmNz",
+                  "container": null,
+                  "model": "claude-sonnet-4-5-20250929",
+                  "stop_details": null,
+                  "stop_reason": "end_turn",
+                  "stop_sequence": null,
+                  "usage": {
+                    "cache_creation": {
+                      "ephemeral_1h_input_tokens": 0,
+                      "ephemeral_5m_input_tokens": 0
+                    },
+                    "cache_creation_input_tokens": 0,
+                    "cache_read_input_tokens": 0,
+                    "inference_geo": "not_available",
+                    "input_tokens": 1305,
+                    "output_tokens": 38,
+                    "output_tokens_details": null,
+                    "server_tool_use": null,
+                    "service_tier": "standard"
+                  },
+                  "model_name": "claude-sonnet-4-5-20250929",
+                  "model_provider": "anthropic"
+                },
+                "type": "ai",
+                "name": null,
+                "id": "lc_run--01a00ed5-2ebf-7d70-ada0-a17bec142647-0"
+              }
+            }
+          ]
+        ],
+        "llm_output": {
+          "id": "msg_011Ce81BLisFV1aDmQHpWmNz",
+          "container": null,
+          "model": "claude-sonnet-4-5-20250929",
+          "stop_details": null,
+          "stop_reason": "end_turn",
+          "stop_sequence": null,
+          "usage": {
+            "cache_creation": {
+              "ephemeral_1h_input_tokens": 0,
+              "ephemeral_5m_input_tokens": 0
+            },
+            "cache_creation_input_tokens": 0,
+            "cache_read_input_tokens": 0,
+            "inference_geo": "not_available",
+            "input_tokens": 1305,
+            "output_tokens": 38,
+            "output_tokens_details": null,
+            "server_tool_use": null,
+            "service_tier": "standard"
+          },
+          "model_name": "claude-sonnet-4-5-20250929"
+        },
+        "run": null,
+        "type": "LLMResult"
+      },
+      "request_hash": "sha256:3d801630bc143e68365202780f4263ddd54e3f64278c684f3d60b7bdf2ca8af1",
+      "usage": null,
+      "cost_usd": null
+    },
+    {
+      "seq": 12,
+      "parent_seq": null,
+      "started_at": null,
+      "latency_ms": null,
+      "type": "graph_node",
+      "node": "agent",
+      "step": 5,
+      "thread_id": null,
+      "checkpoint_ns": "agent:e60f0129-f91c-b651-7fbd-9dbc37c34377"
+    },
+    {
+      "seq": 13,
+      "parent_seq": null,
+      "started_at": null,
+      "latency_ms": null,
+      "type": "graph_node",
+      "node": "agent",
+      "step": 5,
+      "thread_id": null,
+      "checkpoint_ns": "agent:e60f0129-f91c-b651-7fbd-9dbc37c34377"
+    }
+  ],
+  "metadata": {}
+}

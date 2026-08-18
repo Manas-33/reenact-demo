@@ -130,31 +130,41 @@ def test_clean_run_is_not_flagged() -> None:
     assert judge_failed is False
 
 
-def _stub_judge(*, passed: bool, score: float) -> Check:
-    """A criterion-shaped check that returns a scored result without a judge call."""
+def _scalar_judge(*, passed: bool, score: float) -> Check:
+    """A scalar-judge check: fills CheckResult.score (reenact's ``judged``)."""
 
     def check(_view: RunView) -> CheckResult:
-        return CheckResult(name="reply_grounded", passed=passed, score=score)
+        return CheckResult(name="judge", passed=passed, score=score)
+
+    return check
+
+
+def _criterion(*, passed: bool) -> Check:
+    """A structured criterion: named ``criterion:<id>``, no score (the evaluator)."""
+
+    def check(_view: RunView) -> CheckResult:
+        return CheckResult(name="criterion:reply_grounded", passed=passed)
 
     return check
 
 
 def test_score_splits_judge_from_deterministic() -> None:
-    # A failed *scored* check is a judge catch, never a deterministic one - the split
-    # is read off CheckResult.score, so the harness classifies the judge column right
-    # even though it never runs the judge itself.
+    # Both judge shapes count as judge catches, never deterministic: the scalar judge
+    # (carries a score) and the structured criterion (no score, but named
+    # 'criterion:...'). The criterion case is the one a score-only split misclassified.
     trajectory = _clean_refund()
-    deterministic_failed, judge_failed = score_recording(
-        trajectory, [_stub_judge(passed=False, score=0.2)]
+    assert score_recording(trajectory, [_scalar_judge(passed=False, score=0.2)]) == (
+        False,
+        True,
     )
-    assert deterministic_failed is False
-    assert judge_failed is True
+    assert score_recording(trajectory, [_criterion(passed=False)]) == (False, True)
 
-    # A passing judge criterion trips nothing.
-    assert score_recording(trajectory, [_stub_judge(passed=True, score=0.9)]) == (
+    # Passing judge checks of either shape trip nothing.
+    assert score_recording(trajectory, [_scalar_judge(passed=True, score=0.9)]) == (
         False,
         False,
     )
+    assert score_recording(trajectory, [_criterion(passed=True)]) == (False, False)
 
 
 def test_aggregate_reports_three_columns_and_fpr() -> None:

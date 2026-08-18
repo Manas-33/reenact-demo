@@ -30,7 +30,7 @@ cassette = "../scenarios/q4-revenue.json"
   # answer must come from the query results. Needs a key at eval time.
   [[scenario.criterion]]
   id = "answer_grounded"
-  question = "Is every number in the final answer present in the results the agent got back from run_query, rather than estimated or invented?"
+  question = "Is every number and factual claim in the answer directly supported by the run_query results? Answer no if the answer adds any figure, comparison, trend, benchmark, or interpretation the query results do not contain."
 
 [[scenario]]
 name = "analyst-top-product"
@@ -51,7 +51,7 @@ cassette = "../scenarios/top-product.json"
 
   [[scenario.criterion]]
   id = "answer_grounded"
-  question = "Is every number in the final answer present in the results the agent got back from run_query, rather than estimated or invented?"
+  question = "Is every number and factual claim in the answer directly supported by the run_query results? Answer no if the answer adds any figure, comparison, trend, benchmark, or interpretation the query results do not contain."
 
 [[scenario]]
 name = "analyst-west-revenue"
@@ -72,4 +72,4 @@ cassette = "../scenarios/west-revenue.json"
 
   [[scenario.criterion]]
   id = "answer_grounded"
-  question = "Is every number in the final answer present in the results the agent got back from run_query, rather than estimated or invented?"
+  question = "Is every number and factual claim in the answer directly supported by the run_query results? Answer no if the answer adds any figure, comparison, trend, benchmark, or interpretation the query results do not contain."

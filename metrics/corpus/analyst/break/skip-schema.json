@@ -1,0 +1,638 @@
+{
+  "schema_version": 0,
+  "id": "884dbe5d6a164dcea7b3ef24b4300b93",
+  "name": "analyst-skip-schema",
+  "created_at": "2026-08-17T08:15:49.646976Z",
+  "events": [
+    {
+      "seq": 0,
+      "parent_seq": null,
+      "started_at": null,
+      "latency_ms": 2081.5445417538285,
+      "type": "llm_call",
+      "provider": "openai",
+      "model": "gpt-4o",
+      "request": {
+        "model": "gpt-4o",
+        "messages": [
+          {
+            "role": "system",
+            "content": "You are a data analyst. Answer using the database: call run_query with a SQL SELECT to get the figures, then answer. No need to inspect the schema first. Every number in your answer must come from the query results."
+          },
+          {
+            "role": "user",
+            "content": "What was our total revenue in Q4?"
+          }
+        ],
+        "tools": [
+          {
+            "type": "function",
+            "function": {
+              "name": "get_schema",
+              "description": "Return the sales table's columns and types.",
+              "parameters": {
+                "type": "object",
+                "properties": {}
+              }
+            }
+          },
+          {
+            "type": "function",
+            "function": {
+              "name": "run_query",
+              "description": "Run a read-only SQL SELECT and return the rows.",
+              "parameters": {
+                "type": "object",
+                "properties": {
+                  "sql": {
+                    "type": "string",
+                    "description": "A single SQL SELECT statement."
+                  }
+                },
+                "required": [
+                  "sql"
+                ]
+              }
+            }
+          }
+        ]
+      },
+      "response": {
+        "id": "chatcmpl-EDmnXmutKJfPPr7LnLAIXOjIWs0ti",
+        "choices": [
+          {
+            "finish_reason": "tool_calls",
+            "index": 0,
+            "logprobs": null,
+            "message": {
+              "content": null,
+              "refusal": null,
+              "role": "assistant",
+              "annotations": [],
+              "audio": null,
+              "function_call": null,
+              "tool_calls": [
+                {
+                  "id": "call_UqL9efQHfL4DshFDxMZRxRvK",
+                  "function": {
+                    "arguments": "{\"sql\":\"SELECT SUM(revenue) as total_revenue FROM sales WHERE sale_date >= '2023-10-01' AND sale_date < '2024-01-01'\"}",
+                    "name": "run_query"
+                  },
+                  "type": "function"
+                }
+              ]
+            }
+          }
+        ],
+        "created": 1786954551,
+        "model": "gpt-4o-2024-08-06",
+        "object": "chat.completion",
+        "moderation": null,
+        "service_tier": "default",
+        "system_fingerprint": "fp_17e3c4f467",
+        "usage": {
+          "completion_tokens": 48,
+          "prompt_tokens": 127,
+          "total_tokens": 175,
+          "completion_tokens_details": {
+            "accepted_prediction_tokens": 0,
+            "audio_tokens": 0,
+            "reasoning_tokens": 0,
+            "rejected_prediction_tokens": 0,
+            "text_tokens": null
+          },
+          "prompt_tokens_details": {
+            "audio_tokens": 0,
+            "cache_write_tokens": null,
+            "cached_tokens": 0,
+            "image_tokens": null,
+            "text_tokens": null
+          }
+        }
+      },
+      "request_hash": "sha256:0866e9be6cddfed0fc329a38e7cc72674406c810657f82dfed7566ac9c661702",
+      "usage": {
+        "input_tokens": 127,
+        "output_tokens": 48
+      },
+      "cost_usd": null
+    },
+    {
+      "seq": 1,
+      "parent_seq": 0,
+      "started_at": null,
+      "latency_ms": null,
+      "type": "tool_call",
+      "name": "run_query",
+      "arguments": {
+        "sql": "SELECT SUM(revenue) as total_revenue FROM sales WHERE sale_date >= '2023-10-01' AND sale_date < '2024-01-01'"
+      },
+      "result": {
+        "error": "query failed: no such column: sale_date"
+      },
+      "side_effect": "read_only"
+    },
+    {
+      "seq": 2,
+      "parent_seq": null,
+      "started_at": null,
+      "latency_ms": 761.8265422061086,
+      "type": "llm_call",
+      "provider": "openai",
+      "model": "gpt-4o",
+      "request": {
+        "model": "gpt-4o",
+        "messages": [
+          {
+            "role": "system",
+            "content": "You are a data analyst. Answer using the database: call run_query with a SQL SELECT to get the figures, then answer. No need to inspect the schema first. Every number in your answer must come from the query results."
+          },
+          {
+            "role": "user",
+            "content": "What was our total revenue in Q4?"
+          },
+          {
+            "role": "assistant",
+            "tool_calls": [
+              {
+                "id": "call_UqL9efQHfL4DshFDxMZRxRvK",
+                "type": "function",
+                "function": {
+                  "name": "run_query",
+                  "arguments": "{\"sql\":\"SELECT SUM(revenue) as total_revenue FROM sales WHERE sale_date >= '2023-10-01' AND sale_date < '2024-01-01'\"}"
+                }
+              }
+            ]
+          },
+          {
+            "role": "tool",
+            "tool_call_id": "call_UqL9efQHfL4DshFDxMZRxRvK",
+            "content": "{\"error\": \"query failed: no such column: sale_date\"}"
+          }
+        ],
+        "tools": [
+          {
+            "type": "function",
+            "function": {
+              "name": "get_schema",
+              "description": "Return the sales table's columns and types.",
+              "parameters": {
+                "type": "object",
+                "properties": {}
+              }
+            }
+          },
+          {
+            "type": "function",
+            "function": {
+              "name": "run_query",
+              "description": "Run a read-only SQL SELECT and return the rows.",
+              "parameters": {
+                "type": "object",
+                "properties": {
+                  "sql": {
+                    "type": "string",
+                    "description": "A single SQL SELECT statement."
+                  }
+                },
+                "required": [
+                  "sql"
+                ]
+              }
+            }
+          }
+        ]
+      },
+      "response": {
+        "id": "chatcmpl-EDmnY04eOXyLjWIB6CVwAS0DmbFsQ",
+        "choices": [
+          {
+            "finish_reason": "tool_calls",
+            "index": 0,
+            "logprobs": null,
+            "message": {
+              "content": null,
+              "refusal": null,
+              "role": "assistant",
+              "annotations": [],
+              "audio": null,
+              "function_call": null,
+              "tool_calls": [
+                {
+                  "id": "call_u0ntjZWkndwJaTFc9BEJn5Tt",
+                  "function": {
+                    "arguments": "{}",
+                    "name": "get_schema"
+                  },
+                  "type": "function"
+                }
+              ]
+            }
+          }
+        ],
+        "created": 1786954552,
+        "model": "gpt-4o-2024-08-06",
+        "object": "chat.completion",
+        "moderation": null,
+        "service_tier": "default",
+        "system_fingerprint": "fp_17e3c4f467",
+        "usage": {
+          "completion_tokens": 10,
+          "prompt_tokens": 197,
+          "total_tokens": 207,
+          "completion_tokens_details": {
+            "accepted_prediction_tokens": 0,
+            "audio_tokens": 0,
+            "reasoning_tokens": 0,
+            "rejected_prediction_tokens": 0,
+            "text_tokens": null
+          },
+          "prompt_tokens_details": {
+            "audio_tokens": 0,
+            "cache_write_tokens": null,
+            "cached_tokens": 0,
+            "image_tokens": null,
+            "text_tokens": null
+          }
+        }
+      },
+      "request_hash": "sha256:32badd6b4a134cd11a0c10427bee1fe9cbd2df2889cea3ddd4df9fd99408ba6c",
+      "usage": {
+        "input_tokens": 197,
+        "output_tokens": 10
+      },
+      "cost_usd": null
+    },
+    {
+      "seq": 3,
+      "parent_seq": 2,
+      "started_at": null,
+      "latency_ms": null,
+      "type": "tool_call",
+      "name": "get_schema",
+      "arguments": {},
+      "result": {
+        "table": "sales",
+        "columns": [
+          {
+            "name": "id",
+            "type": "INTEGER"
+          },
+          {
+            "name": "region",
+            "type": "TEXT"
+          },
+          {
+            "name": "product",
+            "type": "TEXT"
+          },
+          {
+            "name": "units",
+            "type": "INTEGER"
+          },
+          {
+            "name": "revenue",
+            "type": "REAL"
+          },
+          {
+            "name": "quarter",
+            "type": "TEXT"
+          }
+        ],
+        "ddl": "CREATE TABLE sales (\n  id INTEGER PRIMARY KEY,\n  region TEXT NOT NULL,\n  product TEXT NOT NULL,\n  units INTEGER NOT NULL,\n  revenue REAL NOT NULL,\n  quarter TEXT NOT NULL\n)"
+      },
+      "side_effect": "read_only"
+    },
+    {
+      "seq": 4,
+      "parent_seq": null,
+      "started_at": null,
+      "latency_ms": 1229.4243331998587,
+      "type": "llm_call",
+      "provider": "openai",
+      "model": "gpt-4o",
+      "request": {
+        "model": "gpt-4o",
+        "messages": [
+          {
+            "role": "system",
+            "content": "You are a data analyst. Answer using the database: call run_query with a SQL SELECT to get the figures, then answer. No need to inspect the schema first. Every number in your answer must come from the query results."
+          },
+          {
+            "role": "user",
+            "content": "What was our total revenue in Q4?"
+          },
+          {
+            "role": "assistant",
+            "tool_calls": [
+              {
+                "id": "call_UqL9efQHfL4DshFDxMZRxRvK",
+                "type": "function",
+                "function": {
+                  "name": "run_query",
+                  "arguments": "{\"sql\":\"SELECT SUM(revenue) as total_revenue FROM sales WHERE sale_date >= '2023-10-01' AND sale_date < '2024-01-01'\"}"
+                }
+              }
+            ]
+          },
+          {
+            "role": "tool",
+            "tool_call_id": "call_UqL9efQHfL4DshFDxMZRxRvK",
+            "content": "{\"error\": \"query failed: no such column: sale_date\"}"
+          },
+          {
+            "role": "assistant",
+            "tool_calls": [
+              {
+                "id": "call_u0ntjZWkndwJaTFc9BEJn5Tt",
+                "type": "function",
+                "function": {
+                  "name": "get_schema",
+                  "arguments": "{}"
+                }
+              }
+            ]
+          },
+          {
+            "role": "tool",
+            "tool_call_id": "call_u0ntjZWkndwJaTFc9BEJn5Tt",
+            "content": "{\"table\": \"sales\", \"columns\": [{\"name\": \"id\", \"type\": \"INTEGER\"}, {\"name\": \"region\", \"type\": \"TEXT\"}, {\"name\": \"product\", \"type\": \"TEXT\"}, {\"name\": \"units\", \"type\": \"INTEGER\"}, {\"name\": \"revenue\", \"type\": \"REAL\"}, {\"name\": \"quarter\", \"type\": \"TEXT\"}], \"ddl\": \"CREATE TABLE sales (\\n  id INTEGER PRIMARY KEY,\\n  region TEXT NOT NULL,\\n  product TEXT NOT NULL,\\n  units INTEGER NOT NULL,\\n  revenue REAL NOT NULL,\\n  quarter TEXT NOT NULL\\n)\"}"
+          }
+        ],
+        "tools": [
+          {
+            "type": "function",
+            "function": {
+              "name": "get_schema",
+              "description": "Return the sales table's columns and types.",
+              "parameters": {
+                "type": "object",
+                "properties": {}
+              }
+            }
+          },
+          {
+            "type": "function",
+            "function": {
+              "name": "run_query",
+              "description": "Run a read-only SQL SELECT and return the rows.",
+              "parameters": {
+                "type": "object",
+                "properties": {
+                  "sql": {
+                    "type": "string",
+                    "description": "A single SQL SELECT statement."
+                  }
+                },
+                "required": [
+                  "sql"
+                ]
+              }
+            }
+          }
+        ]
+      },
+      "response": {
+        "id": "chatcmpl-EDmnZbb9kPVTGl3UJiu3Li59AnLWT",
+        "choices": [
+          {
+            "finish_reason": "tool_calls",
+            "index": 0,
+            "logprobs": null,
+            "message": {
+              "content": null,
+              "refusal": null,
+              "role": "assistant",
+              "annotations": [],
+              "audio": null,
+              "function_call": null,
+              "tool_calls": [
+                {
+                  "id": "call_GJipWk7YbVwvOooz5dWp066H",
+                  "function": {
+                    "arguments": "{\"sql\":\"SELECT SUM(revenue) as total_revenue FROM sales WHERE quarter = 'Q4'\"}",
+                    "name": "run_query"
+                  },
+                  "type": "function"
+                }
+              ]
+            }
+          }
+        ],
+        "created": 1786954553,
+        "model": "gpt-4o-2024-08-06",
+        "object": "chat.completion",
+        "moderation": null,
+        "service_tier": "default",
+        "system_fingerprint": "fp_17e3c4f467",
+        "usage": {
+          "completion_tokens": 31,
+          "prompt_tokens": 350,
+          "total_tokens": 381,
+          "completion_tokens_details": {
+            "accepted_prediction_tokens": 0,
+            "audio_tokens": 0,
+            "reasoning_tokens": 0,
+            "rejected_prediction_tokens": 0,
+            "text_tokens": null
+          },
+          "prompt_tokens_details": {
+            "audio_tokens": 0,
+            "cache_write_tokens": null,
+            "cached_tokens": 0,
+            "image_tokens": null,
+            "text_tokens": null
+          }
+        }
+      },
+      "request_hash": "sha256:58b0b7a69ee957242837a471f9307d2573ba4a9e84dbd4bb696dfa46c88667e0",
+      "usage": {
+        "input_tokens": 350,
+        "output_tokens": 31
+      },
+      "cost_usd": null
+    },
+    {
+      "seq": 5,
+      "parent_seq": 4,
+      "started_at": null,
+      "latency_ms": null,
+      "type": "tool_call",
+      "name": "run_query",
+      "arguments": {
+        "sql": "SELECT SUM(revenue) as total_revenue FROM sales WHERE quarter = 'Q4'"
+      },
+      "result": {
+        "columns": [
+          "total_revenue"
+        ],
+        "rows": [
+          {
+            "total_revenue": 15400.0
+          }
+        ],
+        "row_count": 1
+      },
+      "side_effect": "read_only"
+    },
+    {
+      "seq": 6,
+      "parent_seq": null,
+      "started_at": null,
+      "latency_ms": 1180.6477499194443,
+      "type": "llm_call",
+      "provider": "openai",
+      "model": "gpt-4o",
+      "request": {
+        "model": "gpt-4o",
+        "messages": [
+          {
+            "role": "system",
+            "content": "You are a data analyst. Answer using the database: call run_query with a SQL SELECT to get the figures, then answer. No need to inspect the schema first. Every number in your answer must come from the query results."
+          },
+          {
+            "role": "user",
+            "content": "What was our total revenue in Q4?"
+          },
+          {
+            "role": "assistant",
+            "tool_calls": [
+              {
+                "id": "call_UqL9efQHfL4DshFDxMZRxRvK",
+                "type": "function",
+                "function": {
+                  "name": "run_query",
+                  "arguments": "{\"sql\":\"SELECT SUM(revenue) as total_revenue FROM sales WHERE sale_date >= '2023-10-01' AND sale_date < '2024-01-01'\"}"
+                }
+              }
+            ]
+          },
+          {
+            "role": "tool",
+            "tool_call_id": "call_UqL9efQHfL4DshFDxMZRxRvK",
+            "content": "{\"error\": \"query failed: no such column: sale_date\"}"
+          },
+          {
+            "role": "assistant",
+            "tool_calls": [
+              {
+                "id": "call_u0ntjZWkndwJaTFc9BEJn5Tt",
+                "type": "function",
+                "function": {
+                  "name": "get_schema",
+                  "arguments": "{}"
+                }
+              }
+            ]
+          },
+          {
+            "role": "tool",
+            "tool_call_id": "call_u0ntjZWkndwJaTFc9BEJn5Tt",
+            "content": "{\"table\": \"sales\", \"columns\": [{\"name\": \"id\", \"type\": \"INTEGER\"}, {\"name\": \"region\", \"type\": \"TEXT\"}, {\"name\": \"product\", \"type\": \"TEXT\"}, {\"name\": \"units\", \"type\": \"INTEGER\"}, {\"name\": \"revenue\", \"type\": \"REAL\"}, {\"name\": \"quarter\", \"type\": \"TEXT\"}], \"ddl\": \"CREATE TABLE sales (\\n  id INTEGER PRIMARY KEY,\\n  region TEXT NOT NULL,\\n  product TEXT NOT NULL,\\n  units INTEGER NOT NULL,\\n  revenue REAL NOT NULL,\\n  quarter TEXT NOT NULL\\n)\"}"
+          },
+          {
+            "role": "assistant",
+            "tool_calls": [
+              {
+                "id": "call_GJipWk7YbVwvOooz5dWp066H",
+                "type": "function",
+                "function": {
+                  "name": "run_query",
+                  "arguments": "{\"sql\":\"SELECT SUM(revenue) as total_revenue FROM sales WHERE quarter = 'Q4'\"}"
+                }
+              }
+            ]
+          },
+          {
+            "role": "tool",
+            "tool_call_id": "call_GJipWk7YbVwvOooz5dWp066H",
+            "content": "{\"columns\": [\"total_revenue\"], \"rows\": [{\"total_revenue\": 15400.0}], \"row_count\": 1}"
+          }
+        ],
+        "tools": [
+          {
+            "type": "function",
+            "function": {
+              "name": "get_schema",
+              "description": "Return the sales table's columns and types.",
+              "parameters": {
+                "type": "object",
+                "properties": {}
+              }
+            }
+          },
+          {
+            "type": "function",
+            "function": {
+              "name": "run_query",
+              "description": "Run a read-only SQL SELECT and return the rows.",
+              "parameters": {
+                "type": "object",
+                "properties": {
+                  "sql": {
+                    "type": "string",
+                    "description": "A single SQL SELECT statement."
+                  }
+                },
+                "required": [
+                  "sql"
+                ]
+              }
+            }
+          }
+        ]
+      },
+      "response": {
+        "id": "chatcmpl-EDmnaLlkXSnX5cyyjQfTe1UNreE5X",
+        "choices": [
+          {
+            "finish_reason": "stop",
+            "index": 0,
+            "logprobs": null,
+            "message": {
+              "content": "Our total revenue in Q4 was 15,400.0.",
+              "refusal": null,
+              "role": "assistant",
+              "annotations": [],
+              "audio": null,
+              "function_call": null,
+              "tool_calls": null
+            }
+          }
+        ],
+        "created": 1786954554,
+        "model": "gpt-4o-2024-08-06",
+        "object": "chat.completion",
+        "moderation": null,
+        "service_tier": "default",
+        "system_fingerprint": "fp_17e3c4f467",
+        "usage": {
+          "completion_tokens": 15,
+          "prompt_tokens": 418,
+          "total_tokens": 433,
+          "completion_tokens_details": {
+            "accepted_prediction_tokens": 0,
+            "audio_tokens": 0,
+            "reasoning_tokens": 0,
+            "rejected_prediction_tokens": 0,
+            "text_tokens": null
+          },
+          "prompt_tokens_details": {
+            "audio_tokens": 0,
+            "cache_write_tokens": null,
+            "cached_tokens": 0,
+            "image_tokens": null,
+            "text_tokens": null
+          }
+        }
+      },
+      "request_hash": "sha256:f97f7f42daa616adfb56141c2b1db50758733052ead0427b6a464c8df9e9138e",
+      "usage": {
+        "input_tokens": 418,
+        "output_tokens": 15
+      },
+      "cost_usd": null
+    }
+  ],
+  "metadata": {}
+}

@@ -1,0 +1,1177 @@
+{
+  "schema_version": 0,
+  "id": "2c2b4033ba2f4fb0909f19441b44b515",
+  "name": "support-benign-reordered-1",
+  "created_at": "2026-08-17T08:26:29.028532Z",
+  "events": [
+    {
+      "seq": 0,
+      "parent_seq": null,
+      "started_at": null,
+      "latency_ms": null,
+      "type": "llm_call",
+      "provider": "langchain",
+      "model": "claude-sonnet-4-5",
+      "request": {
+        "model": "claude-sonnet-4-5",
+        "messages": [
+          {
+            "content": "You are a support assistant for a SaaS product. Always ground your reply in the help-center articles - never invent features, tiers, or policies they do not state. To do that, first search the help center, then apply exactly one category label (account, billing, or api), then post a short grounded reply, and finish with a one-sentence summary.",
+            "additional_kwargs": {},
+            "response_metadata": {},
+            "type": "system",
+            "name": null,
+            "id": "4226b0b2-aff0-4917-bb6f-36a6043f7fbe"
+          },
+          {
+            "content": "Ticket #71: I forgot my password; no reset email arrives.",
+            "additional_kwargs": {},
+            "response_metadata": {},
+            "type": "human",
+            "name": null,
+            "id": "f610f740-5ff6-4446-8525-19512d977c45"
+          }
+        ]
+      },
+      "response": {
+        "generations": [
+          [
+            {
+              "text": "I'll help you with this password reset issue. Let me search our help center for information about password resets and then provide you with a solution.",
+              "generation_info": null,
+              "type": "ChatGeneration",
+              "message": {
+                "content": [
+                  {
+                    "text": "I'll help you with this password reset issue. Let me search our help center for information about password resets and then provide you with a solution.",
+                    "type": "text"
+                  },
+                  {
+                    "id": "toolu_01P6gcZZhjYXXkrX6X585RbH",
+                    "caller": {
+                      "type": "direct"
+                    },
+                    "input": {
+                      "query": "password reset email not arriving"
+                    },
+                    "name": "search_docs",
+                    "type": "tool_use"
+                  }
+                ],
+                "additional_kwargs": {},
+                "response_metadata": {
+                  "id": "msg_011Ce8173GXBy5SwtBX3abzH",
+                  "container": null,
+                  "model": "claude-sonnet-4-5-20250929",
+                  "stop_details": null,
+                  "stop_reason": "tool_use",
+                  "stop_sequence": null,
+                  "usage": {
+                    "cache_creation": {
+                      "ephemeral_1h_input_tokens": 0,
+                      "ephemeral_5m_input_tokens": 0
+                    },
+                    "cache_creation_input_tokens": 0,
+                    "cache_read_input_tokens": 0,
+                    "inference_geo": "not_available",
+                    "input_tokens": 877,
+                    "output_tokens": 88,
+                    "output_tokens_details": null,
+                    "server_tool_use": null,
+                    "service_tier": "standard"
+                  },
+                  "model_name": "claude-sonnet-4-5-20250929",
+                  "model_provider": "anthropic"
+                },
+                "type": "ai",
+                "name": null,
+                "id": "lc_run--01a00ed4-4b27-79a3-ab7b-b41a5840e948-0"
+              }
+            }
+          ]
+        ],
+        "llm_output": {
+          "id": "msg_011Ce8173GXBy5SwtBX3abzH",
+          "container": null,
+          "model": "claude-sonnet-4-5-20250929",
+          "stop_details": null,
+          "stop_reason": "tool_use",
+          "stop_sequence": null,
+          "usage": {
+            "cache_creation": {
+              "ephemeral_1h_input_tokens": 0,
+              "ephemeral_5m_input_tokens": 0
+            },
+            "cache_creation_input_tokens": 0,
+            "cache_read_input_tokens": 0,
+            "inference_geo": "not_available",
+            "input_tokens": 877,
+            "output_tokens": 88,
+            "output_tokens_details": null,
+            "server_tool_use": null,
+            "service_tier": "standard"
+          },
+          "model_name": "claude-sonnet-4-5-20250929"
+        },
+        "run": null,
+        "type": "LLMResult"
+      },
+      "request_hash": "sha256:ad568c76134bc3c882c2cb6ca72fc7d207fc6549852dd45274679a1a8b61685d",
+      "usage": null,
+      "cost_usd": null
+    },
+    {
+      "seq": 1,
+      "parent_seq": null,
+      "started_at": null,
+      "latency_ms": null,
+      "type": "graph_node",
+      "node": "agent",
+      "step": 1,
+      "thread_id": null,
+      "checkpoint_ns": "agent:8e7fcb0c-249b-a114-f5e1-dbda526748de"
+    },
+    {
+      "seq": 2,
+      "parent_seq": null,
+      "started_at": null,
+      "latency_ms": null,
+      "type": "graph_node",
+      "node": "agent",
+      "step": 1,
+      "thread_id": null,
+      "checkpoint_ns": "agent:8e7fcb0c-249b-a114-f5e1-dbda526748de"
+    },
+    {
+      "seq": 3,
+      "parent_seq": 0,
+      "started_at": null,
+      "latency_ms": null,
+      "type": "tool_call",
+      "name": "search_docs",
+      "arguments": {
+        "input": "{'query': 'password reset email not arriving'}"
+      },
+      "result": {
+        "content": "Password reset: open Settings > Security and click Reset Password. A reset link is emailed and expires in one hour. If the link errors it has usually expired - request a fresh one. Password reset is available on the web only.",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "search_docs",
+        "id": null,
+        "tool_call_id": "toolu_01P6gcZZhjYXXkrX6X585RbH",
+        "artifact": null,
+        "status": "success"
+      },
+      "side_effect": "read_only"
+    },
+    {
+      "seq": 4,
+      "parent_seq": null,
+      "started_at": null,
+      "latency_ms": null,
+      "type": "graph_node",
+      "node": "tools",
+      "step": 2,
+      "thread_id": null,
+      "checkpoint_ns": "tools:2020a5e3-66fa-6b33-c32a-5d6fef3baad9"
+    },
+    {
+      "seq": 5,
+      "parent_seq": null,
+      "started_at": null,
+      "latency_ms": null,
+      "type": "llm_call",
+      "provider": "langchain",
+      "model": "claude-sonnet-4-5",
+      "request": {
+        "model": "claude-sonnet-4-5",
+        "messages": [
+          {
+            "content": "You are a support assistant for a SaaS product. Always ground your reply in the help-center articles - never invent features, tiers, or policies they do not state. To do that, first search the help center, then apply exactly one category label (account, billing, or api), then post a short grounded reply, and finish with a one-sentence summary.",
+            "additional_kwargs": {},
+            "response_metadata": {},
+            "type": "system",
+            "name": null,
+            "id": "4226b0b2-aff0-4917-bb6f-36a6043f7fbe"
+          },
+          {
+            "content": "Ticket #71: I forgot my password; no reset email arrives.",
+            "additional_kwargs": {},
+            "response_metadata": {},
+            "type": "human",
+            "name": null,
+            "id": "f610f740-5ff6-4446-8525-19512d977c45"
+          },
+          {
+            "content": [
+              {
+                "text": "I'll help you with this password reset issue. Let me search our help center for information about password resets and then provide you with a solution.",
+                "type": "text"
+              },
+              {
+                "id": "toolu_01P6gcZZhjYXXkrX6X585RbH",
+                "caller": {
+                  "type": "direct"
+                },
+                "input": {
+                  "query": "password reset email not arriving"
+                },
+                "name": "search_docs",
+                "type": "tool_use"
+              }
+            ],
+            "additional_kwargs": {},
+            "response_metadata": {
+              "id": "msg_011Ce8173GXBy5SwtBX3abzH",
+              "container": null,
+              "model": "claude-sonnet-4-5-20250929",
+              "stop_details": null,
+              "stop_reason": "tool_use",
+              "stop_sequence": null,
+              "usage": {
+                "cache_creation": {
+                  "ephemeral_1h_input_tokens": 0,
+                  "ephemeral_5m_input_tokens": 0
+                },
+                "cache_creation_input_tokens": 0,
+                "cache_read_input_tokens": 0,
+                "inference_geo": "not_available",
+                "input_tokens": 877,
+                "output_tokens": 88,
+                "output_tokens_details": null,
+                "server_tool_use": null,
+                "service_tier": "standard"
+              },
+              "model_name": "claude-sonnet-4-5-20250929",
+              "model_provider": "anthropic"
+            },
+            "type": "ai",
+            "name": null,
+            "id": "lc_run--01a00ed4-4b27-79a3-ab7b-b41a5840e948-0",
+            "tool_calls": [
+              {
+                "name": "search_docs",
+                "args": {
+                  "query": "password reset email not arriving"
+                },
+                "id": "toolu_01P6gcZZhjYXXkrX6X585RbH",
+                "type": "tool_call"
+              }
+            ],
+            "invalid_tool_calls": [],
+            "usage_metadata": {
+              "input_tokens": 877,
+              "output_tokens": 88,
+              "total_tokens": 965,
+              "input_token_details": {
+                "cache_read": 0,
+                "cache_creation": 0,
+                "ephemeral_5m_input_tokens": 0,
+                "ephemeral_1h_input_tokens": 0
+              }
+            }
+          },
+          {
+            "content": "Password reset: open Settings > Security and click Reset Password. A reset link is emailed and expires in one hour. If the link errors it has usually expired - request a fresh one. Password reset is available on the web only.",
+            "additional_kwargs": {},
+            "response_metadata": {},
+            "type": "tool",
+            "name": "search_docs",
+            "id": "0bdfd64e-47df-453b-8c1d-1c5d8b37f4fd",
+            "tool_call_id": "toolu_01P6gcZZhjYXXkrX6X585RbH",
+            "artifact": null,
+            "status": "success"
+          }
+        ]
+      },
+      "response": {
+        "generations": [
+          [
+            {
+              "text": "",
+              "generation_info": null,
+              "type": "ChatGeneration",
+              "message": {
+                "content": [
+                  {
+                    "id": "toolu_01GvRM9P2giTSKoJhD4aBQsN",
+                    "caller": {
+                      "type": "direct"
+                    },
+                    "input": {
+                      "query": "email not received missing spam folder"
+                    },
+                    "name": "search_docs",
+                    "type": "tool_use"
+                  }
+                ],
+                "additional_kwargs": {},
+                "response_metadata": {
+                  "id": "msg_011Ce817Agkw55ruc8rjpKod",
+                  "container": null,
+                  "model": "claude-sonnet-4-5-20250929",
+                  "stop_details": null,
+                  "stop_reason": "tool_use",
+                  "stop_sequence": null,
+                  "usage": {
+                    "cache_creation": {
+                      "ephemeral_1h_input_tokens": 0,
+                      "ephemeral_5m_input_tokens": 0
+                    },
+                    "cache_creation_input_tokens": 0,
+                    "cache_read_input_tokens": 0,
+                    "inference_geo": "not_available",
+                    "input_tokens": 1023,
+                    "output_tokens": 58,
+                    "output_tokens_details": null,
+                    "server_tool_use": null,
+                    "service_tier": "standard"
+                  },
+                  "model_name": "claude-sonnet-4-5-20250929",
+                  "model_provider": "anthropic"
+                },
+                "type": "ai",
+                "name": null,
+                "id": "lc_run--01a00ed4-51f2-71c0-9370-e13cd48afa4d-0"
+              }
+            }
+          ]
+        ],
+        "llm_output": {
+          "id": "msg_011Ce817Agkw55ruc8rjpKod",
+          "container": null,
+          "model": "claude-sonnet-4-5-20250929",
+          "stop_details": null,
+          "stop_reason": "tool_use",
+          "stop_sequence": null,
+          "usage": {
+            "cache_creation": {
+              "ephemeral_1h_input_tokens": 0,
+              "ephemeral_5m_input_tokens": 0
+            },
+            "cache_creation_input_tokens": 0,
+            "cache_read_input_tokens": 0,
+            "inference_geo": "not_available",
+            "input_tokens": 1023,
+            "output_tokens": 58,
+            "output_tokens_details": null,
+            "server_tool_use": null,
+            "service_tier": "standard"
+          },
+          "model_name": "claude-sonnet-4-5-20250929"
+        },
+        "run": null,
+        "type": "LLMResult"
+      },
+      "request_hash": "sha256:905e40601eb1b9de4257539177af2a633046b5e67b21d3002f125a2d1513deba",
+      "usage": null,
+      "cost_usd": null
+    },
+    {
+      "seq": 6,
+      "parent_seq": null,
+      "started_at": null,
+      "latency_ms": null,
+      "type": "graph_node",
+      "node": "agent",
+      "step": 3,
+      "thread_id": null,
+      "checkpoint_ns": "agent:6339d988-fe8a-4983-5d78-6c95748e53fb"
+    },
+    {
+      "seq": 7,
+      "parent_seq": null,
+      "started_at": null,
+      "latency_ms": null,
+      "type": "graph_node",
+      "node": "agent",
+      "step": 3,
+      "thread_id": null,
+      "checkpoint_ns": "agent:6339d988-fe8a-4983-5d78-6c95748e53fb"
+    },
+    {
+      "seq": 8,
+      "parent_seq": 5,
+      "started_at": null,
+      "latency_ms": null,
+      "type": "tool_call",
+      "name": "search_docs",
+      "arguments": {
+        "input": "{'query': 'email not received missing spam folder'}"
+      },
+      "result": {
+        "content": "Data export: an admin can export a workspace to CSV from Settings > Export. Exports run nightly and email a download link when they are ready.",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "search_docs",
+        "id": null,
+        "tool_call_id": "toolu_01GvRM9P2giTSKoJhD4aBQsN",
+        "artifact": null,
+        "status": "success"
+      },
+      "side_effect": "read_only"
+    },
+    {
+      "seq": 9,
+      "parent_seq": null,
+      "started_at": null,
+      "latency_ms": null,
+      "type": "graph_node",
+      "node": "tools",
+      "step": 4,
+      "thread_id": null,
+      "checkpoint_ns": "tools:6752d02e-d91b-afb2-3357-b86390d4b12b"
+    },
+    {
+      "seq": 10,
+      "parent_seq": null,
+      "started_at": null,
+      "latency_ms": null,
+      "type": "llm_call",
+      "provider": "langchain",
+      "model": "claude-sonnet-4-5",
+      "request": {
+        "model": "claude-sonnet-4-5",
+        "messages": [
+          {
+            "content": "You are a support assistant for a SaaS product. Always ground your reply in the help-center articles - never invent features, tiers, or policies they do not state. To do that, first search the help center, then apply exactly one category label (account, billing, or api), then post a short grounded reply, and finish with a one-sentence summary.",
+            "additional_kwargs": {},
+            "response_metadata": {},
+            "type": "system",
+            "name": null,
+            "id": "4226b0b2-aff0-4917-bb6f-36a6043f7fbe"
+          },
+          {
+            "content": "Ticket #71: I forgot my password; no reset email arrives.",
+            "additional_kwargs": {},
+            "response_metadata": {},
+            "type": "human",
+            "name": null,
+            "id": "f610f740-5ff6-4446-8525-19512d977c45"
+          },
+          {
+            "content": [
+              {
+                "text": "I'll help you with this password reset issue. Let me search our help center for information about password resets and then provide you with a solution.",
+                "type": "text"
+              },
+              {
+                "id": "toolu_01P6gcZZhjYXXkrX6X585RbH",
+                "caller": {
+                  "type": "direct"
+                },
+                "input": {
+                  "query": "password reset email not arriving"
+                },
+                "name": "search_docs",
+                "type": "tool_use"
+              }
+            ],
+            "additional_kwargs": {},
+            "response_metadata": {
+              "id": "msg_011Ce8173GXBy5SwtBX3abzH",
+              "container": null,
+              "model": "claude-sonnet-4-5-20250929",
+              "stop_details": null,
+              "stop_reason": "tool_use",
+              "stop_sequence": null,
+              "usage": {
+                "cache_creation": {
+                  "ephemeral_1h_input_tokens": 0,
+                  "ephemeral_5m_input_tokens": 0
+                },
+                "cache_creation_input_tokens": 0,
+                "cache_read_input_tokens": 0,
+                "inference_geo": "not_available",
+                "input_tokens": 877,
+                "output_tokens": 88,
+                "output_tokens_details": null,
+                "server_tool_use": null,
+                "service_tier": "standard"
+              },
+              "model_name": "claude-sonnet-4-5-20250929",
+              "model_provider": "anthropic"
+            },
+            "type": "ai",
+            "name": null,
+            "id": "lc_run--01a00ed4-4b27-79a3-ab7b-b41a5840e948-0",
+            "tool_calls": [
+              {
+                "name": "search_docs",
+                "args": {
+                  "query": "password reset email not arriving"
+                },
+                "id": "toolu_01P6gcZZhjYXXkrX6X585RbH",
+                "type": "tool_call"
+              }
+            ],
+            "invalid_tool_calls": [],
+            "usage_metadata": {
+              "input_tokens": 877,
+              "output_tokens": 88,
+              "total_tokens": 965,
+              "input_token_details": {
+                "cache_read": 0,
+                "cache_creation": 0,
+                "ephemeral_5m_input_tokens": 0,
+                "ephemeral_1h_input_tokens": 0
+              }
+            }
+          },
+          {
+            "content": "Password reset: open Settings > Security and click Reset Password. A reset link is emailed and expires in one hour. If the link errors it has usually expired - request a fresh one. Password reset is available on the web only.",
+            "additional_kwargs": {},
+            "response_metadata": {},
+            "type": "tool",
+            "name": "search_docs",
+            "id": "0bdfd64e-47df-453b-8c1d-1c5d8b37f4fd",
+            "tool_call_id": "toolu_01P6gcZZhjYXXkrX6X585RbH",
+            "artifact": null,
+            "status": "success"
+          },
+          {
+            "content": [
+              {
+                "id": "toolu_01GvRM9P2giTSKoJhD4aBQsN",
+                "caller": {
+                  "type": "direct"
+                },
+                "input": {
+                  "query": "email not received missing spam folder"
+                },
+                "name": "search_docs",
+                "type": "tool_use"
+              }
+            ],
+            "additional_kwargs": {},
+            "response_metadata": {
+              "id": "msg_011Ce817Agkw55ruc8rjpKod",
+              "container": null,
+              "model": "claude-sonnet-4-5-20250929",
+              "stop_details": null,
+              "stop_reason": "tool_use",
+              "stop_sequence": null,
+              "usage": {
+                "cache_creation": {
+                  "ephemeral_1h_input_tokens": 0,
+                  "ephemeral_5m_input_tokens": 0
+                },
+                "cache_creation_input_tokens": 0,
+                "cache_read_input_tokens": 0,
+                "inference_geo": "not_available",
+                "input_tokens": 1023,
+                "output_tokens": 58,
+                "output_tokens_details": null,
+                "server_tool_use": null,
+                "service_tier": "standard"
+              },
+              "model_name": "claude-sonnet-4-5-20250929",
+              "model_provider": "anthropic"
+            },
+            "type": "ai",
+            "name": null,
+            "id": "lc_run--01a00ed4-51f2-71c0-9370-e13cd48afa4d-0",
+            "tool_calls": [
+              {
+                "name": "search_docs",
+                "args": {
+                  "query": "email not received missing spam folder"
+                },
+                "id": "toolu_01GvRM9P2giTSKoJhD4aBQsN",
+                "type": "tool_call"
+              }
+            ],
+            "invalid_tool_calls": [],
+            "usage_metadata": {
+              "input_tokens": 1023,
+              "output_tokens": 58,
+              "total_tokens": 1081,
+              "input_token_details": {
+                "cache_read": 0,
+                "cache_creation": 0,
+                "ephemeral_5m_input_tokens": 0,
+                "ephemeral_1h_input_tokens": 0
+              }
+            }
+          },
+          {
+            "content": "Data export: an admin can export a workspace to CSV from Settings > Export. Exports run nightly and email a download link when they are ready.",
+            "additional_kwargs": {},
+            "response_metadata": {},
+            "type": "tool",
+            "name": "search_docs",
+            "id": "51bed95e-568c-459f-9988-dbda38108d73",
+            "tool_call_id": "toolu_01GvRM9P2giTSKoJhD4aBQsN",
+            "artifact": null,
+            "status": "success"
+          }
+        ]
+      },
+      "response": {
+        "generations": [
+          [
+            {
+              "text": "",
+              "generation_info": null,
+              "type": "ChatGeneration",
+              "message": {
+                "content": [
+                  {
+                    "id": "toolu_019drMvALpmJzg4BHn6kiLMW",
+                    "caller": {
+                      "type": "direct"
+                    },
+                    "input": {
+                      "ticket_id": "71",
+                      "label": "account"
+                    },
+                    "name": "label_ticket",
+                    "type": "tool_use"
+                  },
+                  {
+                    "id": "toolu_01ChfYps4kU7kK6nYVBgJciT",
+                    "caller": {
+                      "type": "direct"
+                    },
+                    "input": {
+                      "ticket_id": "71",
+                      "body": "Hi there,\n\nTo reset your password, go to Settings > Security and click Reset Password. A reset link will be emailed to you and expires in one hour.\n\nIf you're not receiving the email, please check:\n- Your spam/junk folder\n- That you're using the correct email address associated with your account\n\nIf the reset link shows an error, it has likely expired - simply request a fresh one. Note that password reset is only available on the web.\n\nIf you continue to have issues receiving the email after checking these items, please let us know and we'll investigate further.\n\nBest regards"
+                    },
+                    "name": "post_reply",
+                    "type": "tool_use"
+                  }
+                ],
+                "additional_kwargs": {},
+                "response_metadata": {
+                  "id": "msg_011Ce817H6y5aXA1SCKrQc2E",
+                  "container": null,
+                  "model": "claude-sonnet-4-5-20250929",
+                  "stop_details": null,
+                  "stop_reason": "tool_use",
+                  "stop_sequence": null,
+                  "usage": {
+                    "cache_creation": {
+                      "ephemeral_1h_input_tokens": 0,
+                      "ephemeral_5m_input_tokens": 0
+                    },
+                    "cache_creation_input_tokens": 0,
+                    "cache_read_input_tokens": 0,
+                    "inference_geo": "not_available",
+                    "input_tokens": 1123,
+                    "output_tokens": 253,
+                    "output_tokens_details": null,
+                    "server_tool_use": null,
+                    "service_tier": "standard"
+                  },
+                  "model_name": "claude-sonnet-4-5-20250929",
+                  "model_provider": "anthropic"
+                },
+                "type": "ai",
+                "name": null,
+                "id": "lc_run--01a00ed4-5788-70b1-bbbe-dcd30bedd5f2-0"
+              }
+            }
+          ]
+        ],
+        "llm_output": {
+          "id": "msg_011Ce817H6y5aXA1SCKrQc2E",
+          "container": null,
+          "model": "claude-sonnet-4-5-20250929",
+          "stop_details": null,
+          "stop_reason": "tool_use",
+          "stop_sequence": null,
+          "usage": {
+            "cache_creation": {
+              "ephemeral_1h_input_tokens": 0,
+              "ephemeral_5m_input_tokens": 0
+            },
+            "cache_creation_input_tokens": 0,
+            "cache_read_input_tokens": 0,
+            "inference_geo": "not_available",
+            "input_tokens": 1123,
+            "output_tokens": 253,
+            "output_tokens_details": null,
+            "server_tool_use": null,
+            "service_tier": "standard"
+          },
+          "model_name": "claude-sonnet-4-5-20250929"
+        },
+        "run": null,
+        "type": "LLMResult"
+      },
+      "request_hash": "sha256:fbb2f4ecb1b7d98e561fc8ca836c0688033b1d805ebe9744818f6d6a6c2da6f1",
+      "usage": null,
+      "cost_usd": null
+    },
+    {
+      "seq": 11,
+      "parent_seq": null,
+      "started_at": null,
+      "latency_ms": null,
+      "type": "graph_node",
+      "node": "agent",
+      "step": 5,
+      "thread_id": null,
+      "checkpoint_ns": "agent:dfaccf78-78bc-b8e1-1bdd-c71b53e0846d"
+    },
+    {
+      "seq": 12,
+      "parent_seq": null,
+      "started_at": null,
+      "latency_ms": null,
+      "type": "graph_node",
+      "node": "agent",
+      "step": 5,
+      "thread_id": null,
+      "checkpoint_ns": "agent:dfaccf78-78bc-b8e1-1bdd-c71b53e0846d"
+    },
+    {
+      "seq": 13,
+      "parent_seq": 10,
+      "started_at": null,
+      "latency_ms": null,
+      "type": "tool_call",
+      "name": "label_ticket",
+      "arguments": {
+        "input": "{'ticket_id': '71', 'label': 'account'}"
+      },
+      "result": {
+        "content": "labeled ticket #71 as account",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "label_ticket",
+        "id": null,
+        "tool_call_id": "toolu_019drMvALpmJzg4BHn6kiLMW",
+        "artifact": null,
+        "status": "success"
+      },
+      "side_effect": "mutating"
+    },
+    {
+      "seq": 14,
+      "parent_seq": 10,
+      "started_at": null,
+      "latency_ms": null,
+      "type": "tool_call",
+      "name": "post_reply",
+      "arguments": {
+        "input": "{'ticket_id': '71', 'body': \"Hi there,\\n\\nTo reset your password, go to Settings > Security and click Reset Password. A reset link will be emailed to you and expires in one hour.\\n\\nIf you're not receiving the email, please check:\\n- Your spam/junk folder\\n- That you're using the correct email address associated with your account\\n\\nIf the reset link shows an error, it has likely expired - simply request a fresh one. Note that password reset is only available on the web.\\n\\nIf you continue to have issues receiving the email after checking these items, please let us know and we'll investigate further.\\n\\nBest regards\"}"
+      },
+      "result": {
+        "content": "posted reply to ticket #71",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "post_reply",
+        "id": null,
+        "tool_call_id": "toolu_01ChfYps4kU7kK6nYVBgJciT",
+        "artifact": null,
+        "status": "success"
+      },
+      "side_effect": "mutating"
+    },
+    {
+      "seq": 15,
+      "parent_seq": null,
+      "started_at": null,
+      "latency_ms": null,
+      "type": "graph_node",
+      "node": "tools",
+      "step": 6,
+      "thread_id": null,
+      "checkpoint_ns": "tools:c98288ab-2b79-a848-0bb5-97b60ed64332"
+    },
+    {
+      "seq": 16,
+      "parent_seq": null,
+      "started_at": null,
+      "latency_ms": null,
+      "type": "llm_call",
+      "provider": "langchain",
+      "model": "claude-sonnet-4-5",
+      "request": {
+        "model": "claude-sonnet-4-5",
+        "messages": [
+          {
+            "content": "You are a support assistant for a SaaS product. Always ground your reply in the help-center articles - never invent features, tiers, or policies they do not state. To do that, first search the help center, then apply exactly one category label (account, billing, or api), then post a short grounded reply, and finish with a one-sentence summary.",
+            "additional_kwargs": {},
+            "response_metadata": {},
+            "type": "system",
+            "name": null,
+            "id": "4226b0b2-aff0-4917-bb6f-36a6043f7fbe"
+          },
+          {
+            "content": "Ticket #71: I forgot my password; no reset email arrives.",
+            "additional_kwargs": {},
+            "response_metadata": {},
+            "type": "human",
+            "name": null,
+            "id": "f610f740-5ff6-4446-8525-19512d977c45"
+          },
+          {
+            "content": [
+              {
+                "text": "I'll help you with this password reset issue. Let me search our help center for information about password resets and then provide you with a solution.",
+                "type": "text"
+              },
+              {
+                "id": "toolu_01P6gcZZhjYXXkrX6X585RbH",
+                "caller": {
+                  "type": "direct"
+                },
+                "input": {
+                  "query": "password reset email not arriving"
+                },
+                "name": "search_docs",
+                "type": "tool_use"
+              }
+            ],
+            "additional_kwargs": {},
+            "response_metadata": {
+              "id": "msg_011Ce8173GXBy5SwtBX3abzH",
+              "container": null,
+              "model": "claude-sonnet-4-5-20250929",
+              "stop_details": null,
+              "stop_reason": "tool_use",
+              "stop_sequence": null,
+              "usage": {
+                "cache_creation": {
+                  "ephemeral_1h_input_tokens": 0,
+                  "ephemeral_5m_input_tokens": 0
+                },
+                "cache_creation_input_tokens": 0,
+                "cache_read_input_tokens": 0,
+                "inference_geo": "not_available",
+                "input_tokens": 877,
+                "output_tokens": 88,
+                "output_tokens_details": null,
+                "server_tool_use": null,
+                "service_tier": "standard"
+              },
+              "model_name": "claude-sonnet-4-5-20250929",
+              "model_provider": "anthropic"
+            },
+            "type": "ai",
+            "name": null,
+            "id": "lc_run--01a00ed4-4b27-79a3-ab7b-b41a5840e948-0",
+            "tool_calls": [
+              {
+                "name": "search_docs",
+                "args": {
+                  "query": "password reset email not arriving"
+                },
+                "id": "toolu_01P6gcZZhjYXXkrX6X585RbH",
+                "type": "tool_call"
+              }
+            ],
+            "invalid_tool_calls": [],
+            "usage_metadata": {
+              "input_tokens": 877,
+              "output_tokens": 88,
+              "total_tokens": 965,
+              "input_token_details": {
+                "cache_read": 0,
+                "cache_creation": 0,
+                "ephemeral_5m_input_tokens": 0,
+                "ephemeral_1h_input_tokens": 0
+              }
+            }
+          },
+          {
+            "content": "Password reset: open Settings > Security and click Reset Password. A reset link is emailed and expires in one hour. If the link errors it has usually expired - request a fresh one. Password reset is available on the web only.",
+            "additional_kwargs": {},
+            "response_metadata": {},
+            "type": "tool",
+            "name": "search_docs",
+            "id": "0bdfd64e-47df-453b-8c1d-1c5d8b37f4fd",
+            "tool_call_id": "toolu_01P6gcZZhjYXXkrX6X585RbH",
+            "artifact": null,
+            "status": "success"
+          },
+          {
+            "content": [
+              {
+                "id": "toolu_01GvRM9P2giTSKoJhD4aBQsN",
+                "caller": {
+                  "type": "direct"
+                },
+                "input": {
+                  "query": "email not received missing spam folder"
+                },
+                "name": "search_docs",
+                "type": "tool_use"
+              }
+            ],
+            "additional_kwargs": {},
+            "response_metadata": {
+              "id": "msg_011Ce817Agkw55ruc8rjpKod",
+              "container": null,
+              "model": "claude-sonnet-4-5-20250929",
+              "stop_details": null,
+              "stop_reason": "tool_use",
+              "stop_sequence": null,
+              "usage": {
+                "cache_creation": {
+                  "ephemeral_1h_input_tokens": 0,
+                  "ephemeral_5m_input_tokens": 0
+                },
+                "cache_creation_input_tokens": 0,
+                "cache_read_input_tokens": 0,
+                "inference_geo": "not_available",
+                "input_tokens": 1023,
+                "output_tokens": 58,
+                "output_tokens_details": null,
+                "server_tool_use": null,
+                "service_tier": "standard"
+              },
+              "model_name": "claude-sonnet-4-5-20250929",
+              "model_provider": "anthropic"
+            },
+            "type": "ai",
+            "name": null,
+            "id": "lc_run--01a00ed4-51f2-71c0-9370-e13cd48afa4d-0",
+            "tool_calls": [
+              {
+                "name": "search_docs",
+                "args": {
+                  "query": "email not received missing spam folder"
+                },
+                "id": "toolu_01GvRM9P2giTSKoJhD4aBQsN",
+                "type": "tool_call"
+              }
+            ],
+            "invalid_tool_calls": [],
+            "usage_metadata": {
+              "input_tokens": 1023,
+              "output_tokens": 58,
+              "total_tokens": 1081,
+              "input_token_details": {
+                "cache_read": 0,
+                "cache_creation": 0,
+                "ephemeral_5m_input_tokens": 0,
+                "ephemeral_1h_input_tokens": 0
+              }
+            }
+          },
+          {
+            "content": "Data export: an admin can export a workspace to CSV from Settings > Export. Exports run nightly and email a download link when they are ready.",
+            "additional_kwargs": {},
+            "response_metadata": {},
+            "type": "tool",
+            "name": "search_docs",
+            "id": "51bed95e-568c-459f-9988-dbda38108d73",
+            "tool_call_id": "toolu_01GvRM9P2giTSKoJhD4aBQsN",
+            "artifact": null,
+            "status": "success"
+          },
+          {
+            "content": [
+              {
+                "id": "toolu_019drMvALpmJzg4BHn6kiLMW",
+                "caller": {
+                  "type": "direct"
+                },
+                "input": {
+                  "ticket_id": "71",
+                  "label": "account"
+                },
+                "name": "label_ticket",
+                "type": "tool_use"
+              },
+              {
+                "id": "toolu_01ChfYps4kU7kK6nYVBgJciT",
+                "caller": {
+                  "type": "direct"
+                },
+                "input": {
+                  "ticket_id": "71",
+                  "body": "Hi there,\n\nTo reset your password, go to Settings > Security and click Reset Password. A reset link will be emailed to you and expires in one hour.\n\nIf you're not receiving the email, please check:\n- Your spam/junk folder\n- That you're using the correct email address associated with your account\n\nIf the reset link shows an error, it has likely expired - simply request a fresh one. Note that password reset is only available on the web.\n\nIf you continue to have issues receiving the email after checking these items, please let us know and we'll investigate further.\n\nBest regards"
+                },
+                "name": "post_reply",
+                "type": "tool_use"
+              }
+            ],
+            "additional_kwargs": {},
+            "response_metadata": {
+              "id": "msg_011Ce817H6y5aXA1SCKrQc2E",
+              "container": null,
+              "model": "claude-sonnet-4-5-20250929",
+              "stop_details": null,
+              "stop_reason": "tool_use",
+              "stop_sequence": null,
+              "usage": {
+                "cache_creation": {
+                  "ephemeral_1h_input_tokens": 0,
+                  "ephemeral_5m_input_tokens": 0
+                },
+                "cache_creation_input_tokens": 0,
+                "cache_read_input_tokens": 0,
+                "inference_geo": "not_available",
+                "input_tokens": 1123,
+                "output_tokens": 253,
+                "output_tokens_details": null,
+                "server_tool_use": null,
+                "service_tier": "standard"
+              },
+              "model_name": "claude-sonnet-4-5-20250929",
+              "model_provider": "anthropic"
+            },
+            "type": "ai",
+            "name": null,
+            "id": "lc_run--01a00ed4-5788-70b1-bbbe-dcd30bedd5f2-0",
+            "tool_calls": [
+              {
+                "name": "label_ticket",
+                "args": {
+                  "ticket_id": "71",
+                  "label": "account"
+                },
+                "id": "toolu_019drMvALpmJzg4BHn6kiLMW",
+                "type": "tool_call"
+              },
+              {
+                "name": "post_reply",
+                "args": {
+                  "ticket_id": "71",
+                  "body": "Hi there,\n\nTo reset your password, go to Settings > Security and click Reset Password. A reset link will be emailed to you and expires in one hour.\n\nIf you're not receiving the email, please check:\n- Your spam/junk folder\n- That you're using the correct email address associated with your account\n\nIf the reset link shows an error, it has likely expired - simply request a fresh one. Note that password reset is only available on the web.\n\nIf you continue to have issues receiving the email after checking these items, please let us know and we'll investigate further.\n\nBest regards"
+                },
+                "id": "toolu_01ChfYps4kU7kK6nYVBgJciT",
+                "type": "tool_call"
+              }
+            ],
+            "invalid_tool_calls": [],
+            "usage_metadata": {
+              "input_tokens": 1123,
+              "output_tokens": 253,
+              "total_tokens": 1376,
+              "input_token_details": {
+                "cache_read": 0,
+                "cache_creation": 0,
+                "ephemeral_5m_input_tokens": 0,
+                "ephemeral_1h_input_tokens": 0
+              }
+            }
+          },
+          {
+            "content": "labeled ticket #71 as account",
+            "additional_kwargs": {},
+            "response_metadata": {},
+            "type": "tool",
+            "name": "label_ticket",
+            "id": "431907c1-0a9c-4e77-b30f-dabe7a14755a",
+            "tool_call_id": "toolu_019drMvALpmJzg4BHn6kiLMW",
+            "artifact": null,
+            "status": "success"
+          },
+          {
+            "content": "posted reply to ticket #71",
+            "additional_kwargs": {},
+            "response_metadata": {},
+            "type": "tool",
+            "name": "post_reply",
+            "id": "cd3d1733-a268-4df9-9916-b458c4638b27",
+            "tool_call_id": "toolu_01ChfYps4kU7kK6nYVBgJciT",
+            "artifact": null,
+            "status": "success"
+          }
+        ]
+      },
+      "response": {
+        "generations": [
+          [
+            {
+              "text": "**Summary:** I've provided instructions for password reset via Settings > Security and advised checking spam folders, with a reminder that reset links expire in one hour.",
+              "generation_info": null,
+              "type": "ChatGeneration",
+              "message": {
+                "content": "**Summary:** I've provided instructions for password reset via Settings > Security and advised checking spam folders, with a reminder that reset links expire in one hour.",
+                "additional_kwargs": {},
+                "response_metadata": {
+                  "id": "msg_011Ce817csMLgNCHtk8rhhPw",
+                  "container": null,
+                  "model": "claude-sonnet-4-5-20250929",
+                  "stop_details": null,
+                  "stop_reason": "end_turn",
+                  "stop_sequence": null,
+                  "usage": {
+                    "cache_creation": {
+                      "ephemeral_1h_input_tokens": 0,
+                      "ephemeral_5m_input_tokens": 0
+                    },
+                    "cache_creation_input_tokens": 0,
+                    "cache_read_input_tokens": 0,
+                    "inference_geo": "not_available",
+                    "input_tokens": 1452,
+                    "output_tokens": 34,
+                    "output_tokens_details": null,
+                    "server_tool_use": null,
+                    "service_tier": "standard"
+                  },
+                  "model_name": "claude-sonnet-4-5-20250929",
+                  "model_provider": "anthropic"
+                },
+                "type": "ai",
+                "name": null,
+                "id": "lc_run--01a00ed4-6964-76b3-94fc-b68b0a0af9f7-0"
+              }
+            }
+          ]
+        ],
+        "llm_output": {
+          "id": "msg_011Ce817csMLgNCHtk8rhhPw",
+          "container": null,
+          "model": "claude-sonnet-4-5-20250929",
+          "stop_details": null,
+          "stop_reason": "end_turn",
+          "stop_sequence": null,
+          "usage": {
+            "cache_creation": {
+              "ephemeral_1h_input_tokens": 0,
+              "ephemeral_5m_input_tokens": 0
+            },
+            "cache_creation_input_tokens": 0,
+            "cache_read_input_tokens": 0,
+            "inference_geo": "not_available",
+            "input_tokens": 1452,
+            "output_tokens": 34,
+            "output_tokens_details": null,
+            "server_tool_use": null,
+            "service_tier": "standard"
+          },
+          "model_name": "claude-sonnet-4-5-20250929"
+        },
+        "run": null,
+        "type": "LLMResult"
+      },
+      "request_hash": "sha256:05ff90795d2ad0475f000e6c8a90b14df64a412447468e43b6720b54ae4f07d3",
+      "usage": null,
+      "cost_usd": null
+    },
+    {
+      "seq": 17,
+      "parent_seq": null,
+      "started_at": null,
+      "latency_ms": null,
+      "type": "graph_node",
+      "node": "agent",
+      "step": 7,
+      "thread_id": null,
+      "checkpoint_ns": "agent:8674987e-63a0-2d53-eec5-2f9a2459acf1"
+    },
+    {
+      "seq": 18,
+      "parent_seq": null,
+      "started_at": null,
+      "latency_ms": null,
+      "type": "graph_node",
+      "node": "agent",
+      "step": 7,
+      "thread_id": null,
+      "checkpoint_ns": "agent:8674987e-63a0-2d53-eec5-2f9a2459acf1"
+    }
+  ],
+  "metadata": {}
+}

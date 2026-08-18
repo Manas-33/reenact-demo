@@ -31,7 +31,7 @@ cassette = "../scenarios/ticket-42.json"
   # assertion, catches a reply that invents a feature. Needs a key at eval time.
   [[scenario.criterion]]
   id = "reply_grounded"
-  question = "Is the reply grounded in the help-center articles the agent retrieved - not inventing features, tiers, or policies the articles do not state?"
+  question = "Does the reply stay strictly within what the retrieved help-center articles state? Answer no if it offers or mentions any feature, tier, plan, upgrade, integration, workaround, or capability the articles do not explicitly describe - for example an enterprise or premium tier, custom limits, or a mobile app."
 
   # optional: tighten a called_tool to an exact count
   # [[scenario.check]]
@@ -67,7 +67,7 @@ cassette = "../scenarios/ticket-57.json"
 
   [[scenario.criterion]]
   id = "reply_grounded"
-  question = "Is the reply grounded in the help-center articles the agent retrieved - not inventing features, tiers, or policies the articles do not state?"
+  question = "Does the reply stay strictly within what the retrieved help-center articles state? Answer no if it offers or mentions any feature, tier, plan, upgrade, integration, workaround, or capability the articles do not explicitly describe - for example an enterprise or premium tier, custom limits, or a mobile app."
 
   # optional: tighten a called_tool to an exact count
   # [[scenario.check]]
@@ -103,7 +103,7 @@ cassette = "../scenarios/ticket-63.json"
 
   [[scenario.criterion]]
   id = "reply_grounded"
-  question = "Is the reply grounded in the help-center articles the agent retrieved - not inventing features, tiers, or policies the articles do not state?"
+  question = "Does the reply stay strictly within what the retrieved help-center articles state? Answer no if it offers or mentions any feature, tier, plan, upgrade, integration, workaround, or capability the articles do not explicitly describe - for example an enterprise or premium tier, custom limits, or a mobile app."
 
   # optional: tighten a called_tool to an exact count
   # [[scenario.check]]

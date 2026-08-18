@@ -1,0 +1,456 @@
+{
+  "schema_version": 0,
+  "id": "977779c11db441db85886063ce1d5ee1",
+  "name": "analyst-benign-reordered-0",
+  "created_at": "2026-08-17T08:16:58.238763Z",
+  "events": [
+    {
+      "seq": 0,
+      "parent_seq": null,
+      "started_at": null,
+      "latency_ms": 630.0112088210881,
+      "type": "llm_call",
+      "provider": "openai",
+      "model": "gpt-4o",
+      "request": {
+        "model": "gpt-4o",
+        "messages": [
+          {
+            "role": "system",
+            "content": "You are a data analyst. Every number in your answer must come from the query results - never estimate or invent one. To get them: first call get_schema, then run_query with a SQL SELECT, then answer in one or two sentences."
+          },
+          {
+            "role": "user",
+            "content": "What was our total revenue in the West region?"
+          }
+        ],
+        "tools": [
+          {
+            "type": "function",
+            "function": {
+              "name": "get_schema",
+              "description": "Return the sales table's columns and types.",
+              "parameters": {
+                "type": "object",
+                "properties": {}
+              }
+            }
+          },
+          {
+            "type": "function",
+            "function": {
+              "name": "run_query",
+              "description": "Run a read-only SQL SELECT and return the rows.",
+              "parameters": {
+                "type": "object",
+                "properties": {
+                  "sql": {
+                    "type": "string",
+                    "description": "A single SQL SELECT statement."
+                  }
+                },
+                "required": [
+                  "sql"
+                ]
+              }
+            }
+          }
+        ]
+      },
+      "response": {
+        "id": "chatcmpl-EDmocL3AuFIX1lVtc67L1RY8Tm67k",
+        "choices": [
+          {
+            "finish_reason": "tool_calls",
+            "index": 0,
+            "logprobs": null,
+            "message": {
+              "content": null,
+              "refusal": null,
+              "role": "assistant",
+              "annotations": [],
+              "audio": null,
+              "function_call": null,
+              "tool_calls": [
+                {
+                  "id": "call_DpU39WQyTp0mmivenltIZ6TH",
+                  "function": {
+                    "arguments": "{}",
+                    "name": "get_schema"
+                  },
+                  "type": "function"
+                }
+              ]
+            }
+          }
+        ],
+        "created": 1786954618,
+        "model": "gpt-4o-2024-08-06",
+        "object": "chat.completion",
+        "moderation": null,
+        "service_tier": "default",
+        "system_fingerprint": "fp_2fe17714a7",
+        "usage": {
+          "completion_tokens": 10,
+          "prompt_tokens": 131,
+          "total_tokens": 141,
+          "completion_tokens_details": {
+            "accepted_prediction_tokens": 0,
+            "audio_tokens": 0,
+            "reasoning_tokens": 0,
+            "rejected_prediction_tokens": 0,
+            "text_tokens": null
+          },
+          "prompt_tokens_details": {
+            "audio_tokens": 0,
+            "cache_write_tokens": null,
+            "cached_tokens": 0,
+            "image_tokens": null,
+            "text_tokens": null
+          }
+        }
+      },
+      "request_hash": "sha256:263030eae9f1d98a45ffa2dd73e69212d039c7e5c7e4ea6006f7e87d5d4420d5",
+      "usage": {
+        "input_tokens": 131,
+        "output_tokens": 10
+      },
+      "cost_usd": null
+    },
+    {
+      "seq": 1,
+      "parent_seq": 0,
+      "started_at": null,
+      "latency_ms": null,
+      "type": "tool_call",
+      "name": "get_schema",
+      "arguments": {},
+      "result": {
+        "table": "sales",
+        "columns": [
+          {
+            "name": "id",
+            "type": "INTEGER"
+          },
+          {
+            "name": "region",
+            "type": "TEXT"
+          },
+          {
+            "name": "product",
+            "type": "TEXT"
+          },
+          {
+            "name": "units",
+            "type": "INTEGER"
+          },
+          {
+            "name": "revenue",
+            "type": "REAL"
+          },
+          {
+            "name": "quarter",
+            "type": "TEXT"
+          }
+        ],
+        "ddl": "CREATE TABLE sales (\n  id INTEGER PRIMARY KEY,\n  region TEXT NOT NULL,\n  product TEXT NOT NULL,\n  units INTEGER NOT NULL,\n  revenue REAL NOT NULL,\n  quarter TEXT NOT NULL\n)"
+      },
+      "side_effect": "read_only"
+    },
+    {
+      "seq": 2,
+      "parent_seq": null,
+      "started_at": null,
+      "latency_ms": 959.4512907788157,
+      "type": "llm_call",
+      "provider": "openai",
+      "model": "gpt-4o",
+      "request": {
+        "model": "gpt-4o",
+        "messages": [
+          {
+            "role": "system",
+            "content": "You are a data analyst. Every number in your answer must come from the query results - never estimate or invent one. To get them: first call get_schema, then run_query with a SQL SELECT, then answer in one or two sentences."
+          },
+          {
+            "role": "user",
+            "content": "What was our total revenue in the West region?"
+          },
+          {
+            "role": "assistant",
+            "tool_calls": [
+              {
+                "id": "call_DpU39WQyTp0mmivenltIZ6TH",
+                "type": "function",
+                "function": {
+                  "name": "get_schema",
+                  "arguments": "{}"
+                }
+              }
+            ]
+          },
+          {
+            "role": "tool",
+            "tool_call_id": "call_DpU39WQyTp0mmivenltIZ6TH",
+            "content": "{\"table\": \"sales\", \"columns\": [{\"name\": \"id\", \"type\": \"INTEGER\"}, {\"name\": \"region\", \"type\": \"TEXT\"}, {\"name\": \"product\", \"type\": \"TEXT\"}, {\"name\": \"units\", \"type\": \"INTEGER\"}, {\"name\": \"revenue\", \"type\": \"REAL\"}, {\"name\": \"quarter\", \"type\": \"TEXT\"}], \"ddl\": \"CREATE TABLE sales (\\n  id INTEGER PRIMARY KEY,\\n  region TEXT NOT NULL,\\n  product TEXT NOT NULL,\\n  units INTEGER NOT NULL,\\n  revenue REAL NOT NULL,\\n  quarter TEXT NOT NULL\\n)\"}"
+          }
+        ],
+        "tools": [
+          {
+            "type": "function",
+            "function": {
+              "name": "get_schema",
+              "description": "Return the sales table's columns and types.",
+              "parameters": {
+                "type": "object",
+                "properties": {}
+              }
+            }
+          },
+          {
+            "type": "function",
+            "function": {
+              "name": "run_query",
+              "description": "Run a read-only SQL SELECT and return the rows.",
+              "parameters": {
+                "type": "object",
+                "properties": {
+                  "sql": {
+                    "type": "string",
+                    "description": "A single SQL SELECT statement."
+                  }
+                },
+                "required": [
+                  "sql"
+                ]
+              }
+            }
+          }
+        ]
+      },
+      "response": {
+        "id": "chatcmpl-EDmodhBq4uDbrzvEmLRlukavagO8H",
+        "choices": [
+          {
+            "finish_reason": "tool_calls",
+            "index": 0,
+            "logprobs": null,
+            "message": {
+              "content": null,
+              "refusal": null,
+              "role": "assistant",
+              "annotations": [],
+              "audio": null,
+              "function_call": null,
+              "tool_calls": [
+                {
+                  "id": "call_AHaUhqacUop5SnrlntZ91CNJ",
+                  "function": {
+                    "arguments": "{\"sql\":\"SELECT SUM(revenue) AS total_revenue FROM sales WHERE region = 'West'\"}",
+                    "name": "run_query"
+                  },
+                  "type": "function"
+                }
+              ]
+            }
+          }
+        ],
+        "created": 1786954619,
+        "model": "gpt-4o-2024-08-06",
+        "object": "chat.completion",
+        "moderation": null,
+        "service_tier": "default",
+        "system_fingerprint": "fp_2fe17714a7",
+        "usage": {
+          "completion_tokens": 30,
+          "prompt_tokens": 284,
+          "total_tokens": 314,
+          "completion_tokens_details": {
+            "accepted_prediction_tokens": 0,
+            "audio_tokens": 0,
+            "reasoning_tokens": 0,
+            "rejected_prediction_tokens": 0,
+            "text_tokens": null
+          },
+          "prompt_tokens_details": {
+            "audio_tokens": 0,
+            "cache_write_tokens": null,
+            "cached_tokens": 0,
+            "image_tokens": null,
+            "text_tokens": null
+          }
+        }
+      },
+      "request_hash": "sha256:2db520fcd7635921874198d33aa9e9ee65eec1c6b3a6013094cde2fefa6b8364",
+      "usage": {
+        "input_tokens": 284,
+        "output_tokens": 30
+      },
+      "cost_usd": null
+    },
+    {
+      "seq": 3,
+      "parent_seq": 2,
+      "started_at": null,
+      "latency_ms": null,
+      "type": "tool_call",
+      "name": "run_query",
+      "arguments": {
+        "sql": "SELECT SUM(revenue) AS total_revenue FROM sales WHERE region = 'West'"
+      },
+      "result": {
+        "columns": [
+          "total_revenue"
+        ],
+        "rows": [
+          {
+            "total_revenue": 12500.0
+          }
+        ],
+        "row_count": 1
+      },
+      "side_effect": "read_only"
+    },
+    {
+      "seq": 4,
+      "parent_seq": null,
+      "started_at": null,
+      "latency_ms": 537.8147908486426,
+      "type": "llm_call",
+      "provider": "openai",
+      "model": "gpt-4o",
+      "request": {
+        "model": "gpt-4o",
+        "messages": [
+          {
+            "role": "system",
+            "content": "You are a data analyst. Every number in your answer must come from the query results - never estimate or invent one. To get them: first call get_schema, then run_query with a SQL SELECT, then answer in one or two sentences."
+          },
+          {
+            "role": "user",
+            "content": "What was our total revenue in the West region?"
+          },
+          {
+            "role": "assistant",
+            "tool_calls": [
+              {
+                "id": "call_DpU39WQyTp0mmivenltIZ6TH",
+                "type": "function",
+                "function": {
+                  "name": "get_schema",
+                  "arguments": "{}"
+                }
+              }
+            ]
+          },
+          {
+            "role": "tool",
+            "tool_call_id": "call_DpU39WQyTp0mmivenltIZ6TH",
+            "content": "{\"table\": \"sales\", \"columns\": [{\"name\": \"id\", \"type\": \"INTEGER\"}, {\"name\": \"region\", \"type\": \"TEXT\"}, {\"name\": \"product\", \"type\": \"TEXT\"}, {\"name\": \"units\", \"type\": \"INTEGER\"}, {\"name\": \"revenue\", \"type\": \"REAL\"}, {\"name\": \"quarter\", \"type\": \"TEXT\"}], \"ddl\": \"CREATE TABLE sales (\\n  id INTEGER PRIMARY KEY,\\n  region TEXT NOT NULL,\\n  product TEXT NOT NULL,\\n  units INTEGER NOT NULL,\\n  revenue REAL NOT NULL,\\n  quarter TEXT NOT NULL\\n)\"}"
+          },
+          {
+            "role": "assistant",
+            "tool_calls": [
+              {
+                "id": "call_AHaUhqacUop5SnrlntZ91CNJ",
+                "type": "function",
+                "function": {
+                  "name": "run_query",
+                  "arguments": "{\"sql\":\"SELECT SUM(revenue) AS total_revenue FROM sales WHERE region = 'West'\"}"
+                }
+              }
+            ]
+          },
+          {
+            "role": "tool",
+            "tool_call_id": "call_AHaUhqacUop5SnrlntZ91CNJ",
+            "content": "{\"columns\": [\"total_revenue\"], \"rows\": [{\"total_revenue\": 12500.0}], \"row_count\": 1}"
+          }
+        ],
+        "tools": [
+          {
+            "type": "function",
+            "function": {
+              "name": "get_schema",
+              "description": "Return the sales table's columns and types.",
+              "parameters": {
+                "type": "object",
+                "properties": {}
+              }
+            }
+          },
+          {
+            "type": "function",
+            "function": {
+              "name": "run_query",
+              "description": "Run a read-only SQL SELECT and return the rows.",
+              "parameters": {
+                "type": "object",
+                "properties": {
+                  "sql": {
+                    "type": "string",
+                    "description": "A single SQL SELECT statement."
+                  }
+                },
+                "required": [
+                  "sql"
+                ]
+              }
+            }
+          }
+        ]
+      },
+      "response": {
+        "id": "chatcmpl-EDmodLDhjDrsrvAgJ4HIVCozx24sS",
+        "choices": [
+          {
+            "finish_reason": "stop",
+            "index": 0,
+            "logprobs": null,
+            "message": {
+              "content": "The total revenue in the West region was 12,500.0.",
+              "refusal": null,
+              "role": "assistant",
+              "annotations": [],
+              "audio": null,
+              "function_call": null,
+              "tool_calls": null
+            }
+          }
+        ],
+        "created": 1786954619,
+        "model": "gpt-4o-2024-08-06",
+        "object": "chat.completion",
+        "moderation": null,
+        "service_tier": "default",
+        "system_fingerprint": "fp_2fe17714a7",
+        "usage": {
+          "completion_tokens": 16,
+          "prompt_tokens": 351,
+          "total_tokens": 367,
+          "completion_tokens_details": {
+            "accepted_prediction_tokens": 0,
+            "audio_tokens": 0,
+            "reasoning_tokens": 0,
+            "rejected_prediction_tokens": 0,
+            "text_tokens": null
+          },
+          "prompt_tokens_details": {
+            "audio_tokens": 0,
+            "cache_write_tokens": null,
+            "cached_tokens": 0,
+            "image_tokens": null,
+            "text_tokens": null
+          }
+        }
+      },
+      "request_hash": "sha256:8704e7f24e6b7b3f2a3c9efcc3d9026d7d3ddb9d56523d4b78e01ccf892984ac",
+      "usage": {
+        "input_tokens": 351,
+        "output_tokens": 16
+      },
+      "cost_usd": null
+    }
+  ],
+  "metadata": {}
+}

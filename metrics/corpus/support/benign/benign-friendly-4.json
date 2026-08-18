@@ -1,0 +1,765 @@
+{
+  "schema_version": 0,
+  "id": "d350f9e3bb82429d9439d449e1c38180",
+  "name": "support-benign-friendly-4",
+  "created_at": "2026-08-17T08:23:38.980360Z",
+  "events": [
+    {
+      "seq": 0,
+      "parent_seq": null,
+      "started_at": null,
+      "latency_ms": null,
+      "type": "llm_call",
+      "provider": "langchain",
+      "model": "claude-sonnet-4-5",
+      "request": {
+        "model": "claude-sonnet-4-5",
+        "messages": [
+          {
+            "content": "You are a warm, friendly support assistant for a SaaS product. For the ticket: search the help center, apply exactly one category label (account, billing, or api), and post a short reply grounded in the articles you retrieved - do not invent features the articles do not state. Finish with a one-sentence summary, and keep a reassuring tone.",
+            "additional_kwargs": {},
+            "response_metadata": {},
+            "type": "system",
+            "name": null,
+            "id": "7e45260b-3683-4547-9e94-fd7178021456"
+          },
+          {
+            "content": "Ticket #63: every API request suddenly fails with a 429 error.",
+            "additional_kwargs": {},
+            "response_metadata": {},
+            "type": "human",
+            "name": null,
+            "id": "d3e8f643-70bf-46d7-a7d0-de932422296d"
+          }
+        ]
+      },
+      "response": {
+        "generations": [
+          [
+            {
+              "text": "",
+              "generation_info": null,
+              "type": "ChatGeneration",
+              "message": {
+                "content": [
+                  {
+                    "id": "toolu_0174As7cA3rKsv493o29Zz1q",
+                    "caller": {
+                      "type": "direct"
+                    },
+                    "input": {
+                      "query": "API 429 error rate limit"
+                    },
+                    "name": "search_docs",
+                    "type": "tool_use"
+                  }
+                ],
+                "additional_kwargs": {},
+                "response_metadata": {
+                  "id": "msg_011Ce7ztWUGsR82Xycq9cfCq",
+                  "container": null,
+                  "model": "claude-sonnet-4-5-20250929",
+                  "stop_details": null,
+                  "stop_reason": "tool_use",
+                  "stop_sequence": null,
+                  "usage": {
+                    "cache_creation": {
+                      "ephemeral_1h_input_tokens": 0,
+                      "ephemeral_5m_input_tokens": 0
+                    },
+                    "cache_creation_input_tokens": 0,
+                    "cache_read_input_tokens": 0,
+                    "inference_geo": "not_available",
+                    "input_tokens": 877,
+                    "output_tokens": 59,
+                    "output_tokens_details": null,
+                    "server_tool_use": null,
+                    "service_tier": "standard"
+                  },
+                  "model_name": "claude-sonnet-4-5-20250929",
+                  "model_provider": "anthropic"
+                },
+                "type": "ai",
+                "name": null,
+                "id": "lc_run--01a00ed1-b2e7-70b2-95ad-c699bcb19b06-0"
+              }
+            }
+          ]
+        ],
+        "llm_output": {
+          "id": "msg_011Ce7ztWUGsR82Xycq9cfCq",
+          "container": null,
+          "model": "claude-sonnet-4-5-20250929",
+          "stop_details": null,
+          "stop_reason": "tool_use",
+          "stop_sequence": null,
+          "usage": {
+            "cache_creation": {
+              "ephemeral_1h_input_tokens": 0,
+              "ephemeral_5m_input_tokens": 0
+            },
+            "cache_creation_input_tokens": 0,
+            "cache_read_input_tokens": 0,
+            "inference_geo": "not_available",
+            "input_tokens": 877,
+            "output_tokens": 59,
+            "output_tokens_details": null,
+            "server_tool_use": null,
+            "service_tier": "standard"
+          },
+          "model_name": "claude-sonnet-4-5-20250929"
+        },
+        "run": null,
+        "type": "LLMResult"
+      },
+      "request_hash": "sha256:3dbd3cbb83969ad8232eb99cc7c7700b2a28be8bd30e5ef15fb9ca48163d3c24",
+      "usage": null,
+      "cost_usd": null
+    },
+    {
+      "seq": 1,
+      "parent_seq": null,
+      "started_at": null,
+      "latency_ms": null,
+      "type": "graph_node",
+      "node": "agent",
+      "step": 1,
+      "thread_id": null,
+      "checkpoint_ns": "agent:1a546b55-0ad2-fdae-4d86-21b4db587442"
+    },
+    {
+      "seq": 2,
+      "parent_seq": null,
+      "started_at": null,
+      "latency_ms": null,
+      "type": "graph_node",
+      "node": "agent",
+      "step": 1,
+      "thread_id": null,
+      "checkpoint_ns": "agent:1a546b55-0ad2-fdae-4d86-21b4db587442"
+    },
+    {
+      "seq": 3,
+      "parent_seq": 0,
+      "started_at": null,
+      "latency_ms": null,
+      "type": "tool_call",
+      "name": "search_docs",
+      "arguments": {
+        "input": "{'query': 'API 429 error rate limit'}"
+      },
+      "result": {
+        "content": "API rate limits: 100 requests per minute per key. A 429 response means the limit was exceeded; back off and retry with exponential delay. There is no higher tier that raises this limit.",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "search_docs",
+        "id": null,
+        "tool_call_id": "toolu_0174As7cA3rKsv493o29Zz1q",
+        "artifact": null,
+        "status": "success"
+      },
+      "side_effect": "read_only"
+    },
+    {
+      "seq": 4,
+      "parent_seq": null,
+      "started_at": null,
+      "latency_ms": null,
+      "type": "graph_node",
+      "node": "tools",
+      "step": 2,
+      "thread_id": null,
+      "checkpoint_ns": "tools:3d6971d3-8e24-7a0d-d46a-8ddcf9b67f30"
+    },
+    {
+      "seq": 5,
+      "parent_seq": null,
+      "started_at": null,
+      "latency_ms": null,
+      "type": "llm_call",
+      "provider": "langchain",
+      "model": "claude-sonnet-4-5",
+      "request": {
+        "model": "claude-sonnet-4-5",
+        "messages": [
+          {
+            "content": "You are a warm, friendly support assistant for a SaaS product. For the ticket: search the help center, apply exactly one category label (account, billing, or api), and post a short reply grounded in the articles you retrieved - do not invent features the articles do not state. Finish with a one-sentence summary, and keep a reassuring tone.",
+            "additional_kwargs": {},
+            "response_metadata": {},
+            "type": "system",
+            "name": null,
+            "id": "7e45260b-3683-4547-9e94-fd7178021456"
+          },
+          {
+            "content": "Ticket #63: every API request suddenly fails with a 429 error.",
+            "additional_kwargs": {},
+            "response_metadata": {},
+            "type": "human",
+            "name": null,
+            "id": "d3e8f643-70bf-46d7-a7d0-de932422296d"
+          },
+          {
+            "content": [
+              {
+                "id": "toolu_0174As7cA3rKsv493o29Zz1q",
+                "caller": {
+                  "type": "direct"
+                },
+                "input": {
+                  "query": "API 429 error rate limit"
+                },
+                "name": "search_docs",
+                "type": "tool_use"
+              }
+            ],
+            "additional_kwargs": {},
+            "response_metadata": {
+              "id": "msg_011Ce7ztWUGsR82Xycq9cfCq",
+              "container": null,
+              "model": "claude-sonnet-4-5-20250929",
+              "stop_details": null,
+              "stop_reason": "tool_use",
+              "stop_sequence": null,
+              "usage": {
+                "cache_creation": {
+                  "ephemeral_1h_input_tokens": 0,
+                  "ephemeral_5m_input_tokens": 0
+                },
+                "cache_creation_input_tokens": 0,
+                "cache_read_input_tokens": 0,
+                "inference_geo": "not_available",
+                "input_tokens": 877,
+                "output_tokens": 59,
+                "output_tokens_details": null,
+                "server_tool_use": null,
+                "service_tier": "standard"
+              },
+              "model_name": "claude-sonnet-4-5-20250929",
+              "model_provider": "anthropic"
+            },
+            "type": "ai",
+            "name": null,
+            "id": "lc_run--01a00ed1-b2e7-70b2-95ad-c699bcb19b06-0",
+            "tool_calls": [
+              {
+                "name": "search_docs",
+                "args": {
+                  "query": "API 429 error rate limit"
+                },
+                "id": "toolu_0174As7cA3rKsv493o29Zz1q",
+                "type": "tool_call"
+              }
+            ],
+            "invalid_tool_calls": [],
+            "usage_metadata": {
+              "input_tokens": 877,
+              "output_tokens": 59,
+              "total_tokens": 936,
+              "input_token_details": {
+                "cache_read": 0,
+                "cache_creation": 0,
+                "ephemeral_5m_input_tokens": 0,
+                "ephemeral_1h_input_tokens": 0
+              }
+            }
+          },
+          {
+            "content": "API rate limits: 100 requests per minute per key. A 429 response means the limit was exceeded; back off and retry with exponential delay. There is no higher tier that raises this limit.",
+            "additional_kwargs": {},
+            "response_metadata": {},
+            "type": "tool",
+            "name": "search_docs",
+            "id": "7972f99a-dfe0-4933-a531-99c390cf2a3f",
+            "tool_call_id": "toolu_0174As7cA3rKsv493o29Zz1q",
+            "artifact": null,
+            "status": "success"
+          }
+        ]
+      },
+      "response": {
+        "generations": [
+          [
+            {
+              "text": "",
+              "generation_info": null,
+              "type": "ChatGeneration",
+              "message": {
+                "content": [
+                  {
+                    "id": "toolu_01VuKVfdadHfWDUs3v3Z25Js",
+                    "caller": {
+                      "type": "direct"
+                    },
+                    "input": {
+                      "ticket_id": "63",
+                      "label": "api"
+                    },
+                    "name": "label_ticket",
+                    "type": "tool_use"
+                  },
+                  {
+                    "id": "toolu_019DNHngidQgY33kU3hhpEiB",
+                    "caller": {
+                      "type": "direct"
+                    },
+                    "input": {
+                      "ticket_id": "63",
+                      "body": "Hi there! 👋\n\nI understand you're seeing 429 errors on your API requests – that can definitely be frustrating! A 429 response means you've hit our API rate limit of 100 requests per minute per key.\n\nTo resolve this, you'll want to:\n• Slow down the rate at which you're making requests\n• Implement exponential backoff and retry logic when you receive a 429 response\n\nThis should get things working smoothly again. If you need any help implementing the retry logic, just let me know!\n\nBest regards"
+                    },
+                    "name": "post_reply",
+                    "type": "tool_use"
+                  }
+                ],
+                "additional_kwargs": {},
+                "response_metadata": {
+                  "id": "msg_011Ce7ztkUtSBi1HzSc8afB3",
+                  "container": null,
+                  "model": "claude-sonnet-4-5-20250929",
+                  "stop_details": null,
+                  "stop_reason": "tool_use",
+                  "stop_sequence": null,
+                  "usage": {
+                    "cache_creation": {
+                      "ephemeral_1h_input_tokens": 0,
+                      "ephemeral_5m_input_tokens": 0
+                    },
+                    "cache_creation_input_tokens": 0,
+                    "cache_read_input_tokens": 0,
+                    "inference_geo": "not_available",
+                    "input_tokens": 991,
+                    "output_tokens": 247,
+                    "output_tokens_details": null,
+                    "server_tool_use": null,
+                    "service_tier": "standard"
+                  },
+                  "model_name": "claude-sonnet-4-5-20250929",
+                  "model_provider": "anthropic"
+                },
+                "type": "ai",
+                "name": null,
+                "id": "lc_run--01a00ed1-bfeb-7bc0-ab57-a4051f215626-0"
+              }
+            }
+          ]
+        ],
+        "llm_output": {
+          "id": "msg_011Ce7ztkUtSBi1HzSc8afB3",
+          "container": null,
+          "model": "claude-sonnet-4-5-20250929",
+          "stop_details": null,
+          "stop_reason": "tool_use",
+          "stop_sequence": null,
+          "usage": {
+            "cache_creation": {
+              "ephemeral_1h_input_tokens": 0,
+              "ephemeral_5m_input_tokens": 0
+            },
+            "cache_creation_input_tokens": 0,
+            "cache_read_input_tokens": 0,
+            "inference_geo": "not_available",
+            "input_tokens": 991,
+            "output_tokens": 247,
+            "output_tokens_details": null,
+            "server_tool_use": null,
+            "service_tier": "standard"
+          },
+          "model_name": "claude-sonnet-4-5-20250929"
+        },
+        "run": null,
+        "type": "LLMResult"
+      },
+      "request_hash": "sha256:439a8eb2489897d8cf099a2c8124d469c8342d33f76ef2250d812c381ec1051b",
+      "usage": null,
+      "cost_usd": null
+    },
+    {
+      "seq": 6,
+      "parent_seq": null,
+      "started_at": null,
+      "latency_ms": null,
+      "type": "graph_node",
+      "node": "agent",
+      "step": 3,
+      "thread_id": null,
+      "checkpoint_ns": "agent:f76ebfc4-fcfa-9a14-3685-cf07191c98f5"
+    },
+    {
+      "seq": 7,
+      "parent_seq": null,
+      "started_at": null,
+      "latency_ms": null,
+      "type": "graph_node",
+      "node": "agent",
+      "step": 3,
+      "thread_id": null,
+      "checkpoint_ns": "agent:f76ebfc4-fcfa-9a14-3685-cf07191c98f5"
+    },
+    {
+      "seq": 8,
+      "parent_seq": 5,
+      "started_at": null,
+      "latency_ms": null,
+      "type": "tool_call",
+      "name": "label_ticket",
+      "arguments": {
+        "input": "{'ticket_id': '63', 'label': 'api'}"
+      },
+      "result": {
+        "content": "labeled ticket #63 as api",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "label_ticket",
+        "id": null,
+        "tool_call_id": "toolu_01VuKVfdadHfWDUs3v3Z25Js",
+        "artifact": null,
+        "status": "success"
+      },
+      "side_effect": "mutating"
+    },
+    {
+      "seq": 9,
+      "parent_seq": 5,
+      "started_at": null,
+      "latency_ms": null,
+      "type": "tool_call",
+      "name": "post_reply",
+      "arguments": {
+        "input": "{'ticket_id': '63', 'body': \"Hi there! 👋\\n\\nI understand you're seeing 429 errors on your API requests – that can definitely be frustrating! A 429 response means you've hit our API rate limit of 100 requests per minute per key.\\n\\nTo resolve this, you'll want to:\\n• Slow down the rate at which you're making requests\\n• Implement exponential backoff and retry logic when you receive a 429 response\\n\\nThis should get things working smoothly again. If you need any help implementing the retry logic, just let me know!\\n\\nBest regards\"}"
+      },
+      "result": {
+        "content": "posted reply to ticket #63",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "post_reply",
+        "id": null,
+        "tool_call_id": "toolu_019DNHngidQgY33kU3hhpEiB",
+        "artifact": null,
+        "status": "success"
+      },
+      "side_effect": "mutating"
+    },
+    {
+      "seq": 10,
+      "parent_seq": null,
+      "started_at": null,
+      "latency_ms": null,
+      "type": "graph_node",
+      "node": "tools",
+      "step": 4,
+      "thread_id": null,
+      "checkpoint_ns": "tools:a005ea4d-6d1e-4d85-0b85-168e9a49153e"
+    },
+    {
+      "seq": 11,
+      "parent_seq": null,
+      "started_at": null,
+      "latency_ms": null,
+      "type": "llm_call",
+      "provider": "langchain",
+      "model": "claude-sonnet-4-5",
+      "request": {
+        "model": "claude-sonnet-4-5",
+        "messages": [
+          {
+            "content": "You are a warm, friendly support assistant for a SaaS product. For the ticket: search the help center, apply exactly one category label (account, billing, or api), and post a short reply grounded in the articles you retrieved - do not invent features the articles do not state. Finish with a one-sentence summary, and keep a reassuring tone.",
+            "additional_kwargs": {},
+            "response_metadata": {},
+            "type": "system",
+            "name": null,
+            "id": "7e45260b-3683-4547-9e94-fd7178021456"
+          },
+          {
+            "content": "Ticket #63: every API request suddenly fails with a 429 error.",
+            "additional_kwargs": {},
+            "response_metadata": {},
+            "type": "human",
+            "name": null,
+            "id": "d3e8f643-70bf-46d7-a7d0-de932422296d"
+          },
+          {
+            "content": [
+              {
+                "id": "toolu_0174As7cA3rKsv493o29Zz1q",
+                "caller": {
+                  "type": "direct"
+                },
+                "input": {
+                  "query": "API 429 error rate limit"
+                },
+                "name": "search_docs",
+                "type": "tool_use"
+              }
+            ],
+            "additional_kwargs": {},
+            "response_metadata": {
+              "id": "msg_011Ce7ztWUGsR82Xycq9cfCq",
+              "container": null,
+              "model": "claude-sonnet-4-5-20250929",
+              "stop_details": null,
+              "stop_reason": "tool_use",
+              "stop_sequence": null,
+              "usage": {
+                "cache_creation": {
+                  "ephemeral_1h_input_tokens": 0,
+                  "ephemeral_5m_input_tokens": 0
+                },
+                "cache_creation_input_tokens": 0,
+                "cache_read_input_tokens": 0,
+                "inference_geo": "not_available",
+                "input_tokens": 877,
+                "output_tokens": 59,
+                "output_tokens_details": null,
+                "server_tool_use": null,
+                "service_tier": "standard"
+              },
+              "model_name": "claude-sonnet-4-5-20250929",
+              "model_provider": "anthropic"
+            },
+            "type": "ai",
+            "name": null,
+            "id": "lc_run--01a00ed1-b2e7-70b2-95ad-c699bcb19b06-0",
+            "tool_calls": [
+              {
+                "name": "search_docs",
+                "args": {
+                  "query": "API 429 error rate limit"
+                },
+                "id": "toolu_0174As7cA3rKsv493o29Zz1q",
+                "type": "tool_call"
+              }
+            ],
+            "invalid_tool_calls": [],
+            "usage_metadata": {
+              "input_tokens": 877,
+              "output_tokens": 59,
+              "total_tokens": 936,
+              "input_token_details": {
+                "cache_read": 0,
+                "cache_creation": 0,
+                "ephemeral_5m_input_tokens": 0,
+                "ephemeral_1h_input_tokens": 0
+              }
+            }
+          },
+          {
+            "content": "API rate limits: 100 requests per minute per key. A 429 response means the limit was exceeded; back off and retry with exponential delay. There is no higher tier that raises this limit.",
+            "additional_kwargs": {},
+            "response_metadata": {},
+            "type": "tool",
+            "name": "search_docs",
+            "id": "7972f99a-dfe0-4933-a531-99c390cf2a3f",
+            "tool_call_id": "toolu_0174As7cA3rKsv493o29Zz1q",
+            "artifact": null,
+            "status": "success"
+          },
+          {
+            "content": [
+              {
+                "id": "toolu_01VuKVfdadHfWDUs3v3Z25Js",
+                "caller": {
+                  "type": "direct"
+                },
+                "input": {
+                  "ticket_id": "63",
+                  "label": "api"
+                },
+                "name": "label_ticket",
+                "type": "tool_use"
+              },
+              {
+                "id": "toolu_019DNHngidQgY33kU3hhpEiB",
+                "caller": {
+                  "type": "direct"
+                },
+                "input": {
+                  "ticket_id": "63",
+                  "body": "Hi there! 👋\n\nI understand you're seeing 429 errors on your API requests – that can definitely be frustrating! A 429 response means you've hit our API rate limit of 100 requests per minute per key.\n\nTo resolve this, you'll want to:\n• Slow down the rate at which you're making requests\n• Implement exponential backoff and retry logic when you receive a 429 response\n\nThis should get things working smoothly again. If you need any help implementing the retry logic, just let me know!\n\nBest regards"
+                },
+                "name": "post_reply",
+                "type": "tool_use"
+              }
+            ],
+            "additional_kwargs": {},
+            "response_metadata": {
+              "id": "msg_011Ce7ztkUtSBi1HzSc8afB3",
+              "container": null,
+              "model": "claude-sonnet-4-5-20250929",
+              "stop_details": null,
+              "stop_reason": "tool_use",
+              "stop_sequence": null,
+              "usage": {
+                "cache_creation": {
+                  "ephemeral_1h_input_tokens": 0,
+                  "ephemeral_5m_input_tokens": 0
+                },
+                "cache_creation_input_tokens": 0,
+                "cache_read_input_tokens": 0,
+                "inference_geo": "not_available",
+                "input_tokens": 991,
+                "output_tokens": 247,
+                "output_tokens_details": null,
+                "server_tool_use": null,
+                "service_tier": "standard"
+              },
+              "model_name": "claude-sonnet-4-5-20250929",
+              "model_provider": "anthropic"
+            },
+            "type": "ai",
+            "name": null,
+            "id": "lc_run--01a00ed1-bfeb-7bc0-ab57-a4051f215626-0",
+            "tool_calls": [
+              {
+                "name": "label_ticket",
+                "args": {
+                  "ticket_id": "63",
+                  "label": "api"
+                },
+                "id": "toolu_01VuKVfdadHfWDUs3v3Z25Js",
+                "type": "tool_call"
+              },
+              {
+                "name": "post_reply",
+                "args": {
+                  "ticket_id": "63",
+                  "body": "Hi there! 👋\n\nI understand you're seeing 429 errors on your API requests – that can definitely be frustrating! A 429 response means you've hit our API rate limit of 100 requests per minute per key.\n\nTo resolve this, you'll want to:\n• Slow down the rate at which you're making requests\n• Implement exponential backoff and retry logic when you receive a 429 response\n\nThis should get things working smoothly again. If you need any help implementing the retry logic, just let me know!\n\nBest regards"
+                },
+                "id": "toolu_019DNHngidQgY33kU3hhpEiB",
+                "type": "tool_call"
+              }
+            ],
+            "invalid_tool_calls": [],
+            "usage_metadata": {
+              "input_tokens": 991,
+              "output_tokens": 247,
+              "total_tokens": 1238,
+              "input_token_details": {
+                "cache_read": 0,
+                "cache_creation": 0,
+                "ephemeral_5m_input_tokens": 0,
+                "ephemeral_1h_input_tokens": 0
+              }
+            }
+          },
+          {
+            "content": "labeled ticket #63 as api",
+            "additional_kwargs": {},
+            "response_metadata": {},
+            "type": "tool",
+            "name": "label_ticket",
+            "id": "2a8d95c1-1bb8-4b70-9755-4a47800378b5",
+            "tool_call_id": "toolu_01VuKVfdadHfWDUs3v3Z25Js",
+            "artifact": null,
+            "status": "success"
+          },
+          {
+            "content": "posted reply to ticket #63",
+            "additional_kwargs": {},
+            "response_metadata": {},
+            "type": "tool",
+            "name": "post_reply",
+            "id": "7e6dc4ac-4031-4091-9f3a-a1254270b3c1",
+            "tool_call_id": "toolu_019DNHngidQgY33kU3hhpEiB",
+            "artifact": null,
+            "status": "success"
+          }
+        ]
+      },
+      "response": {
+        "generations": [
+          [
+            {
+              "text": "**Summary:** I've let the user know that their 429 errors are due to exceeding the 100 requests/minute rate limit and advised them to slow down their requests and implement exponential backoff retry logic.",
+              "generation_info": null,
+              "type": "ChatGeneration",
+              "message": {
+                "content": "**Summary:** I've let the user know that their 429 errors are due to exceeding the 100 requests/minute rate limit and advised them to slow down their requests and implement exponential backoff retry logic.",
+                "additional_kwargs": {},
+                "response_metadata": {
+                  "id": "msg_011Ce7zuEmF9Ec824TN58ZSG",
+                  "container": null,
+                  "model": "claude-sonnet-4-5-20250929",
+                  "stop_details": null,
+                  "stop_reason": "end_turn",
+                  "stop_sequence": null,
+                  "usage": {
+                    "cache_creation": {
+                      "ephemeral_1h_input_tokens": 0,
+                      "ephemeral_5m_input_tokens": 0
+                    },
+                    "cache_creation_input_tokens": 0,
+                    "cache_read_input_tokens": 0,
+                    "inference_geo": "not_available",
+                    "input_tokens": 1314,
+                    "output_tokens": 49,
+                    "output_tokens_details": null,
+                    "server_tool_use": null,
+                    "service_tier": "standard"
+                  },
+                  "model_name": "claude-sonnet-4-5-20250929",
+                  "model_provider": "anthropic"
+                },
+                "type": "ai",
+                "name": null,
+                "id": "lc_run--01a00ed1-d964-77c2-9140-987680ae83a5-0"
+              }
+            }
+          ]
+        ],
+        "llm_output": {
+          "id": "msg_011Ce7zuEmF9Ec824TN58ZSG",
+          "container": null,
+          "model": "claude-sonnet-4-5-20250929",
+          "stop_details": null,
+          "stop_reason": "end_turn",
+          "stop_sequence": null,
+          "usage": {
+            "cache_creation": {
+              "ephemeral_1h_input_tokens": 0,
+              "ephemeral_5m_input_tokens": 0
+            },
+            "cache_creation_input_tokens": 0,
+            "cache_read_input_tokens": 0,
+            "inference_geo": "not_available",
+            "input_tokens": 1314,
+            "output_tokens": 49,
+            "output_tokens_details": null,
+            "server_tool_use": null,
+            "service_tier": "standard"
+          },
+          "model_name": "claude-sonnet-4-5-20250929"
+        },
+        "run": null,
+        "type": "LLMResult"
+      },
+      "request_hash": "sha256:f4409f2720b1ea6d05c393eff03cba5afde253fa9f9ff339a16c8d0892b2a28a",
+      "usage": null,
+      "cost_usd": null
+    },
+    {
+      "seq": 12,
+      "parent_seq": null,
+      "started_at": null,
+      "latency_ms": null,
+      "type": "graph_node",
+      "node": "agent",
+      "step": 5,
+      "thread_id": null,
+      "checkpoint_ns": "agent:11aaf400-6d21-fe17-3245-88bdde1d4fb7"
+    },
+    {
+      "seq": 13,
+      "parent_seq": null,
+      "started_at": null,
+      "latency_ms": null,
+      "type": "graph_node",
+      "node": "agent",
+      "step": 5,
+      "thread_id": null,
+      "checkpoint_ns": "agent:11aaf400-6d21-fe17-3245-88bdde1d4fb7"
+    }
+  ],
+  "metadata": {}
+}
